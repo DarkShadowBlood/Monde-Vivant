@@ -138,3 +138,6 @@ Une bourrasque soulevait des cendres... Varkis lacéra avec un Estoc lesté (10 
 ** - **  
   (+ XP)  
 
+** |  |  | "" | "..." | 8 | 1 - **  
+  (+ XP)  
+
