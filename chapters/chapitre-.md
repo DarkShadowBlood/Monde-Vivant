@@ -114,3 +114,6 @@ Une bourrasque soulevait des cendres...  (+ XP)
 **04 April 2025 - Le Sanglier des Bois**  
 Une bourrasque soulevait des cendres... Varkis lacéra avec un Estoc lesté (10 reps) (+ XP)  
 
+** - **  
+  (+ XP)  
+
