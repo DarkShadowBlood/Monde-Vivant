@@ -108,3 +108,6 @@ Une bourrasque soulevait des cendres...  (+ XP)
 ** - **  
   (+ XP)  
 
+** |  |  | "" | "Varkis lacéra avec un Estoc lesté (10 reps)..." | 8 | 1 - **  
+  (+ XP)  
+
