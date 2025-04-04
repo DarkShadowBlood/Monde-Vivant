@@ -93,3 +93,6 @@
 ** - **  
   (+ XP)  
 
+** |  |  | "Une bourrasque soulevait des cendres..." | "Varkis lacéra avec un Estoc lesté (10 reps)..." | 8 | 1 - **  
+  (+ XP)  
+
