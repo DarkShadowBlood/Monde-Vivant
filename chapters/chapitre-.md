@@ -51,3 +51,6 @@
 ** |  | Le Sanglier des Bois | "Une bourrasque soulevait des cendres..." | "Varkis lacéra avec un Estoc lesté (10 reps)..." | 8 | 1 - **  
   (+ XP)  
 
+** - Fri Apr 04 2025 00:00:00 GMT-0400 (Eastern Daylight Time)**  
+  (+ XP)  
+
