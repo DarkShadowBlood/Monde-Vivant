@@ -24,5 +24,38 @@ Thornval, un cloaque de cendres et d’acier brisé, où la survie est un défi 
 6. *Blocage bas (Voile d’Ombre)* – Agility.
 7. *Marche avec Voile d’Ombre* – Conditioning.
 8. *Double estoc (Lames Jumelles)* – Technique.
+
+# ⚔️ Thornval : Sang & Focus – Système de Règles
+
+## 🎮 1. Philosophie
+- Narratif, sombre, tactique. Pas de dés : Focus + contexte = tout.
+- Corps et esprit en synergie, progression par usage.
+
+## 🧬 2. Fiche Perso
+Nom : Varkis | Réputation : Inconnu (0) | XP Total : 0 | Points Psychiques (PP) : 0
+🎒 Inventaire (6 slots) : Couteau rouillé (1), Lames Jumelles (2)
+📊 Focus Gym : Core 1/10, Pull 1/10, Push 1/10, Lower Body 1/10, Overhead 1/10, Conditioning 1/10
+🗡️ Focus HEMA : Technique 1/10, Agilité 1/10, Force 1/10, Endurance 1/10, Vitalité 1/10
+
+## 🌿 3. Survie
+- Faim/Soif/Fatigue : Ignoré = -1 Conditioning/Endurance par scène (max -3).
+- Récup : Ration (+1 Vitalité, 1 slot), Eau (+1 Endurance, 1 slot), Repos (reset 1 malus), Campement (reset tout).
+
+## 🔮 4. Magie & Flux Arcanes
+- Sort = Focus + coût (-1 à -3 Focus temporaire, 0 = échec + contrecoup).
+- Exemples : Pyrokinésie (Force + Conditioning, -2), Télécinésie (Core + Technique, -2), Guérison (Vitalité + Endurance, -1).
+- Catalyseurs (option) : Pierre runique (1 slot), Encens (1 slot).
+
+## 🧘 5. Discipline Psychique
+- PP : +1/jour via bien-être IRL (ex. Poids_LB: 180, Eau_500ml: 2).
+- Usage : Concentration (2 PP, +1 Focus), Projection (3 PP), Manipulation (5 PP), Transe (10 PP).
+- Talents : Œil intérieur (PP ≥ 5), Flux vital (Vitalité 8 + Core 7).
+
+## 📈 6. Progression
+- +1 XP par action réussie (Focus 1-4/10 = +1, 5-10/10 = +3). +5 XP = +1 Focus.
+- Traits : ex. Danse de l’ombre (Agilité 10), Régénération brute (Vitalité 9).
+
+## 🔄 7. TSV Format
+Key  Date  Type  Exercice  Focus  Objectif_Séances  Deadline  Statut  XP_Bonus  Threat_Ready  Narration
 9. *Swing lourd (Tranche-Tête Maudite)* – Force.
 10. *Frappe circulaire (Ombre de la Frappe)* – Technique.
