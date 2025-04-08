@@ -30,11 +30,12 @@ Thornval, un cloaque de cendres et d’acier brisé, où la survie est un défi 
 # ⚔️ Thornval : Sang & Focus – Système de Règles
 
 ## 🎮 1. Philosophie
-- Narratif, sombre, tactique. Pas de dés : Focus + contexte = tout.
+- Narratif, sombre, tactique. Pas de dés : Focus + effort = tout.
 - Scènes en deux parties : Histoire (Convo 1) + Choix/TSV/Transition (Convo 2).
+- Le monde teste ta volonté – chaque trace compte.
 
 ## 🧬 2. Fiche Perso
-Nom : Varkis | Réputation : Inconnu (0) | XP Total : 0 | PP : 0
+Nom : Varkis | Réputation : Inconnu (0) | XP Total : 0 | PP : 0 | KM d’effort : 0
 🎒 Inventaire (6 slots) : Couteau rouillé (1), Lames Jumelles (2)
 📊 Focus Gym : Core 1/10, Pull 1/10, Push 1/10, Lower Body 1/10, Overhead 1/10, Conditioning 1/10
 🗡️ Focus HEMA : Technique 1/10, Agilité 1/10, Force 1/10, Endurance 1/10, Vitalité 1/10
@@ -43,17 +44,23 @@ Nom : Varkis | Réputation : Inconnu (0) | XP Total : 0 | PP : 0
 - Faim/Soif/Fatigue : Ignoré = -1 Conditioning/Endurance par scène (max -3).
 - Récup : Ration (+1 Vitalité, 1 slot), Eau (+1 Endurance, 1 slot), Campement (reset tout).
 
-## 🔮 4. Magie
-- Sort = Focus + coût (-1 à -3 Focus temporaire, 0 = échec + contrecoup).
-- Ex. : Pyrokinésie (Force + Conditioning, -2), Guérison (Vitalité + Endurance, -1).
+## 🔮 4. Flux Résonant
+- Énergie de l’effort : chaque action (Focus, KM, PP) laisse une trace vibratoire.
+- Magie = Focus + coût (-1 à -3 Focus temporaire, 0 = échec + contrecoup).
+- Ex. : Pyrokinésie (Force + Conditioning, -2), Résonance Intérieure (Core + PP, -1).
 
 ## 🧘 5. Discipline Psychique
 - PP : +1/jour via bien-être IRL (ex. Eau_500ml: 2).
 - Ex. : Lire (1 PP), Concentration (2 PP, +1 Focus), Transe (10 PP).
 
-## 📈 6. Progression
-- +1 XP (Focus 1-4/10), +3 XP (Focus 5-10/10). +5 XP = +1 Focus.
-- Traits : ex. Danse de l’ombre (Agilité 10).
+## 💰 6. Économie d’Effort
+- XP : Gagné par action (1-3/scène), dépensé pour objets, upgrades, rituels.
+- KM d’effort : IRL (marche 1:1, vélo 1:0.75, elliptique 1:0.5) → déplacement, montures.
+- Cristaux : Brut (XP brut), Raffiné (Focus ≥ 5), Psychique (PP), Vitalité (KM).
 
-## 🔄 7. TSV
+## 📈 7. Progression
+- +1 XP (Focus 1-4/10), +3 XP (Focus 5-10/10). +5 XP = +1 Focus.
+- Traits : ex. Danse de l’ombre (Agilité 10), Résonance Intérieure (Core 10 + PP 5).
+
+## 🔄 8. TSV
 Key  Date  Type  Exercice  Focus  Objectif_Séances  Deadline  Statut  XP_Bonus  Threat_Ready  Narration
