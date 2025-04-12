@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>App Web Perso - Journal & Aventure</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #1a1a1a; color: #e0e0e0; }
+        textarea, input { width: 100%; margin: 5px 0; background-color: #2a2a2a; color: #e0e0e0; border: 1px solid #444; padding: 10px; }
+        #prompt-actuel, #convo1, #resolution, #journal, #narration { height: 200px; }
+        #circonscription-log, #tsv-converted { height: 100px; }
+        .github-links { margin-bottom: 20px; }
+        .github-links button, button { background-color: #00b4d8; color: #fff; border: none; padding: 10px 20px; cursor: pointer; margin-right: 10px; }
+        .github-links button:hover, button:hover { background-color: #90e0ef; }
+        .tsv-container { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>App Web Perso</h1>
+    <div class="github-links">
+        <button onclick="window.open('https://github.com/DarkShadowBlood/thornval-litrpg/tree/main/chapters')">Journal</button>
+        <button onclick="window.open('https://github.com/DarkShadowBlood/thornval-litrpg/tree/main/prompts')">Prompt</button>
+        <button onclick="window.open('https://github.com/DarkShadowBlood/thornval-litrpg/tree/main/Circonscription_Log')">Circonscription_Log</button>
+    </div>
+
+    <h2>Injection Info</h2>
+    <input id="date" type="date" placeholder="Date de l'événement"><br>
+    <input id="km" type="number" placeholder="KM Réalisés IRL" value="0"><br>
+    <input id="pp" type="number" placeholder="PP Réalisés IRL" value="0"><br>
+    <input id="xp-dispo" type="number" placeholder="XP Disponibles" value="500"><br>
+    <input id="km-dispo" type="number" placeholder="KM Disponibles" value="4"><br>
+    <input id="pp-dispo" type="number" placeholder="PP Disponibles" value="2"><br>
+
+    <h2>Prompt Actuel (Aventure)</h2>
+    <textarea id="prompt-actuel" placeholder="Colle ton prompt GitHub ici, puis génère..."></textarea><br>
+    <button onclick="generatePrompt()">Générer Prompt</button>
+    <button onclick="generateAndCopyPrompt()">Générer & Copier</button>
+    <button onclick="loadLastPrompt()">Charger dernier Prompt</button><br>
+
+    <h2>Convo 1 - Histoire</h2>
+    <textarea id="convo1" placeholder="Colle la Convo 1 ici..."></textarea><br>
+
+    <h2>Résolution du Choix</h2>
+    <textarea id="resolution" placeholder="Colle la résolution du choix ici (TSV + Conso)..."></textarea><br>
+
+    <button onclick="mergeText()">Fusionner</button>
+    <button onclick="clearFields()">Clear</button><br>
+
+    <h2>Journal (Format Novel)</h2>
+    <textarea id="journal" placeholder="Histoire + Choix + Transition formaté..."></textarea><br>
+    <button onclick="loadJournal()">Charger Journal</button><br>
+
+    <h2>Prompt (Narration complète)</h2>
+    <textarea id="narration" placeholder="Prompt complet pour l'aventure..."></textarea><br>
+
+    <button onclick="pushToGitHub()">Envoyer à GitHub</button><br>
+    <p id="status"></p>
+
+    <div class="tsv-container">
+        <h3>Circonscription_Log (Brut)</h3>
+        <textarea id="circonscription-log" placeholder="TSV brut de Grok..."></textarea><br>
+        <button onclick="convertTSV()">Convertir en TSV</button>
+        <button onclick="pushToGithubLog()">Envoyer à GitHub Circonscription_Log</button>
+        <button onclick="copyTSV('circonscription-log')">Copier Brut</button><br>
+
+        <h3>TSV Circonscription_Log (Converti)</h3>
+        <textarea id="tsv-converted" placeholder="TSV format Google Sheets..."></textarea><br>
+        <button onclick="copyTSV('tsv-converted')">Copier TSV</button>
+    </div>
+
+    <script>
+        const token = "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";
+        const repo = "DarkShadowBlood/thornval-litrpg";
+
+        function generateKey(date) {
+            const dateStr = date.replace(/-/g, "");
+            const row = Math.floor(Math.random() * 1000).toString().padStart(3, "0");
+            return `${dateStr}-${row}`;
+        }
+
+        function generatePrompt() {
+            const currentPrompt = document.getElementById("prompt-actuel").value.trim();
+            if (!currentPrompt) {
+                alert("Colle ou charge un prompt dans 'Prompt Actuel' d'abord !");
+                return;
+            }
+
+            const date = document.getElementById("date").value || "2025-04-05";
+            const dateStr = date.replace(/-/g, "");
+            const km = document.getElementById("km").value;
+            const pp = document.getElementById("pp").value;
+            const xpDispo = document.getElementById("xp-dispo").value;
+            const kmDispo = document.getElementById("km-dispo").value;
+            const ppDispo = document.getElementById("pp-dispo").value;
+
+            let updatedPrompt = currentPrompt
+                .replace(/\[KM\]/g, km)
+                .replace(/\[PP\]/g, pp)
+                .replace(/\[Y\]/g, xpDispo)
+                .replace(/\[A\]/g, kmDispo)
+                .replace(/\[C\]/g, ppDispo)
+                .replace(/20250405-XXX/g, `${dateStr}-XXX`)
+                .replace(/Date \(2025-04-05\)/g, `Date (${date})`)
+                .replace(/2025-04-05/g, date);
+
+            document.getElementById("prompt-actuel").value = updatedPrompt;
+            document.getElementById("status").textContent = "Prompt mis à jour avec Injection Info et Date !";
+        }
+
+        function generateAndCopyPrompt() {
+            generatePrompt();
+            const updatedPrompt = document.getElementById("prompt-actuel").value;
+            navigator.clipboard.writeText(updatedPrompt).then(() => {
+                document.getElementById("status").textContent = "Prompt généré et copié !";
+            });
+        }
+
+        function mergeText() {
+            if (!document.getElementById("prompt-actuel").value.trim()) {
+                alert("Génère ou charge un Prompt Actuel d'abord !");
+                return;
+            }
+            const promptActuel = document.getElementById("prompt-actuel").value.trim();
+            const convo1 = document.getElementById("convo1").value.trim();
+            const resolution = document.getElementById("resolution").value.trim();
+            if (!convo1 && !resolution) {
+                alert("Colle au moins Convo 1 ou Résolution !");
+                return;
+            }
+
+            const date = document.getElementById("date").value || "2025-04-05";
+            const km = document.getElementById("km").value;
+            const pp = document.getElementById("pp").value;
+            let xpDispo = parseInt(document.getElementById("xp-dispo").value);
+            let kmDispo = parseInt(document.getElementById("km-dispo").value);
+            let ppDispo = parseInt(document.getElementById("pp-dispo").value);
+            const key = generateKey(date);
+
+            const cleanConvo1 = convo1.replace(/### Étape 1.*?\n|Je m’arrête ici.*$/gis, "").trim();
+            const choixMatch = resolution.match(/Convo 2 - Résolution\s*:\s*(Exploration – Fuir vers la crevasse)/i) ? "Exploration – Fuir vers la crevasse" : "Choix non spécifié";
+            const resolutionMatch = resolution.match(/\*\*Résolution\s*:\*\*([\s\S]+?)(?=\*\*TSV|\*\*Transition|$)/i);
+            const tsvMatch = resolution.match(/\*\*TSV.*?\*\*([\s\S]+?)(?=\*\*Transition|$)/i);
+            const transitionMatch = resolution.match(/\*\*Transition\s*:\*\*([\s\S]+)/i);
+
+            const choixSection = choixMatch;
+            const resolutionSection = resolutionMatch ? resolutionMatch[1].trim() : "Résolution non spécifiée";
+            const tsvSection = tsvMatch ? tsvMatch[1].trim() : "TSV non trouvé";
+            const transitionSection = transitionMatch ? transitionMatch[1].trim() : "Transition non spécifiée";
+
+            const xpBonus = resolutionSection.match(/Gain\s*:\s*\+(\d+)\s*XP/i)?.[1] || resolutionSection.match(/XP_Bonus\s*:\s*\+(\d+)/i)?.[1] || "0";
+            const consoMatch = resolutionSection.match(/Conso\s*:\s*(\d+)\s*(XP|KM|PP)/i);
+            if (consoMatch) {
+                const value = parseInt(consoMatch[1]);
+                if (consoMatch[2] === "XP") xpDispo -= value;
+                else if (consoMatch[2] === "KM") kmDispo -= value;
+                else if (consoMatch[2] === "PP") ppDispo -= value;
+            }
+            xpDispo += parseInt(xpBonus);
+
+            const journalContent = `**Workout Log - ${date}**\nKM: ${km}, PP: ${pp}, XP: ${xpBonus}\n\n**Histoire**\n${cleanConvo1}\n\n**Choix**\n${choixSection}\n\n**Résolution**\n${resolutionSection}\n\n**Transition**\n${transitionSection}\n<!-- Key: ${key} -->`;
+            const promptContent = `${promptActuel}\n\n**Référence**\nVoir [Thornval LitRPG Foundations](https://github.com/DarkShadowBlood/thornval-litrpg/blob/main/foundations.md) pour le lore complet.\n\n**Texte Fusionné**\n${cleanConvo1}\n\n${resolution}\n\n[Conso : XP dispo : ${xpDispo}, KM dispo : ${kmDispo}, PP dispo : ${ppDispo}]\n[New Prompt : Choix sélectionné. XP dispo : ${xpDispo}, KM dispo : ${kmDispo}, PP dispo : ${ppDispo}. Crée une nouvelle scène.]`;
+
+            document.getElementById("journal").value = journalContent;
+            document.getElementById("narration").value = promptContent;
+            document.getElementById("circonscription-log").value = tsvSection;
+            document.getElementById("xp-dispo").value = xpDispo;
+            document.getElementById("km-dispo").value = kmDispo;
+            document.getElementById("pp-dispo").value = ppDispo;
+        }
+
+        function convertTSV() {
+            const tsvRaw = document.getElementById("circonscription-log").value.trim();
+            if (!tsvRaw || tsvRaw === "TSV non trouvé") {
+                alert("Aucun TSV brut à convertir !");
+                return;
+            }
+
+            const tsvLines = tsvRaw.match(/- \*\*(.*?)\*\* : (.*?)(?=\n-|\n\n|$)/g);
+            if (tsvLines) {
+                const tsvData = tsvLines.map(line => line.match(/- \*\*(.*?)\*\* : (.*)/)).reduce((acc, [, key, value]) => {
+                    acc[key.trim()] = value.trim();
+                    return acc;
+                }, {});
+                const tsvConverted = `${tsvData["Key"] || "20250410-XXX"}  ${tsvData["Date"] || "2025-04-10"}  ${tsvData["Type"] || "Inconnu"}  ${tsvData["Exercice"] || "Inconnu"}  ${tsvData["Focus"] || "Inconnu"}  ${tsvData["1/1"] || "1/1"}  ${tsvData["Date Fin"] || "2025-04-10"}  ${tsvData["Fini"] || "Fini"}  ${tsvData["XP_Bonus"] || "0"}  ${tsvData["Conso"] || "0 XP / 0 KM / 0 PP"}  ${tsvData["Threat_Ready"] || "Non"}  ${tsvData["Narration"] || "Action non décrite"}`;
+                document.getElementById("tsv-converted").value = tsvConverted;
+                document.getElementById("status").textContent = "TSV converti !";
+            } else {
+                document.getElementById("tsv-converted").value = "Erreur : TSV mal formaté";
+            }
+        }
+
+        function clearFields() {
+            document.querySelectorAll("input, textarea").forEach(el => el.value = el.id.includes("dispo") ? (el.id === "xp-dispo" ? "500" : el.id === "km-dispo" ? "4" : "2") : "");
+            document.getElementById("status").textContent = "";
+        }
+
+        async function loadLastPrompt() {
+            const key = prompt("Entre la clé du dernier prompt (ex. 20250405-009) :");
+            if (!key) return;
+
+            const promptFile = `prompts/prompt-${key}.md`;
+            const promptUrl = `https://api.github.com/repos/${repo}/contents/${promptFile}`;
+            const response = await fetch(promptUrl, { headers: { "Authorization": `Bearer ${token}` } });
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById("prompt-actuel").value = atob(data.content);
+                document.getElementById("status").textContent = `Prompt ${key} chargé !`;
+            } else {
+                document.getElementById("status").textContent = "Erreur lors du chargement";
+            }
+        }
+
+        async function loadJournal() {
+            const key = prompt("Entre la clé du journal (ex. 20250405-009) :");
+            if (!key) return;
+
+            const chapterFile = `chapters/chapitre-1.md`;
+            const chapterUrl = `https://api.github.com/repos/${repo}/contents/${chapterFile}`;
+            const response = await fetch(chapterUrl, { headers: { "Authorization": `Bearer ${token}` } });
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById("journal").value = atob(data.content);
+                document.getElementById("status").textContent = `Journal ${key} chargé !`;
+            } else {
+                document.getElementById("status").textContent = "Erreur lors du chargement";
+            }
+        }
+
+        function copyTSV(id) {
+            const tsv = document.getElementById(id).value;
+            navigator.clipboard.writeText(tsv).then(() => alert("TSV copié !"));
+        }
+
+        async function pushToGitHub() {
+            const key = generateKey(document.getElementById("date").value || "2025-04-05");
+            const journal = document.getElementById("journal").value;
+            const narration = document.getElementById("narration").value;
+            const status = document.getElementById("status");
+
+            if (!narration || !journal) {
+                alert("Fusionne d'abord !");
+                return;
+            }
+
+            const promptFile = `prompts/prompt-${key}.md`;
+            const promptUrl = `https://api.github.com/repos/${repo}/contents/${promptFile}`;
+            const promptContent = btoa(unescape(encodeURIComponent(narration)));
+            let promptSha = null;
+            const promptGet = await fetch(promptUrl, { method: "GET", headers: { "Authorization": `Bearer ${token}` } });
+            if (promptGet.ok) promptSha = (await promptGet.json()).sha;
+            await fetch(promptUrl, {
+                method: "PUT",
+                headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+                body: JSON.stringify({ message: `Ajout prompt ${key}`, content: promptContent, branch: "main", sha: promptSha })
+            });
+
+            const chapterFile = `chapters/chapitre-1.md`;
+            const chapterUrl = `https://api.github.com/repos/${repo}/contents/${chapterFile}`;
+            const chapterContent = `# Chapitre 1\n\n${journal}`;
+            let chapterSha = null;
+            const chapterGet = await fetch(chapterUrl, { method: "GET", headers: { "Authorization": `Bearer ${token}` } });
+            if (chapterGet.ok) chapterSha = (await chapterGet.json()).sha;
+            await fetch(chapterUrl, {
+                method: "PUT",
+                headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+                body: JSON.stringify({ message: `Ajout journal ${key}`, content: btoa(unescape(encodeURIComponent(chapterContent))), branch: "main", sha: chapterSha })
+            });
+
+            status.textContent = `Succès : ${promptFile} et ${chapterFile} envoyés !`;
+        }
+
+        async function pushToGithubLog() {
+            const tsvLog = document.getElementById("tsv-converted").value;
+            const key = generateKey(document.getElementById("date").value || "2025-04-05");
+            const status = document.getElementById("status");
+
+            if (!tsvLog) {
+                alert("Aucun TSV converti à envoyer !");
+                return;
+            }
+
+            const logFile = `Circonscription_Log/log-${key}.tsv`;
+            const logUrl = `https://api.github.com/repos/${repo}/contents/${logFile}`;
+            const logContent = btoa(unescape(encodeURIComponent(tsvLog)));
+            let logSha = null;
+            const logGet = await fetch(logUrl, { method: "GET", headers: { "Authorization": `Bearer ${token}` } });
+            if (logGet.ok) logSha = (await logGet.json()).sha;
+            const response = await fetch(logUrl, {
+                method: "PUT",
+                headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+                body: JSON.stringify({ message: `Ajout log ${key}`, content: logContent, branch: "main", sha: logSha })
+            });
+
+            status.textContent = response.ok ? `Succès : ${logFile} envoyé !` : "Erreur lors de l'envoi";
+        }
+    </script>
+</body>
+</html>
