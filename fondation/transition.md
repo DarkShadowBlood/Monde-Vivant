@@ -1,0 +1,16 @@
+# transition.md
+
+## Structure d’une Transition
+
+1. **Conséquence immédiate** : Blessure, succès, découverte, fuite, capture…
+2. **Répercussions sur le monde** : bruit, alertes, modification de terrain, réputation.
+3. **Nouveau point de tension** : Introduction d’un choix, d’une situation ou d’une menace.
+
+## Ouvertures typiques
+- Une silhouette en approche…
+- Une relique révélée…
+- Un souvenir déclenché…
+- Un murmure du Flux Résonant…
+
+## But
+Créer l’espace narratif pour une **nouvelle Histoire** (embranchement).
