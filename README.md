@@ -1,14 +1,14 @@
 # Thornval LitRPG
-Une aventure fitness dans un monde de cendres et d’épines. Varkis, maraudeur brisé, et Kara, mi-lycante sauvage, luttent pour survivre à Thornval. Chaque exercice forge leur légende – gym ou HEMA, à toi de choisir leur destin.
+Système LitRPG narratif dans *Thornval*. Varkis et Kara (guerrière psychique) affrontent des menaces, guidés par des choix tactiques et des exercices IRL (Gym, HEMA, Conditioning).
 
-## Détails
-- **Lore, Matos, Exercices** : [Fondations](foundations.md)  
-- **Chapitre en cours** : Les Ombres de la Faille – Épisode 1 : "Le Sanglier des Bois"
+## Structure
+- `fondation/` : Lore et mécaniques.  
+- `scenes/` : Scènes interactives.  
+- `data/` : TSV pour AppSheet.  
 
-## Comment jouer
-1. Lis le prompt (ici ou via un coach IA).
-2. Choisis un exercice (Gym ou HEMA).
-3. Fais-le, mets à jour ton *Circonscription_Log* dans AppSheet.
-4. Reviens pour la suite de l’histoire.
+## Usage
+1. Lisez `histoire.md` pour le lore.  
+2. Testez une scène avec le prompt Q0.  
+3. Copiez `actions.tsv` dans Google Sheet pour *Workout Log Pro LitRPG*.  
 
-Prêt à défier Thornval ? Varkis et Kara comptent sur toi.
+License : MIT
