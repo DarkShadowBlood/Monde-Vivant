@@ -1,8 +1,19 @@
 # Pouvoirs
 ## Kara
-- **Illusion** : Ombres trompeuses (Vitalité, -1 PP). Exercice : *Plank* (3x30s).  
-- **Poussée mentale** : +1 Focus temporaire (Core, -1 PP). Exercice : *Concentration* (2 min).  
-- **Vision du Flux** : Anticipe menace (+1 succès Exploration, -1 PP). Exercice : *Russian Twists* (3x20).  
+- **Illusion**  
+  - Effet : Crée ombres trompeuses (+1 succès Psychique, -1 PP).  
+  - Exercice : *Plank* (3x30s).  
+- **Poussée mentale**  
+  - Effet : +1 Focus temporaire (-1 PP).  
+  - Exercice : *Concentration* (2 min).  
+- **Vision du Flux**  
+  - Effet : Anticipe menace (+1 succès Exploration, -1 PP).  
+  - Exercice : *Russian Twists* (3x20).  
+- **Lien sauvage**  
+  - Effet : Boost Varkis et Kara (+1 Force ou Agilité, -1 PP).  
+  - Exercice : *Shadow Boxing* (2 min).  
 
 ## Flux Résonant
-- **Pyrokinésie** : Flammes (Force + Conditioning, -2 PP). Exercice : *Shadow Boxing* (2 min).
+- **Pyrokinésie**  
+  - Effet : Flammes instables (Force + Conditioning, -2 PP).  
+  - Exercice : *Sprints* (2 min).  
