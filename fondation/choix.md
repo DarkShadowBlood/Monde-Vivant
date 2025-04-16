@@ -1,13 +1,15 @@
 # Philosophie des choix
-- 3-5 options : Combat (⚔️), Exploration (🧭), Psychique (🧠), Ressource (🧪, optionnel).  
+- 4-6 options : Combat (⚔️), Exploration (🧭), Psychique (🧠), Ressource (🧪).  
 - Liés à Focus, armes, condition, environnement.  
-- Suggèrent des exercices IRL (ex. : Combat → Bench Press).  
+- Préparation obligatoire (échauffement léger), choix/résolution optionnels (effort costaud).  
 
 ## Exemples
-1. ⚔️ Combat : Frapper avec Lames Jumelles (Force + Core, Shadow Boxing).  
-2. 🧭 Exploration : Escalader ruines (Agilité + Lower Body, Squats).  
-3. 🧠 Psychique : Illusion via Flux (Vitalité, -1 PP, Plank).  
-4. 🧪 Ressource : Sacrifier Couteau rouillé pour piège (Technique, -1 slot, Face Pulls).  
+1. ⚔️ Combat : Frapper avec Lames Jumelles (Force, *Bench Press*).  
+2. ⚔️ Combat : Feinte (Technique, *Double Estoc*).  
+3. 🧭 Exploration : Escalader (Agilité, *Squats*).  
+4. 🧭 Exploration : Se cacher (Conditioning, *Step-ups*).  
+5. 🧠 Psychique : Illusion via Flux (Vitalité, *Plank*).  
+6. 🧪 Ressource : Lancer Couteau rouillé (Technique, *Face Pulls*).  
 
 ## Éléments influents
 - Armes : Lames Jumelles (+1 Technique), Couteau rouillé (+1 piège).  
