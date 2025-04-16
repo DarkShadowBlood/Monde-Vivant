@@ -3,10 +3,5 @@
 2. **Répercussions** : Environnement, Réputation, condition.  
 3. **Tension** : Menace, choix, mystère.  
 
-## Ouvertures
-- Une créature approche…  
-- Kara murmure psychiquement…  
-- Une relique pulse…  
-
 ## TSV Préparation
-- Obligatoire, exercice léger (ex. : *Sprints* pour fuir).
+- Obligatoire, exercice léger (ex. : *Sprints*, 2 min).
