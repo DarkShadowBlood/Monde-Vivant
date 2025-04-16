@@ -13,3 +13,11 @@
    - Préparation : Obligatoire (échauffement, ex. : *Sprints*).  
    - Choix/Résolution : Optionnel (ex. : *Bench Press*).  
    - Format (tabulations physiques) :  
+
+Key    Date    Type    Exercice    Focus    Reps    Date_End    Status    XP_Bonus    Conso    Threat_Ready    Narration
+
+4. **Exercices**  
+   - Combat : *Bench Press*, *Double Estoc*.  
+   - Exploration : *Squats*, *Step-ups*.  
+   - Psychique : *Plank*, *Concentration*.  
+   - Plan : 3 séries, reps adaptées (ex. : 10-15).
