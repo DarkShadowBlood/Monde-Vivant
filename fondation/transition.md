@@ -1,12 +1,12 @@
 # Structure d’une Transition
 1. **Conséquence** : Résultat (succès, blessure, découverte).  
 2. **Répercussions** : Environnement, Réputation, condition.  
-3. **Tension** : Nouvelle menace, choix, ou mystère.  
+3. **Tension** : Menace, choix, mystère.  
 
 ## Ouvertures
-- Une bête approche…  
-- Kara grogne un avertissement…  
+- Une créature approche…  
+- Kara murmure psychiquement…  
 - Une relique pulse…  
 
-## But
-Créer un embranchement narratif, avec exercices suggérés (ex. : fuir → Sprints).
+## TSV Préparation
+- Obligatoire, exercice léger (ex. : *Sprints* pour fuir).
