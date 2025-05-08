@@ -72,3 +72,4 @@
 - Toute divergence est une anomalie à corriger
 
 **Rôle narratif :** Antagonistes potentiels, anciens alliés de Cortana. On soupçonne qu’ils aient causé ou provoqué les fractures entre les mondes.
+

@@ -3,6 +3,7 @@
 Bienvenue sur la section **Fondation** de l'univers *Thornval LitRPG*.
 
 Ce dépôt contient les bases du système :
+
 - 📜 Lore et Histoire
 - ⚔️ Armes, Bestiaire, Pouvoirs
 - 🛠️ Système d'exercices physiques et de progression

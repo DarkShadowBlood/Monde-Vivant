@@ -6,6 +6,8 @@ Le monde n’attend pas que tu le sauves.\
 Mais si tu avances, malgré tout, il te laisse une trace.\
 Et parfois, c’est tout ce qu’il faut.
 
+---------------
+
 - Varkis, mercenaire de rang bronze
 - Kara de l'ombre, mercenaire de rang argent
 - cortana. agent de l'organisation

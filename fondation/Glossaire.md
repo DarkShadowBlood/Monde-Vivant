@@ -1,4 +1,5 @@
 # Glossaire
+
 - **XP** : Monnaie, gagnée par actions (ex. : +1 XP pour Bench Press), dépensée pour objets/upgrades.  
 - **PP** : Points Psychiques, injectés via app, gagnés via bien-être (ex. : +1 PP pour 500 ml d’eau).  
 - **KM** : Effort IRL (ex. : marche 1:1), injecté via app, pour déplacements/actions.  
