@@ -12,13 +12,13 @@
 
 ## État Actuel (19/04/2025)
 
-| Objet | Quantité | Slot |
-| --- | --- | --- |
-| Flèche Standard | 2 | 1 |
-| Potion de Vitalité | 1 | 1 |
-| Couteau de Jet | 1 | 1 |
-| Couteau Rouillé | 1 | 1 |
-| Lames Jumelles | 1 | 1 |
+| Objet              | Quantité | Slot |
+| ------------------ | -------- | ---- |
+| Flèche Standard    | 2        | 1    |
+| Potion de Vitalité | 1        | 1    |
+| Couteau de Jet     | 1        | 1    |
+| Couteau Rouillé    | 1        | 1    |
+| Lames Jumelles     | 1        | 1    |
 
 - **Slots utilisés** : 5/10.
 - **Cristaux** : 5 Bruts, 2 Raffinés, 1 Psychique, 1 Vitalité.
