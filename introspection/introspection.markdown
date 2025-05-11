@@ -4,20 +4,23 @@ Ce document liste les questions ouvertes pour développer *Workout Log - Monde V
 
 ## Questions Ouvertes
 
-- [ ] **Kara** : Quelles flèches spéciales pour son arc (ex. : *Flèche Chaotique*, *Flèche Psychique*) ? Quels coûts et effets spécifiques ?
-- [ ] **Capacités psychiques** : Quelles habilités psychiques pour Kara (ex. : désorientation, boost temporaire) ? Comment équilibrer leurs coûts pour éviter qu’elles éclipsent Varkis ?
-- [ ] **Oméga Protocole** : Quel est le seuil exact d’activation (ex. : 100 cristaux Brut + 20 Raffinés) ? Quels types d’améliorations aléatoires (ex. : salle d’entraînement, portail instable) ?
-- [ ] **Rogue Protocole** : Quels malus spécifiques impose-t-il (ex. : -20% *Technique*, -1 PP temporaire) ? Peut-il être désactivé manuellement ?
-- [ ] **Conflit Oméga vs. Rogue** : Comment Varkis influence-t-il l’équilibre (ex. : *Crunches* pour *Rogue*, *HEMA* pour *Oméga*) ? Y a-t-il des quêtes pour choisir un protocole dominant ?
-- [ ] **Améliorations** : Quelles améliorations du Cube/vaisseau prioriser (ex. : forge avancée, portail stable, salle psychique) ? Comment *Oméga* les rend-il imprévisibles ?
-- [ ] **Narratif** : *Oméga* est-il lié à l’écho de Motoko ou à *La Solution Ultime* ? *Rogue* peut-il évoluer vers *Rogue Prime* ?
-- [ ] **Varkis** : Comment ses entraînements (*Gym*, *HEMA*) influencent-ils les flèches de Kara ou le *Rogue Protocole* (ex. : *Coup de taille* stabilise une flèche) ?
-- [ ] **Quêtes personnelles** : Quels thèmes pour les quêtes de Kara (trahison), Varkis (survie), Cortana (identité) ? Quand les introduire (ex. : rang *Or*) ?
-- [ ] **Montre connectée** : Comment convertir les données d’effort en XP/cristaux ? Besoin d’une formule spécifique ? Comment influencer *Oméga*/*Rogue* (ex. : effort élevé = +10% chance d’*Oméga*) ?
-
-Ton feedback : La structure te convient ? Veux-tu ajouter d’autres dossiers (ex. : /characters, /data)
-
-Veux-tu ajouter d’autres fichiers (ex. : mechanics/protocols.md) ?
+- [ ] **Thornval** : Quelles factions développer (ex. : chasseurs de portails, techno-cultes) ? Rôle des spectres dans l’écosystème ?
+- [ ] **Conjonction** : Quels éléments des sphères intégrer (ex. : démons *Diablo*, droïdes *Star Wars*) ? Limites des portails (ex. : 1 par jour) ?
+- [ ] **Portails** : Types de spectres/élémentaires (ex. : spectre IA, élémentaire de feu) ? Usages des cristaux noirs (ex. : craft, invocation) ?
+- [ ] **Cristaux noirs** : Coût/risque pour leur utilisation (ex. : 50% risque de corruption) ? Exploitation par *La Solution Ultime* ?
+- [ ] **Varkis** : Comment ses souvenirs reviennent-ils (ex. : quêtes, flashes pendant *HEMA*) ? Arc pour sa fierté de champion ?
+- [ ] **Kara** : Impact de la fusion de ses âmes (ex. : conflits internes, pouvoirs instables) ? Quête pour sa trahison ? Contrôle de l’Exilé (ex. : seuil de chaos) ?
+- [ ] **Cortana** : Gestion de l’assimilation par le Cube ? *Rogue Protocole* contre cette prédation ?
+- [ ] **Oblivion Node** : Salles à ajouter (ex. : forge psychique) ? SAM comme personnage ?
+- [ ] **Cube d’Horaeth** : Crafts à ajouter (ex. : *Flèche Noire*) ? Assimilation de SAM réversible ?
+- [ ] **Techniques** :
+  - Varkis : Techniques *Diablo* à prioriser (ex. : *Tourbillon*, *Cri de guerre*) ? Guerrier pur ou mélange ?
+  - Kara : Équilibre des âmes (Exilé vs. sorcière) ? Techniques spécifiques (*Lancer de sabre*, *Igni*) ?
+  - Cortana : Techniques *Mass Effect*/*Halo* à prioriser (ex. : *Surcharge*, *Bouclier cinétique*) ? Rôle dans les portails ?
+- [ ] **LitRPG** : Séances spécifiques pour actions puissantes (ex. : *10 Squats* = *Frappe sismique*) ? Formule pour l’effort de la montre ?
+- [ ] **Boss** : Nature du Rôdeur (ex. : spectre, agent de *La Solution Ultime*) ? Mécaniques de combat (ex. : phases, faiblesses) ?
+- [ ] **Oméga/Rogue Protocole** : Influence des cristaux noirs sur *Oméga* (ex. : +20% activation) ? *Rogue* purifie-t-il les cristaux noirs ?
+- [ ] **Montre connectée** : Conversion des données d’effort en XP/cristaux ? Influence sur *Oméga*/*Rogue* ?
 
 ## Contribution
 
