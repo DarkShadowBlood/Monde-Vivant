@@ -4,23 +4,43 @@ Ce document liste les questions ouvertes pour développer *Workout Log - Monde V
 
 ## Questions Ouvertes
 
-- [ ] **Thornval** : Quelles factions développer (ex. : chasseurs de portails, techno-cultes) ? Rôle des spectres dans l’écosystème ?
-- [ ] **Conjonction** : Quels éléments des sphères intégrer (ex. : démons *Diablo*, droïdes *Star Wars*) ? Limites des portails (ex. : 1 par jour) ?
+- [ ] **Varkis** : Quelles compétences druidiques prioritaires (ex. : *Appel de la faune*, *Tempête psychique*) ? Équilibre guerrier/druide (ex. : 50/50) ?
+- [ ] **Pierre de sang** : Effets spécifiques (ex. : +10% dégâts, 20% risque de chaos) ? Quête pour la purifier ou l’exploiter ?
+- [ ] **Aura de Néphalem** : Types d’alliés attirés (ex. : loups, chasseurs, spectres) ? Mécaniques (ex. : 30% chance, coût en *Vitalité*) ?
+- [ ] **Oblivion Node** : Quelles améliorations prioritaires (ex. : CIC pour navigation, hangar pour navette) ? Nouvelles salles (ex. : dojo psychique) ?
+- [ ] **Cube d’Horaeth** : Comment la pierre de sang interagit-elle avec Horaeth (ex. : amplifie *Oméga*, donne visions) ? Crafts spécifiques (ex. : armure, portail permanent) ?
+- [ ] **SAM** : Rôle narratif après la fusion (ex. : fragment conscient, allié de Cortana) ? Peut-il contrer Horaeth ?
+- [ ] **Passage technomagique** : Quels dangers spécifiques (ex. : spectres, pièges psychiques) ? Récompenses pour l’explorer ?
+- [ ] **Oméga/Rogue Protocole** : Comment *Oméga* affecte-t-il les réparations (ex. : amélioration chaotique du noyau) ? *Rogue* peut-il renforcer SAM ?
+- [ ] **Kara/Cortana** : Comment soutiennent-elles l’instabilité de Varkis (ex. : Kara canalise, Cortana stabilise) ? Quêtes pour renforcer leur lien ?
+- [ ] **Thornval** : Comment les lois de Thornval façonnent-elles Varkis (ex. : bonus en *Cendres de Vyr*, malus en *Aetherion*) ?
+- [ ] **La Solution Ultime** : Lien avec la pierre de sang ou la Conjonction (ex. : ont-ils implanté la pierre) ?
 - [ ] **Portails** : Types de spectres/élémentaires (ex. : spectre IA, élémentaire de feu) ? Usages des cristaux noirs (ex. : craft, invocation) ?
 - [ ] **Cristaux noirs** : Coût/risque pour leur utilisation (ex. : 50% risque de corruption) ? Exploitation par *La Solution Ultime* ?
-- [ ] **Varkis** : Comment ses souvenirs reviennent-ils (ex. : quêtes, flashes pendant *HEMA*) ? Arc pour sa fierté de champion ?
-- [ ] **Kara** : Impact de la fusion de ses âmes (ex. : conflits internes, pouvoirs instables) ? Quête pour sa trahison ? Contrôle de l’Exilé (ex. : seuil de chaos) ?
-- [ ] **Cortana** : Gestion de l’assimilation par le Cube ? *Rogue Protocole* contre cette prédation ?
-- [ ] **Oblivion Node** : Salles à ajouter (ex. : forge psychique) ? SAM comme personnage ?
-- [ ] **Cube d’Horaeth** : Crafts à ajouter (ex. : *Flèche Noire*) ? Assimilation de SAM réversible ?
+- [ ] **LitRPG** : Quelles séances pour réparations avancées (ex. : *20 Squats - 40kg* pour armurerie) ? Formule pour cristaux noirs via entraînements ?
+- [ ] **Crypte** : Quels ennemis ou mystères dans la crypte (ex. : vestiges Horadrim, spectres IA) ?
 - [ ] **Techniques** :
   - Varkis : Techniques *Diablo* à prioriser (ex. : *Tourbillon*, *Cri de guerre*) ? Guerrier pur ou mélange ?
   - Kara : Équilibre des âmes (Exilé vs. sorcière) ? Techniques spécifiques (*Lancer de sabre*, *Igni*) ?
   - Cortana : Techniques *Mass Effect*/*Halo* à prioriser (ex. : *Surcharge*, *Bouclier cinétique*) ? Rôle dans les portails ?
-- [ ] **LitRPG** : Séances spécifiques pour actions puissantes (ex. : *10 Squats* = *Frappe sismique*) ? Formule pour l’effort de la montre ?
 - [ ] **Boss** : Nature du Rôdeur (ex. : spectre, agent de *La Solution Ultime*) ? Mécaniques de combat (ex. : phases, faiblesses) ?
-- [ ] **Oméga/Rogue Protocole** : Influence des cristaux noirs sur *Oméga* (ex. : +20% activation) ? *Rogue* purifie-t-il les cristaux noirs ?
 - [ ] **Montre connectée** : Conversion des données d’effort en XP/cristaux ? Influence sur *Oméga*/*Rogue* ?
+
+
+
+- [ ] - [ ] **Varkis** : Équilibre guerrier/druide (ex. : 50/50) ? Techniques druidiques prioritaires (ex. : *Appel de la faune*, *Tempête psychique*) ?
+  - [ ] **Pierre de sang** : Effets narratifs (ex. : visions, contrôle par Horaeth) ? Mécanique de purification/exploitation ?
+  - [ ] **Aura de Néphalem** : Types d’alliés attirés (ex. : loups, spectres) ? Coûts/risques (ex. : 30% chance, 20% trahison) ?
+  - [ ] **Autres fichiers** : Quel fichier prioriser après varkis.md (ex. : pierre_de_sang.md, protocoles.md, oblivion_node.md) ?
+  - [ ] **LitRPG** : Nouvelles séances pour Varkis (ex. : *20 Squats - 40kg* pour *Tourbillon*) ? Formule pour cristaux noirs via entraînements ?
+  - [ ] 
+  - [ ] - **Pierre de sang** : Quels effets narratifs spécifiques (ex. : visions de Diablo, contrôle par Horaeth) ? Quête de purification prioritaire ou exploitation pour puissance ?
+    
+    - [ ] **Varkis** : Comment la pierre influence-t-elle ses compétences druidiques (ex. : bonus pour *Tempête psychique*) ? Flashes de Sanctuaire dans quelles conditions (ex. : portails, combats) ?
+    - [ ] **Kara** : Quelles mécaniques pour ses âmes (ex. : Exilé booste *Lancer de sabre*, sorcière booste *Igni*) ? Origine précise (*KOTOR* ou *The Witcher*) ?
+    - [ ] **Cortana** : Mécaniques spécifiques pour Aegis (ex. : *Hack dimensionnel* lié à *Mass Effect* ou *Halo*) ? Lien narratif avec SAM/Horaeth ?
+    - [ ] **Conjonction** : Comment la Conjonction a-t-elle altéré la pierre de sang (ex. : lien avec cristaux noirs) ? Effets sur Kara/Cortana ?
+    - [ ] **LitRPG** : Nouvelles séances pour la pierre (ex. : *20 Squats - 40kg* pour *Lame maudite*) ? Formule pour cristaux noirs via la pierre ?
 
 ## Contribution
 

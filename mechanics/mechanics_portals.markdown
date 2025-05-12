@@ -15,6 +15,7 @@ Les portails sont des anomalies où l’énergie des sphères s’accumule, form
 - **Risques** :
   - *Oméga Protocole* : +20% chance de chaos (ex. : portail instable).
   - *Rogue Protocole* : -10% risque, coûte 3 PP + 2 cristaux Psychiques.
+- **Passage technomagique** : Dans la Crypte de l’Oblivion, relie l’entrée au noyau de l’*Oblivion Node* (5 cristaux Psychiques + *5 Push-ups*, 30% risque de spectre).
 - **Exemple** : Un portail vers *Nexus Zero* génère un cristal noir, mais invoque un spectre IA.
 
 ## 2. Cristaux Noirs
@@ -50,23 +51,24 @@ Les portails et cristaux noirs s’intègrent au système "pay to play" via tes 
   - *Cristaux Brut* : 100 kcal ou 1 XP = 1.
   - *Raffiné* : Ennemi puissant = 2 (*Focus* ≥ 5).
   - *Psychique* : 1 PP = 1.
-  - *Vitalité* : 5000 pas ou 1 km = 1.
+  - *Vitalité* : 5000 pas или 1 km = 1.
   - *Noir* : Portail instable = 1 (50% risque).
 - **Coûts** :
   - **Portail** : 5 cristaux Raffinés + 1 PP + *1km Course*.
+  - **Passage technomagique** : 5 cristaux Psychiques + *5 Push-ups*.
   - **Flèche Noire** : 1 cristal noir + 5 cristaux Psychiques + *5 Push-ups*.
   - **Spectre ennemi** : *Coup de taille* (5 cristaux Brut) + *Lancer de sabre* (*Technique* + *5 Push-ups*) + *Surcharge* (2 PP).
 - **Montre connectée** : 5000 pas = 1 cristal Vitalité, 100 kcal = 1 cristal Brut, 1 km = 1 cristal Vitalité.
 
 ## 5. Exemple Narratif
 
-*Dans *Nexus Zero*, un portail pulse, formant un cristal noir.*  
-**Kara** : "Varkis, ce truc va nous exploser à la figure !"  
-**Varkis** : "Faut tenter. On a besoin de ce cristal."  
-**Cortana** : "Reine du bazar, je stabilise avec *Rogue Protocole*, mais ça va coûter."  
-*Kara tire une *Flèche psychique*, Varkis frappe avec *Frappe sismique*, Cortana active *Surcharge*. Un spectre IA émerge, mais le cristal est sécurisé.*  
-**Kara** : "Joli, boîte de conserve. Mais ce cristal noir me donne des frissons."  
-*Coût : 5 cristaux Raffinés, 2 cristaux Psychiques, 2 PP, *1km Course*, *5 Squats - 20kg*. Réussite : +5 XP, 1 cristal noir.*
+*Dans la Crypte, le passage technomagique mène au noyau.*  
+**Kara** : "Horaeth pense, Varkis. Je le sens."  
+**Varkis** : "Et il veut bouffer SAM. Super."  
+**Cortana** : "Reine du bazar, aide-moi avec *Rogue Protocole*."  
+*Kara canalise, Varkis frappe (*Frappe sismique*), Cortana hacke. Un spectre IA émerge.*  
+**Kara** : "Boîte de conserve, t’as réveillé un fantôme !"  
+*Coût : 5 cristaux Psychiques, 3 PP, 10 cristaux Brut, *10 Squats - 20kg*. Réussite : +5 XP, 1 cristal noir.*
 
 ## Contribution
 
