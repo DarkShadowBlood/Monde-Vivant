@@ -1,6 +1,5 @@
 import http.server
 import socketserver
-import os
 import subprocess
 import requests
 import json
@@ -12,28 +11,19 @@ import random
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 import datetime
-
-
-# --- Configuration ---
-PORT = 8000
-# Le serveur servira les fichiers du répertoire où le script est exécuté.
-# Assurez-vous que ce script est dans votre dossier 'site web'.
-DIRECTORY = ".."
-
-# --- Configuration API ---
-# Remplacez "YOUR_MISTRAL_API_KEY_HERE" par votre clé ou utilisez une variable d'environnement
-MISTRAL_API_KEY = os.getenv('MISTRAL_API_KEY', "czBBdZtL4WA8DF5FmkD3SUVDZrPBNM0u")
-
-# Chemin absolu vers le dossier 'santé'
-# C:\important\ApexWear\app web pour apex\app web - Monde Vivant\site web\information\santé
-BASE_DIR = Path(__file__).resolve().parent.parent
-SANTE_DIR = BASE_DIR / "information" / "santé"
-APP_WEB_DIR = Path(__file__).resolve().parent
-SCHEDULED_TASKS_DIR = APP_WEB_DIR / "ntfy_sender" / "scheduled_tasks"
-INFO_DIR = BASE_DIR / "information"
-SCHEDULED_MESSAGES_PATH = APP_WEB_DIR / "ntfy_sender" / "scheduled_messages.json"
-LORE_FILE_PATH = APP_WEB_DIR / "historique_objectifs" / "coach_engine_lore-chatgpt.md"
-HISTOIRE_LOG_PATH = APP_WEB_DIR / "histoire_log.json"
+from config import (
+    PORT,
+    DIRECTORY,
+    MISTRAL_API_KEY,
+    BASE_DIR,
+    SANTE_DIR,
+    APP_WEB_DIR,
+    SCHEDULED_TASKS_DIR,
+    INFO_DIR,
+    SCHEDULED_MESSAGES_PATH,
+    LORE_FILE_PATH,
+    HISTOIRE_LOG_PATH
+)
 
 # S'assurer que les dossiers existent
 SANTE_DIR.mkdir(parents=True, exist_ok=True)
@@ -75,7 +65,7 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
 
     def _generate_llm_message(self, coach_name, prompt_context, system_prompt_override=None):
         """Helper function to generate a message from the LLM API."""
-        if MISTRAL_API_KEY == "YOUR_MISTRAL_API_KEY_HERE":
+        if not MISTRAL_API_KEY:
             return f"({coach_name}) Clé API non configurée.", False
 
         if system_prompt_override:
@@ -627,8 +617,8 @@ try {{
             return
         
         if self.path == '/api/generate-coach-message':
-            if MISTRAL_API_KEY == "YOUR_MISTRAL_API_KEY_HERE":
-                self.send_json_error(500, "La clé API Mistral n'est pas configurée dans serveur.py.")
+            if not MISTRAL_API_KEY:
+                self.send_json_error(500, "La clé API Mistral n'est pas configurée dans le fichier de configuration ou les variables d'environnement.")
                 return
             try:
                 content_length = int(self.headers['Content-Length'])
