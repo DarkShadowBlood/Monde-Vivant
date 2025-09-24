@@ -6,8 +6,8 @@ import re
 import random
 
 from config import SCHEDULED_TASKS_DIR, PORT, SCHEDULED_MESSAGES_PATH, APP_WEB_DIR
-from lore import COACH_LORE
 from utils import append_to_histoire_log, generate_llm_message, send_json_error
+import lore
 
 # Associer des icônes (tags ntfy) à chaque coach
 coach_tags = {
@@ -19,7 +19,7 @@ coach_tags = {
     "KaraOmbreChaos": "skull",
 }
 
-def handle_list_tasks(handler):
+def handle_list_tasks(handler, context):
     try:
         # Exécute schtasks pour obtenir les tâches dans le dossier "Monde Vivant" au format CSV
         command = ['schtasks', '/query', '/tn', 'Monde Vivant\\', '/fo', 'CSV', '/v']
@@ -68,7 +68,7 @@ def handle_list_tasks(handler):
     except (subprocess.CalledProcessError, Exception) as e:
         send_json_error(handler, 500, f"Erreur lors de la récupération des tâches: {e}")
 
-def handle_schedule_startup_notifications(handler):
+def handle_schedule_startup_notifications(handler, context):
     try:
         content_length = int(handler.headers['Content-Length'])
         post_data = handler.rfile.read(content_length)
@@ -83,7 +83,7 @@ def handle_schedule_startup_notifications(handler):
             script_path = SCHEDULED_TASKS_DIR / script_name
             
             # Ce script fait un simple appel web au serveur local
-            ps_script_content = f\"\"\"
+            ps_script_content = rf"""
 # Script pour déclencher la génération de notifications au démarrage
 $ErrorActionPreference = "Stop"
 
@@ -130,7 +130,7 @@ try {{
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de la planification de la tâche de démarrage : {e}")
 
-def handle_preview_schedule(handler):
+def handle_preview_schedule(handler, context):
     try:
         content_length = int(handler.headers['Content-Length'])
         post_data = handler.rfile.read(content_length)
@@ -146,7 +146,7 @@ def handle_preview_schedule(handler):
         from datetime import date, timedelta
         start_date = date.today()
         end_date = date.fromisoformat(end_date_str)
-        all_coaches = list(COACH_LORE.keys())
+        all_coaches = list(lore.COACH_LORE.keys())
 
         prompts_to_generate = {}
         current_date = start_date
@@ -156,25 +156,23 @@ def handle_preview_schedule(handler):
             prompts_to_generate[date_str] = {"coach": chosen_coach, "request": request_text}
             current_date += timedelta(days=1)
 
-        system_prompt = f\"\"\"Tu es un générateur de messages de coach. Tu recevras un objet JSON où chaque clé est une date (YYYY-MM-DD) et la valeur contient le nom d'un coach et une requête.
+        system_prompt = rf"""Tu es un générateur de messages de coach. Tu recevras un objet JSON où chaque clé est une date (YYYY-MM-DD) et la valeur contient le nom d'un coach et une requête.
 Pour chaque date, tu dois générer un message de notification concis et percutant, en adoptant la personnalité du coach spécifié.
-Le lore des coachs est le suivant: {json.dumps(COACH_LORE, indent=2)}
+Le lore des coachs est le suivant: {json.dumps(lore.COACH_LORE, indent=2)}
 
 Ta réponse doit être UNIQUEMENT un objet JSON valide. Les clés de l'objet de sortie doivent être les mêmes dates que celles de l'entrée. La valeur pour chaque date doit être le message que tu as généré.
 
 Exemple de réponse attendue:
-{{ "2025-09-20": "Message généré pour le 20...", "2025-09-21": "Message généré pour le 21..." }}\"\"\"
+{{ "2025-09-20": "Message généré pour le 20...", "2025-09-21": "Message généré pour le 21..." }}"""
         user_prompt = json.dumps(prompts_to_generate, indent=2)
 
         generated_messages_str, success = generate_llm_message("Aegis", user_prompt, system_prompt_override=system_prompt)
         if not success:
             raise Exception("Erreur lors de la génération des messages par l'API Mistral.")
 
+        generated_messages = {}
         try:
-            # La réponse de l'IA est un JSON contenant un JSON, nous devons parser deux fois.
-            # C'est un contournement pour la sortie parfois incorrecte de l'IA.
-            outer_json = json.loads(generated_messages_str)
-            generated_messages = outer_json
+            generated_messages = json.loads(generated_messages_str)
         except json.JSONDecodeError:
             raise Exception(f"La réponse de l'IA n'était pas un JSON valide. Réponse: {generated_messages_str}")
 
@@ -194,7 +192,7 @@ Exemple de réponse attendue:
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de la prévisualisation: {e}")
 
-def handle_confirm_schedule(handler):
+def handle_confirm_schedule(handler, context):
     try:
         content_length = int(handler.headers['Content-Length'])
         post_data = handler.rfile.read(content_length)
@@ -205,8 +203,8 @@ def handle_confirm_schedule(handler):
         trigger = data.get('trigger') # 'time' ou 'startup'
         schedule = data.get('schedule')
 
-        if not all([task_name_prefix, time, schedule]):
-            send_json_error(handler, 400, "Données de planification incomplètes (préfixe, heure, et planning requis).")
+        if not all([task_name_prefix, schedule]) or (trigger == 'time' and not time):
+            send_json_error(handler, 400, "Données de planification incomplètes (préfixe, planning et heure si nécessaire requis).")
             return
 
         created_tasks_count = 0
@@ -222,7 +220,7 @@ def handle_confirm_schedule(handler):
             script_path = SCHEDULED_TASKS_DIR / f"{safe_filename}.ps1"
 
             # Le script PowerShell est maintenant plus complexe
-            ps_script_content = f\"\"\"# Script de rappel au démarrage - Généré par serveur.py
+            ps_script_content = rf"""# Script de rappel au démarrage - Généré par serveur.py
 $ErrorActionPreference = "Stop"
 
 try {{
@@ -270,7 +268,6 @@ if ($null -ne $messageData) {{
 
     # Mettre à jour le fichier de verrouillage
     Set-Content -Path $lockFilePath -Value $today
-}}
 }} catch {{
     Write-Host "--- UNE ERREUR EST SURVENUE DANS LE SCRIPT DE RAPPEL ---" -ForegroundColor Red
     Write-Host "Message d’erreur : $($_.Exception.Message)"
@@ -313,7 +310,7 @@ if ($null -ne $messageData) {{
                 tag = coach_tags.get(coach_name, "bell")
 
                 # Utilisation du modèle unifié et robuste
-                ps_script_content = f\"\"\"# Script de rappel quotidien - Généré par serveur.py
+                ps_script_content = rf"""# Script de rappel quotidien - Généré par serveur.py
 $ErrorActionPreference = "Stop"
 
 try {{
@@ -374,7 +371,7 @@ try {{
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de la confirmation de la planification: {e}")
 
-def handle_confirm_schedule_old(handler):
+def handle_confirm_schedule_old(handler, context):
     try:
         content_length = int(handler.headers['Content-Length'])
         post_data = handler.rfile.read(content_length)
@@ -406,7 +403,7 @@ def handle_confirm_schedule_old(handler):
             ps_message = message.replace("'", "''").replace('"', '`"')
             tag = coach_tags.get(coach_name, "bell")
 
-            ps_script_content = f\"\"\"# Script généré automatiquement
+            ps_script_content = rf"""# Script généré automatiquement
 $message = @'
 {ps_message}
 '@
@@ -441,7 +438,7 @@ Invoke-RestMethod -Uri "https://ntfy.sh/monde-vivant-note" -Method Post -Body $m
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de la confirmation de la planification: {e}")
 
-def handle_delete_task(handler):
+def handle_delete_task(handler, context):
     try:
         content_length = int(handler.headers['Content-Length'])
         post_data = handler.rfile.read(content_length).decode('utf-8')

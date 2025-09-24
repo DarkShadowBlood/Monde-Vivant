@@ -4,10 +4,11 @@ import random
 import requests
 
 from config import APP_WEB_DIR, MISTRAL_API_KEY
-from lore import COACH_LORE, coach_styles
+from lore import coach_styles
+import lore
 from utils import append_to_histoire_log, generate_llm_message, send_json_error
 
-def handle_get_notifications(handler):
+def handle_get_notifications(handler, context):
     try:
         notifications = []
         today_str = datetime.datetime.now().date().isoformat()
@@ -52,7 +53,7 @@ def handle_get_notifications(handler):
     except Exception as e:
         send_json_error(handler, 500, f"Erreur serveur lors de la génération des notifications: {e}")
 
-def handle_get_notifications_config(handler):
+def handle_get_notifications_config(handler, context):
     config_path = APP_WEB_DIR / "notifications_config.json"
     if config_path.exists():
         handler.send_response(200)
@@ -63,7 +64,7 @@ def handle_get_notifications_config(handler):
     else:
         send_json_error(handler, 404, "Fichier de configuration des notifications non trouvé.")
 
-def handle_post_notifications_config(handler):
+def handle_post_notifications_config(handler, context):
     try:
         content_length = int(handler.headers['Content-Length'])
         post_data = handler.rfile.read(content_length)
@@ -80,7 +81,7 @@ def handle_post_notifications_config(handler):
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de la sauvegarde de la configuration: {e}")
 
-def handle_post_generate_notifications(handler):
+def handle_post_generate_notifications(handler, context):
     try:
         today_str = datetime.datetime.now().date().isoformat()
         generated_count = 0
@@ -177,10 +178,10 @@ def handle_post_generate_notifications(handler):
 
         # --- Appel unique à l'API si nécessaire ---
         if prompts_to_generate:
-            coach = random.choice(list(COACH_LORE.keys()))
-            coach_lore = COACH_LORE.get(coach, "")
+            coach = random.choice(list(lore.COACH_LORE.keys()))
+            coach_lore = lore.COACH_LORE.get(coach, "")
             
-            system_prompt = f"""{coach_lore}
+            system_prompt = rf'''{coach_lore}
 Tu es un coach virtuel. Tu dois générer des notifications courtes et percutantes. Les contextes se terminant par '_congrats' sont pour féliciter l'utilisateur.
 Tu recevras un objet JSON de contextes et tu dois répondre avec un objet JSON.
 Les clés de l'objet JSON de sortie doivent correspondre aux clés des contextes d'entrée.
@@ -192,10 +193,10 @@ Exemple de réponse attendue:
   "glycemie": "Le niveau de sucre dans ton sang semble bas. Pense à vérifier.",
   "objectifs": "Tes objectifs t'attendent. Ne les laisse pas tomber !",
   "poids_congrats": "Bien joué pour le suivi de ton poids, la régularité est la clé !"
-}}"""
+}}'''
 
-            user_prompt = f"""Génère des notifications pour les contextes suivants :
-{json.dumps(prompts_to_generate, indent=2)}\"\"\"
+            user_prompt = rf'''Génère des notifications pour les contextes suivants :
+{json.dumps(prompts_to_generate, indent=2)}'''
 
             message, success = generate_llm_message(coach, user_prompt, system_prompt_override=system_prompt)
 
@@ -244,24 +245,7 @@ Exemple de réponse attendue:
     except Exception as e:
         send_json_error(handler, 500, f"Erreur serveur lors de la génération des notifications: {e}")
 
-def handle_post_notifications_config(handler):
-    try:
-        content_length = int(handler.headers['Content-Length'])
-        post_data = handler.rfile.read(content_length)
-        data = json.loads(post_data)
-
-        config_path = APP_WEB_DIR / "notifications_config.json"
-        with open(config_path, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=2)
-        
-        handler.send_response(200)
-        handler.send_header('Content-type', 'application/json')
-        handler.end_headers()
-        handler.wfile.write(json.dumps({'success': True, 'message': 'Configuration sauvegardée.'}).encode('utf-8'))
-    except Exception as e:
-        handler.send_json_error(500, f"Erreur lors de la sauvegarde de la configuration: {e}")
-
-def handle_post_generate_coach_message(handler):
+def handle_post_generate_coach_message(handler, context):
     if not MISTRAL_API_KEY:
         send_json_error(handler, 500, "La clé API Mistral n'est pas configurée dans le fichier de configuration ou les variables d'environnement.")
         return
@@ -274,7 +258,7 @@ def handle_post_generate_coach_message(handler):
         user_request = data.get('request')
         activities = data.get('activities', [])
 
-        if not coach or not user_request:
+        if not coach or not user_request or not lore.COACH_LORE:
             send_json_error(handler, 400, "Les champs 'coach' et 'request' sont requis.")
             return
 
@@ -282,7 +266,7 @@ def handle_post_generate_coach_message(handler):
         activities_text = f"Pour les activités suivantes : {', '.join(activities)}." if activities else ""
         
         # Utiliser le lore détaillé si disponible
-        coach_lore = COACH_LORE.get(coach, f"Tu es un coach virtuel nommé {coach}. Ton ton est {coach_styles.get(coach, 'direct et motivant')}.")
+        coach_lore = lore.COACH_LORE.get(coach, f"Tu es un coach virtuel nommé {coach}. Ton ton est {coach_styles.get(coach, 'direct et motivant')}.")
         system_prompt = f"{coach_lore}\n\nTu dois répondre à la demande de l'utilisateur de manière concise et percutante pour une notification push sur mobile. Le message doit être court, direct et parfaitement dans le ton du personnage."
         user_prompt = f"Génère une notification pour la demande suivante : '{user_request}'. {activities_text}"
 
@@ -318,7 +302,7 @@ def handle_post_generate_coach_message(handler):
         print(f"Erreur API /api/generate-coach-message: {e}")
         send_json_error(handler, 500, f"Erreur interne du serveur: {e}")
 
-def handle_post_generate_motivation(handler):
+def handle_post_generate_motivation(handler, context):
     try:
         content_length = int(handler.headers['Content-Length'])
         post_data = handler.rfile.read(content_length)
@@ -326,23 +310,27 @@ def handle_post_generate_motivation(handler):
         
         selected_coach = data.get('coach', 'Aléatoire')
 
+        if not lore.COACH_LORE:
+            send_json_error(handler, 500, "Aucun coach n'est disponible. Vérifiez la configuration du lore sur le serveur.")
+            return
+
         if selected_coach == 'Aléatoire':
-            coach = random.choice(list(COACH_LORE.keys()))
+            coach = random.choice(list(lore.COACH_LORE.keys()))
         else:
             coach = selected_coach
 
-        coach_lore = COACH_LORE.get(coach, f"Tu es un coach virtuel nommé {coach}.")
+        coach_lore = lore.COACH_LORE.get(coach, f"Tu es un coach virtuel nommé {coach}.")
         
         today = datetime.date.today()
         date_str = today.strftime("%d %B %Y")
 
-        system_prompt = f"""{coach_lore}
-Tu dois générer un message de motivation matinal pour un utilisateur. Le message doit être court, percutant, et dans le ton du personnage. Il doit faire une référence à la date du jour ({date_str}) ou à la météo de manière humoristique ou philosophique. Le but est de donner un coup de fouet à l'utilisateur pour qu'il se bouge. Ta réponse doit être UNIQUEMENT un objet JSON valide avec une seule clé "message". Exemple de réponse attendue: {{ "message": "Un autre jour, une autre bataille. Le soleil se lève, et tes objectifs aussi. Ne les laisse pas tomber." }}\"\"\"
+        system_prompt = rf'''{coach_lore}
+Tu dois générer un message de motivation matinal pour un utilisateur. Le message doit être court, percutant, et dans le ton du personnage. Il doit faire une référence à la date du jour ({date_str}) ou à la météo de manière humoristique ou philosophique. Le but est de donner un coup de fouet à l'utilisateur pour qu'il se bouge. Ta réponse doit être UNIQUEMENT un objet JSON valide avec une seule clé "message". Exemple de réponse attendue: {{ "message": "Un autre jour, une autre bataille. Le soleil se lève, et tes objectifs aussi. Ne les laisse pas tomber." }}'''
         user_prompt = "Génère le message de motivation du jour."
 
         message_str, success = generate_llm_message(coach, user_prompt, system_prompt_override=system_prompt)
         if not success:
-            raise Exception("Échec de la génération du message par l'IA.")
+            raise Exception(f"Échec de la génération du message par l'IA: {message_str}")
 
         # La réponse de l'IA est un JSON string, on le parse
         message_data = json.loads(message_str)
@@ -357,5 +345,11 @@ Tu dois générer un message de motivation matinal pour un utilisateur. Le messa
         handler.end_headers()
         handler.wfile.write(json.dumps(response_data).encode('utf-8'))
 
+    except ValueError as e:
+        # Erreur de configuration (ex: clé API manquante)
+        send_json_error(handler, 500, str(e))
+    except IOError as e:
+        # Erreur de connexion à l'API
+        send_json_error(handler, 502, str(e)) # 502 Bad Gateway est plus approprié
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de la génération de la motivation: {e}")

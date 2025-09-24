@@ -4,10 +4,10 @@ import markdown
 from urllib.parse import parse_qs
 
 from config import APP_WEB_DIR, INFO_DIR, HISTOIRE_LOG_PATH
-from lore import COACH_LORE
 from utils import append_to_histoire_log, send_json_error
+import lore
 
-def handle_get_request_templates(handler):
+def handle_get_request_templates(handler, context):
     request_templates_path = APP_WEB_DIR / "ntfy_sender" / "request_templates.json"
     if request_templates_path.exists():
         handler.send_response(200)
@@ -23,16 +23,16 @@ def handle_get_request_templates(handler):
         handler.end_headers()
         handler.wfile.write(b'{}')
 
-def handle_get_coaches(handler):
+def handle_get_coaches(handler, context):
     try:
         handler.send_response(200)
         handler.send_header('Content-type', 'application/json')
         handler.end_headers()
-        handler.wfile.write(json.dumps(list(COACH_LORE.keys())).encode('utf-8'))
+        handler.wfile.write(json.dumps(list(context.coach_lore.keys())).encode('utf-8'))
     except Exception as e:
         send_json_error(handler, 500, f"Erreur serveur lors de la récupération des coachs: {e}")
 
-def handle_get_histoire(handler):
+def handle_get_histoire(handler, context):
     if HISTOIRE_LOG_PATH.exists():
         handler.send_response(200)
         handler.send_header('Content-type', 'application/json')
@@ -45,7 +45,7 @@ def handle_get_histoire(handler):
         handler.end_headers()
         handler.wfile.write(b'[]') # Renvoyer une liste vide si le fichier n'existe pas
 
-def handle_get_aggregate_data(handler):
+def handle_get_aggregate_data(handler, context):
     parsed_path = parse_qs(handler.path.split('?', 1)[-1])
     start_date = parsed_path.get('start', [None])[0]
     end_date = parsed_path.get('end', [None])[0]
@@ -84,7 +84,7 @@ def handle_get_aggregate_data(handler):
     handler.end_headers()
     handler.wfile.write(json.dumps(aggregated_data).encode('utf-8'))
 
-def handle_post_save_file(handler):
+def handle_post_save_file(handler, context):
     content_length = int(handler.headers['Content-Length'])
     post_data = handler.rfile.read(content_length)
     data = json.loads(post_data)
@@ -121,7 +121,7 @@ def handle_post_save_file(handler):
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de la sauvegarde du fichier : {e}")
 
-def handle_post_inject_analysis(handler):
+def handle_post_inject_analysis(handler, context):
     content_length = int(handler.headers['Content-Length'])
     post_data = handler.rfile.read(content_length)
     data = json.loads(post_data)
@@ -177,7 +177,7 @@ def handle_post_inject_analysis(handler):
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de l'injection de l'analyse : {e}")
 
-def handle_post_process_analyses(handler):
+def handle_post_process_analyses(handler, context):
     content_length = int(handler.headers['Content-Length'])
     post_data = handler.rfile.read(content_length)
     data = json.loads(post_data)
@@ -215,7 +215,7 @@ def handle_post_process_analyses(handler):
             html_content = markdown.markdown(markdown_content, extensions=['fenced_code', 'tables'])
             
             # Ajouter un style simple pour la lisibilité
-            html_template = f\"\"\"<!DOCTYPE html>
+            html_template = rf'''<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -231,7 +231,7 @@ def handle_post_process_analyses(handler):
 <body>
 {html_content}
 </body>
-</html>"""
+</html>'''
             with open(html_path, 'w', encoding='utf-8') as f:
                 f.write(html_template)
             processed_files.append(html_path.name)

@@ -3,7 +3,7 @@ from urllib.parse import parse_qs
 from config import SANTE_DIR, APP_WEB_DIR
 from utils import send_json_error
 
-def handle_sante_files(handler):
+def handle_sante_files(handler, context):
     try:
         files = sorted([f.name for f in SANTE_DIR.glob("sante_log_*.json")], reverse=True)
         handler.send_response(200)
@@ -13,7 +13,7 @@ def handle_sante_files(handler):
     except Exception as e:
         send_json_error(handler, 500, f"Erreur serveur: {e}")
 
-def handle_sante_file(handler):
+def handle_sante_file(handler, context):
     parsed_path = parse_qs(handler.path.split('?', 1)[-1])
     filename = parsed_path.get('name', [None])[0]
     if not filename or '..' in filename or filename.startswith('/'):
@@ -30,7 +30,7 @@ def handle_sante_file(handler):
     else:
         send_json_error(handler, 404, "Fichier non trouvé.")
 
-def handle_sante_save(handler):
+def handle_sante_save(handler, context):
     content_length = int(handler.headers['Content-Length'])
     post_data = handler.rfile.read(content_length)
     data = json.loads(post_data)
@@ -52,7 +52,7 @@ def handle_sante_save(handler):
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de la sauvegarde du fichier: {e}")
 
-def handle_exercices(handler):
+def handle_exercices(handler, context):
     # Le fichier est dans app web/ntfy_sender/exercices.json
     exercices_path = APP_WEB_DIR / "ntfy_sender" / "exercices.json"
     if exercices_path.exists():

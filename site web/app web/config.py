@@ -7,7 +7,10 @@ PORT = 8000
 DIRECTORY = ".."
 
 # --- API Configuration ---
-MISTRAL_API_KEY = os.getenv('MISTRAL_API_KEY')
+# Récupère la clé API depuis une variable d'environnement nommée 'MISTRAL_API_KEY'.
+# Si elle n'est pas trouvée, utilise la valeur codée en dur comme solution de repli.
+# ATTENTION: Il est déconseillé de stocker des clés API directement dans le code pour des raisons de sécurité.
+MISTRAL_API_KEY = os.getenv('MISTRAL_API_KEY', 'czBBdZtL4WA8DF5FmkD3SUVDZrPBNM0u')
 
 # --- Path Configuration ---
 BASE_DIR = Path(__file__).resolve().parent.parent

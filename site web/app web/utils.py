@@ -3,7 +3,7 @@ import json
 import requests
 
 from config import HISTOIRE_LOG_PATH, MISTRAL_API_KEY
-from lore import COACH_LORE
+import lore
 
 
 def send_json_error(handler, code, message):
@@ -39,13 +39,13 @@ def append_to_histoire_log(source, coach, message):
 def generate_llm_message(coach_name, prompt_context, system_prompt_override=None):
     """Helper function to generate a message from the LLM API."""
     if not MISTRAL_API_KEY:
-        return f"({coach_name}) Clé API non configurée.", False
+        raise ValueError("La clé API Mistral n'est pas configurée sur le serveur.")
 
     if system_prompt_override:
         system_prompt = system_prompt_override
         user_prompt = prompt_context
     else:
-        coach_lore = COACH_LORE.get(coach_name, f"Tu es un coach virtuel nommé {coach_name}.")
+        coach_lore = lore.COACH_LORE.get(coach_name, f"Tu es un coach virtuel nommé {coach_name}.")
         system_prompt = f"{coach_lore}\n\nTu dois répondre à la demande de l'utilisateur de manière concise et percutante pour une notification dans une app. Le message doit être court, direct et parfaitement dans le ton du personnage. Ne mets pas de guillemets autour de ta réponse."
         user_prompt = f"Génère une notification pour la situation suivante : '{prompt_context}'."
     
@@ -66,4 +66,4 @@ def generate_llm_message(coach_name, prompt_context, system_prompt_override=None
         return api_data['choices'][0]['message']['content'].strip(), True
     except requests.exceptions.RequestException as e:
         print(f"Erreur API Mistral pour notification. Type: {type(e).__name__}, Détails: {e}")
-        return f"({coach_name}) Erreur de connexion à l'API. Vérifiez la console du serveur.", False
+        raise IOError(f"Erreur de connexion à l'API Mistral: {e}")
