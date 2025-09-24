@@ -195,7 +195,7 @@ Exemple de réponse attendue:
 }}"""
 
             user_prompt = f"""Génère des notifications pour les contextes suivants :
-{json.dumps(prompts_to_generate, indent=2)}\"\"\"
+{json.dumps(prompts_to_generate, indent=2)}"""
 
             message, success = generate_llm_message(coach, user_prompt, system_prompt_override=system_prompt)
 
@@ -243,23 +243,6 @@ Exemple de réponse attendue:
 
     except Exception as e:
         send_json_error(handler, 500, f"Erreur serveur lors de la génération des notifications: {e}")
-
-def handle_post_notifications_config(handler):
-    try:
-        content_length = int(handler.headers['Content-Length'])
-        post_data = handler.rfile.read(content_length)
-        data = json.loads(post_data)
-
-        config_path = APP_WEB_DIR / "notifications_config.json"
-        with open(config_path, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=2)
-        
-        handler.send_response(200)
-        handler.send_header('Content-type', 'application/json')
-        handler.end_headers()
-        handler.wfile.write(json.dumps({'success': True, 'message': 'Configuration sauvegardée.'}).encode('utf-8'))
-    except Exception as e:
-        handler.send_json_error(500, f"Erreur lors de la sauvegarde de la configuration: {e}")
 
 def handle_post_generate_coach_message(handler):
     if not MISTRAL_API_KEY:
@@ -336,8 +319,8 @@ def handle_post_generate_motivation(handler):
         today = datetime.date.today()
         date_str = today.strftime("%d %B %Y")
 
-        system_prompt = f"""{coach_lore}
-Tu dois générer un message de motivation matinal pour un utilisateur. Le message doit être court, percutant, et dans le ton du personnage. Il doit faire une référence à la date du jour ({date_str}) ou à la météo de manière humoristique ou philosophique. Le but est de donner un coup de fouet à l'utilisateur pour qu'il se bouge. Ta réponse doit être UNIQUEMENT un objet JSON valide avec une seule clé "message". Exemple de réponse attendue: {{ "message": "Un autre jour, une autre bataille. Le soleil se lève, et tes objectifs aussi. Ne les laisse pas tomber." }}\"\"\"
+        system_prompt = f'''{coach_lore}
+Tu dois générer un message de motivation matinal pour un utilisateur. Le message doit être court, percutant, et dans le ton du personnage. Il doit faire une référence à la date du jour ({date_str}) ou à la météo de manière humoristique ou philosophique. Le but est de donner un coup de fouet à l'utilisateur pour qu'il se bouge. Ta réponse doit être UNIQUEMENT un objet JSON valide avec une seule clé "message". Exemple de réponse attendue: {{ "message": "Un autre jour, une autre bataille. Le soleil se lève, et tes objectifs aussi. Ne les laisse pas tomber." }}'''
         user_prompt = "Génère le message de motivation du jour."
 
         message_str, success = generate_llm_message(coach, user_prompt, system_prompt_override=system_prompt)
