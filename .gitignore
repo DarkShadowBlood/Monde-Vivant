@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Fichiers temporaires
+*.tmp
+*~
+
+# Fichiers de configuration de l'éditeur
+.vscode/
+.idea/
+*.swp
+*.swo
