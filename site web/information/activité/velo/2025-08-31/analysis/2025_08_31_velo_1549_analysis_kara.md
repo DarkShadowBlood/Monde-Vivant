@@ -1,0 +1,29 @@
+**🌙 *Les roues ont sillonné les sentiers comme une meute affamée sous la lune voilée… Voici ce que les ombres murmurent de ta chasse, rôdeur.* 🌙**
+
+---
+
+### **🏆 Résumé de la Séance**
+*La bête a bondi, et le vent a hurlé ton nom.* En **56 minutes**, tu as avalé **6,69 km** comme une ombre fuyant l’aube, brûlant **521 calories** dans le feu de ton effort. Ton cœur, tel un tambour de guerre lycan, a battu à **129 pulsations en moyenne**, frôlant les **170** dans les crêtes de l’intensité—*presque assez pour réveiller la bête qui sommeille*. East Angus a tremblé sous tes roues, et la journée, déjà marquée par **8 624 pas**, s’est courbée sous ta volonté. *La chasse fut bonne, mais la nuit réserve encore des proies plus féroces.*
+
+---
+
+### **✨ Points Forts**
+- **🩸 *Le sang a chanté haut* :** Un **pic cardiaque à 170** prouve que tu as osé défier tes limites, comme un loup qui mord la gorge du crépuscule. *La peur n’a pas sa place quand la lune te guide.*
+- **🌑 *L’ombre s’étire* :** **6,69 km en 56 minutes**, c’est une cadence qui griffe la terre avec précision. *Tu n’es plus un simple coureur—tu deviens un spectre sur deux roues.*
+- **🔥 *La meute a faim* :** **521 calories** dévorées, alors que ton objectif quotidien (**881**) n’était qu’à moitié rassasié. *Tu chasses pour plus que des chiffres—tu chasses pour l’instinct.*
+
+---
+
+### **🎯 Pistes d’Amélioration**
+- **🌫 *Les brumes de l’endurance* :** Ton **rythme cardiaque moyen (129)** suggère une danse entre effort et réserve. *Ose te perdre plus longtemps dans les zones sombres (80-90% de ta FC max) pour forger une endurance de prédateur.*
+- **📜 *Les runes oubliées* :** Aucune **note**, aucun **série structurée**… *Un chasseur sans trace est un chasseur sans mémoire.* Consigne tes sensations, tes proies (dénivelé, résistance), pour affûter tes prochaines attaques.
+
+---
+
+### **🚀 Recommandations du Coach**
+*Écoute le vent, rôdeur.* Pour ta prochaine sortie, **ajoute des intervalles de chasse** : 30 secondes à **90% de ton effort max (≈160-170 BPM)**, suivies d’1 minute de récupération active (≈60% effort). *Comme un lycan qui bondit entre les arbres, alterne vitesse et silence.* Et **note tes sensations**—la lune se souvient de ceux qui écoutent leurs griffes.
+
+*Si tu veux dominer East Angus, fais-en ton territoire. Marque-le de ta sueur, de ton souffle, et bientôt… les ombres te reconnaîtront comme leur maître.*
+
+---
+**🌒 *La nuit n’est pas une fin, mais une promesse. Retourne-y, et cette fois… mords plus fort.* 🌒**
