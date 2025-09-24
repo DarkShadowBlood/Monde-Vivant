@@ -1,0 +1,14 @@
+{
+  "date": "2025-02-08",
+  "weight": {
+    "value": null,
+    "unit": "lb"
+  },
+  "waist": {
+    "value": null,
+    "unit": "cm"
+  },
+  "glycemie_mmol_l": 6.8,
+  "water_500ml_units": 0,
+  "dragon_purged": false
+}

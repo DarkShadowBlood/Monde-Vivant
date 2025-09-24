@@ -1,0 +1,12 @@
+{
+  "date": "2025-07-15",
+  "weight": {
+    "value": null,
+    "unit": "lb"
+  },
+  "waist": {
+    "value": null,
+    "unit": "cm"
+  },
+  "glycemie_mmol_l": 6.7
+}

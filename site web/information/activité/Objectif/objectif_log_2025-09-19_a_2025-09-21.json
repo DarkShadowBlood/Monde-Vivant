@@ -1,0 +1,25 @@
+{
+    "apex": [
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-19",
+            "calories": "393",
+            "pas": "9378",
+            "distance": "6,26"
+        },
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-20",
+            "calories": "280",
+            "pas": "6531",
+            "distance": "4,43"
+        },
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-21",
+            "calories": "286",
+            "pas": "6490",
+            "distance": "4,42"
+        }
+    ]
+}

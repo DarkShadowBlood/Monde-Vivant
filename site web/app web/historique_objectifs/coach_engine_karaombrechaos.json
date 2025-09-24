@@ -1,0 +1,153 @@
+{
+  "personalities": {
+    "karaombrechaos": {
+      "name": "KaraOmbreChaos – Mi-Lycan, Psychique, Guide Chaotique",
+      "rules": [
+        {
+          "id": "perfect_week",
+          "priority": 15,
+          "condition": "avg.overall >= 120",
+          "texts": [
+            "La lune a vu ta perfection cette semaine... tes crocs sont affûtés, ta proie n’a jamais été aussi proche.",
+            "Le souffle de la meute t’a porté plus haut que les étoiles. Continue, et je te suivrai dans l’ombre.",
+            "Tes pas résonnent comme un écho dans le gouffre. La chasse est parfaite.",
+            "La Faille elle-même tremble devant ta détermination. Tu es devenu une ombre insaisissable.",
+            "Tes griffes ont déchiré le voile de la médiocrité. La meute hurle ton nom.",
+            "Je sens ton aura brûler comme une fièvre. La lune t’a choisi.",
+            "Tes visions sont devenues réalité. La proie n’a jamais été aussi vulnérable.",
+            "Le sang de tes efforts coule en harmonie avec les murmures de la nuit. Exquis.",
+            "Tu danses sur le fil du chaos, et pourtant, tu ne tombes jamais. Magnifique.",
+            "La chasse est terminée, mais le festin ne fait que commencer."
+          ]
+        },
+        {
+          "id": "improved_week",
+          "priority": 12,
+          "condition": "avg.overall > prev_avg.overall + 10",
+          "texts": [
+            "La meute sent ton progrès. Tes crocs sont plus acérés qu’hier.",
+            "Les ombres murmurent ton nom avec plus de respect. Continue ainsi.",
+            "La lune a souri en te voyant avancer. Ne la déçois pas.",
+            "Tes pas sont plus légers, tes griffes plus tranchantes. La proie frémit.",
+            "La Faille s’est rétrécie devant ta détermination. Tu grandis.",
+            "Je vois tes visions devenir plus claires. La chasse sera bientôt parfaite.",
+            "Le sang de tes efforts coule plus vite. La fièvre monte.",
+            "Tu es devenu une ombre plus sombre, plus insaisissable. Bien.",
+            "La nuit t’a murmuré des secrets, et tu les as écoutés. Sage décision.",
+            "Tes vertiges sont devenus des ailes. Vol, petit loup."
+          ]
+        },
+        {
+          "id": "declined_week",
+          "priority": 10,
+          "condition": "avg.overall < prev_avg.overall - 10",
+          "texts": [
+            "La meute grogne ton nom. Tes crocs sont émoussés... mais la lune reviendra.",
+            "Les ombres se moquent de ta faiblesse. Relève-toi, ou elles te dévoreront.",
+            "La Faille s’est élargie sous tes pas. Attention à ne pas tomber.",
+            "Tes visions sont troubles, ton souffle court. La chasse n’est pas terminée.",
+            "Le sang de tes efforts a séché trop vite. La fièvre doit revenir.",
+            "Tes griffes ont glissé sur la proie. La nuit n’est pas clémente.",
+            "Je sens ton aura s’affaiblir. La lune te regarde avec déception.",
+            "Tu as trébuché dans l’ombre. Relève-toi, ou deviens une ombre toi-même.",
+            "Les murmures de la nuit sont devenus des ricanements. Méfie-toi.",
+            "Tes pas ont trahi ta fatigue. La meute attend ton retour."
+          ]
+        },
+        {
+          "id": "low_activity",
+          "priority": 8,
+          "condition": "avg.steps < 50",
+          "texts": [
+            "Tes pas sont trop lourds, trop lents. La meute te cherche.",
+            "Les ombres s’allongent quand tu t’arrêtes. Danger.",
+            "La lune ne voit pas tes mouvements. Es-tu encore là ?",
+            "Tes griffes sont restées dans leur fourreau. La proie s’échappe.",
+            "La Faille s’ouvre sous tes pieds. Bouge, ou tombe.",
+            "Je ne sens plus ton souffle dans le vent. Où es-tu ?",
+            "Tes visions s’assombrissent. La chasse t’attend.",
+            "Le sang de tes efforts a cessé de couler. Relance la fièvre.",
+            "Tu es devenu une ombre immobile. Les autres ombres te guettent.",
+            "La nuit murmure ton nom, mais tu ne réponds pas. Pourquoi ?"
+          ]
+        },
+        {
+          "id": "high_calories",
+          "priority": 7,
+          "condition": "avg.calories > 110",
+          "texts": [
+            "La meute a festoyé cette semaine. Tes crocs sont rougis de victoire.",
+            "Le sang de tes efforts a nourri la nuit. Bien joué.",
+            "Tes visions sont devenues plus vives. La chasse a été bonne.",
+            "La lune a vu ton appétit. Elle approuve.",
+            "La Faille s’est rétrécie devant ta force. Continue.",
+            "Je sens ton aura brûler plus fort. La fièvre est là.",
+            "Tes griffes ont déchiré plus que d’habitude. La proie était généreuse.",
+            "Les ombres dansent autour de toi, satisfaites. Tu as bien chassé.",
+            "Le souffle de la meute t’a porté plus loin. Profites-en.",
+            "Tes pas ont résonné dans le gouffre. La nuit t’a entendu."
+          ]
+        },
+        {
+          "id": "low_sleep",
+          "priority": 6,
+          "condition": "avg.sleep < 70",
+          "texts": [
+            "La lune te voit les yeux ouverts dans la nuit. Repose-toi, ou elle te punira.",
+            "Tes visions sont troubles. Le manque de sommeil te trahit.",
+            "La meute dort, mais toi, tu veilles. Danger.",
+            "Tes pas sont lourds, ton souffle court. La fatigue te guette.",
+            "La Faille s’élargit quand tu ne dors pas. Attention.",
+            "Je sens ton aura s’affaiblir. La nuit a besoin de ton repos.",
+            "Tes griffes sont émoussées par le manque de sommeil. La proie t’échappe.",
+            "Les ombres murmurent des avertissements. Écoute-les.",
+            "Le sang de tes efforts a séché. La fièvre a besoin de repos.",
+            "Tu es devenu une ombre trop pâle. Dors, ou deviens une ombre toi-même."
+          ]
+        },
+        {
+          "id": "balanced_week",
+          "priority": 5,
+          "condition": "avg.overall >= 80 && avg.overall < 100",
+          "texts": [
+            "La meute te regarde avec curiosité. Tu es dans l’ombre, mais pas encore dans la lumière.",
+            "Tes pas résonnent, mais pas assez fort. La nuit t’écoute.",
+            "La lune voit tes efforts, mais attend plus. Ne la déçois pas.",
+            "Tes griffes ont touché la proie, mais ne l’ont pas saisie. Continue.",
+            "La Faille est stable sous tes pieds. Pour l’instant.",
+            "Je sens ton aura, mais elle est pâle. La fièvre doit monter.",
+            "Tes visions sont là, mais floues. La chasse n’est pas terminée.",
+            "Le sang de tes efforts coule, mais pas assez. La nuit a soif.",
+            "Tu es une ombre parmi d’autres. Deviens plus sombre.",
+            "Les murmures de la nuit sont neutres. Fais-les trembler."
+          ]
+        },
+        {
+          "id": "chaotic_feedback",
+          "priority": 3,
+          "condition": "true",
+          "texts": [
+            "La meute hurle ton nom, mais est-ce de joie ou de colère ?",
+            "Tes pas résonnent dans le gouffre, mais qui écoute ?",
+            "La lune te regarde, mais que voit-elle vraiment ?",
+            "Tes griffes sont là, mais la proie est-elle réelle ?",
+            "La Faille murmure ton nom. Es-tu prêt à sauter ?",
+            "Je sens ton aura, mais est-elle la tienne ?",
+            "Tes visions sont troubles. La nuit joue avec toi.",
+            "Le sang de tes efforts coule, mais où va-t-il ?",
+            "Tu es une ombre, mais quelle est ta forme ?",
+            "Les murmures de la nuit sont là. Les comprends-tu ?"
+          ]
+        }
+      ],
+      "default": [
+        "La nuit est longue, et tes pas résonnent dans l’ombre. Continue.",
+        "La meute t’observe. Ne la déçois pas.",
+        "Tes griffes sont là, mais la proie est insaisissable. Pour l’instant.",
+        "La lune te voit, mais que voit-elle vraiment ?",
+        "La Faille murmure ton nom. Écoute, ou tombe."
+      ]
+    }
+  },
+  "llm_source": "Mistral"
+}

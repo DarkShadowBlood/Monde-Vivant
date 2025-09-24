@@ -1,0 +1,27 @@
+{
+    "apex": {
+        "nom_exercice": "Vélo",
+        "date_activite": "2025-08-31",
+        "heure_activite": "15:49",
+        "timeEnd": "16:45",
+        "calories": "521",
+        "temps": "56:09",
+        "runkeeperDuration": "37:02",
+        "distance": "6.69",
+        "vitesse_moyenne": "10.84",
+        "fc_moyenne": "129",
+        "fc_max": "170",
+        "limite_cardiaque_pourcentage": "6.9%",
+        "limite_cardiaque_temps": "03:53",
+        "fc_anaerobie_pourcentage": "29.3%",
+        "fc_anaerobie_temps": "16:28",
+        "fc_aerobie_pourcentage": "21.1%",
+        "fc_aerobie_temps": "11:52",
+        "gras_brule_pourcentage": "24.2%",
+        "gras_brule_temps": "13:35",
+        "fc_enthousiasme_pourcentage": "18.5%",
+        "fc_enthousiasme_temps": "10:16",
+        "location": "East Angus",
+        "original_filename_base": ""
+    }
+}

@@ -13,3 +13,15 @@ et la dans le web app il y as 30 zone de texte avec les date de 1 avril, 2 avril
 en gros je peut choisir les date et les info que je veut et le web app me fait des zone de texte pour les mettre et quand je valide sa rentre dans mon google sheet dans une feuille de dump info ;)
 
 et par la magie du app script je peut classer les dump info et les mettre dans les bonne place dans mon google sheet ...
+
+<style type="text/css"></style>
+
+|                       |         |            |           |                |                   |                 |                 |            |              |          |             |             |           |        |           |         |
+| --------------------- | ------- | ---------- | --------- | -------------- | ----------------- | --------------- | --------------- | ---------- | ------------ | -------- | ----------- | ----------- | --------- | ------ | --------- | ------- |
+| Workout_Log_Velo.html |         |            |           |                |                   |                 |                 |            |              |          |             |             |           |        |           |         |
+| Date                  | Mode    | Location   | Weather   | Distance       | Temps             | Vitesse_Moyenne | Calories        | Altitude   | FC_Moyenne   | FC_Max   | FC_Limite   | FC_Anaero   | FC_Aero   | Gras   | FC_Enth   | Notes   |
+| [DATE]                | Vélo    | [LOCATION] | [WEATHER] | [DISTANCE]     | [TEMPS]           | [VITESSE]       | [CALORIES_APEX] | [ALTITUDE] | [FC_MOYENNE] | [FC_MAX] | [FC_LIMITE] | [FC_ANAERO] | [FC_AERO] | [GRAS] | [FC_ENTH] | [NOTES] |
+|                       |         |            |           |                |                   |                 |                 |            |              |          |             |             |           |        |           |         |
+| Sleep_Log.html        |         |            |           |                |                   |                 |                 |            |              |          |             |             |           |        |           |         |
+| Date                  | Mode    | Location   | Weather   | Duree_Totale   | Sommeil_Profond   | Sommeil_Leger   | REM             | Eveil      | Nb_Eveils    | Notes    |             |             |           |        |           |         |
+| [DATE]                | Sommeil | [LOCATION] | [WEATHER] | [DUREE_TOTALE] | [SOMMEIL_PROFOND] | [SOMMEIL_LEGER] | [REM]           | [EVEIL]    | [NB_EVEILS]  | [NOTES]  |             |             |           |        |           |         |

@@ -1,0 +1,74 @@
+{
+    "apex": [
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-01",
+            "calories": "355",
+            "pas": "8408",
+            "distance": "5,62"
+        },
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-02",
+            "calories": "417",
+            "pas": "10101",
+            "distance": "6,88"
+        },
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-03",
+            "calories": "539",
+            "pas": "12500",
+            "distance": "8,60"
+        },
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-04",
+            "calories": "413",
+            "pas": "9483",
+            "distance": "6,60"
+        },
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-05",
+            "calories": "358",
+            "pas": "8365",
+            "distance": "5,54"
+        },
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-06",
+            "calories": "245",
+            "pas": "5602",
+            "distance": "3,66"
+        },
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-07",
+            "calories": "307",
+            "pas": "7222",
+            "distance": "4,71"
+        },
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-08",
+            "calories": "684",
+            "pas": "11376",
+            "distance": "7,90"
+        },
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-09",
+            "calories": "314",
+            "pas": "7426",
+            "distance": "5,15"
+        },
+        {
+            "nom_exercice": "objectif",
+            "date_activite": "2025-09-10",
+            "calories": "547",
+            "pas": "12839",
+            "distance": "8,65"
+        }
+    ]
+}

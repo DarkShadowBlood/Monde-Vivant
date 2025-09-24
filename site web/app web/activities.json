@@ -1,0 +1,17 @@
+[
+  {
+    "type": "Vélo",
+    "date": "2025-08-31",
+    "time": "15:49",
+    "duration": "56:09",
+    "calories": "521",
+    "distance": "6.69",
+    "avg_hr": "129",
+    "max_hr": "170",
+    "html_file": "../information/activité/velo/2025-08-31/2025_08_31_velo_1549_workout_log.html",
+    "location": "East Angus",
+    "weather": "",
+    "serie": "",
+    "notes": ""
+  }
+]

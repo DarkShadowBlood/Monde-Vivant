@@ -1,0 +1,492 @@
+[
+  {
+    "date": "2025-09-23",
+    "time": "10:11:53",
+    "source": "Notification - Ventre (Félicitations)",
+    "coach": "Varkis",
+    "message": "Bien mesuré. Garde un œil sur ton territoire, c'est ça qui compte."
+  },
+  {
+    "date": "2025-09-23",
+    "time": "10:11:53",
+    "source": "Notification - Poids (Félicitations)",
+    "coach": "Varkis",
+    "message": "Bien joué. Un pas de plus dans la boue, un pas de plus vers la victoire."
+  },
+  {
+    "date": "2025-09-23",
+    "time": "10:11:53",
+    "source": "Notification - Glycemie (Félicitations)",
+    "coach": "Varkis",
+    "message": "Bonne piqûre de rappel. Tu maîtrises ton terrain."
+  },
+  {
+    "date": "2025-09-23",
+    "time": "10:11:53",
+    "source": "Notification - Objectifs",
+    "coach": "Varkis",
+    "message": "J-3. Le compte à rebours est lancé. Montre-moi ce que tu vaux."
+  },
+  {
+    "date": "2025-09-23",
+    "time": "09:39:03",
+    "source": "Message du Jour",
+    "coach": "KaraOmbreChaos",
+    "message": "La lune décroissante du 23 septembre murmure des secrets à tes os. Le vent mordant d'automne est là pour te rappeler : aujourd'hui, tu chasses ou tu es chassé. Lève-toi, la meute a faim."
+  },
+  {
+    "date": "2025-09-23",
+    "time": "09:38:23",
+    "source": "Notification - Ventre",
+    "coach": "KaraOmbre",
+    "message": "La chasse est longue, mesure ton ventre sous la lumière de la lune, J-0."
+  },
+  {
+    "date": "2025-09-23",
+    "time": "09:38:23",
+    "source": "Notification - Poids",
+    "coach": "KaraOmbre",
+    "message": "Aujourd'hui, la lune est pleine, pèse-toi sous son regard, J-0."
+  },
+  {
+    "date": "2025-09-23",
+    "time": "09:38:23",
+    "source": "Notification - Glycemie",
+    "coach": "KaraOmbre",
+    "message": "Le souffle de la lune te rappelle, J-1, vérifie ton sang, rôdeur."
+  },
+  {
+    "date": "2025-09-23",
+    "time": "09:38:23",
+    "source": "Notification - Objectifs",
+    "coach": "KaraOmbre",
+    "message": "La meute sent ta proie proche, J-2, ne laisse pas l'ombre te distraire."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "20:18:22",
+    "source": "Notification - Ventre",
+    "coach": "KaraOmbreChaos",
+    "message": "La fièvre de la chasse monte, mesure ton ventre..."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "20:18:22",
+    "source": "Notification - Poids",
+    "coach": "KaraOmbreChaos",
+    "message": "Les ombres murmurent ton nom, pèse-toi..."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "20:18:22",
+    "source": "Notification - Glycemie",
+    "coach": "KaraOmbreChaos",
+    "message": "Le souffle de la lune t'attend, vérifie ton sang..."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "20:18:22",
+    "source": "Notification - Objectifs",
+    "coach": "KaraOmbreChaos",
+    "message": "La meute sent ta proies, ne la laisse pas s'échapper..."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "19:55:16",
+    "source": "Notification - Glycemie",
+    "coach": "Varkis",
+    "message": "Faut surveiller ce sang, mon gars. Deux jours, c'est déjà trop."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "19:55:16",
+    "source": "Notification - Objectifs",
+    "coach": "Varkis",
+    "message": "T'es à un jour près, bouge-toi ! La boue ne va pas se traverser toute seule."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "18:45:50",
+    "source": "Notification - Glycemie",
+    "coach": "KaraOmbre",
+    "message": "Le souffle de ton corps murmure, il est temps de vérifier ta glycémie sous la lumière de la lune."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "18:45:50",
+    "source": "Notification - Objectifs",
+    "coach": "KaraOmbre",
+    "message": "La lune se rapproche, ta proie est en vue. Ne laisse pas tes objectifs s'échapper."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "17:59:42",
+    "source": "Notification - Ventre",
+    "coach": "KaraOmbreChaos",
+    "message": "Le ventre est un gouffre maîtrisé, ton suivi est une offrande à la lune."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "17:59:42",
+    "source": "Notification - Poids",
+    "coach": "KaraOmbreChaos",
+    "message": "La meute reconnaît ta discipline, ton poids est une ombre fidèle..."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "17:59:42",
+    "source": "Notification - Glycémie",
+    "coach": "KaraOmbreChaos",
+    "message": "Le souffle sucré s'affaiblit, deux jours avant la prochaine quête."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "17:59:42",
+    "source": "Notification - Objectif",
+    "coach": "KaraOmbreChaos",
+    "message": "La chasse approche de sa fin, encore trois lunes à gravir..."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "17:49:57",
+    "source": "Notification - Glycémie",
+    "coach": "KaraOmbreStable",
+    "message": "Il vous reste 2 jour(s) pour votre glycémie."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "17:49:57",
+    "source": "Notification - Objectif",
+    "coach": "KaraOmbreStable",
+    "message": "Il vous reste 3 jour(s) pour vos objectifs."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "17:20:18",
+    "source": "Notification - Ventre (Félicitations)",
+    "coach": "KaraOmbre",
+    "message": "Ton ventre est ferme, prêt à courir avec la meute sous la lumière argentée. La lune te sourit."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "17:20:18",
+    "source": "Notification - Poids (Félicitations)",
+    "coach": "KaraOmbre",
+    "message": "Tes pattes sont légères et fortes, comme l'ombre qui danse sous la lune. La chasse est bonne."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "17:20:18",
+    "source": "Notification - Glycemie",
+    "coach": "KaraOmbre",
+    "message": "Le souffle de ton sang murmure des secrets anciens. Écoute-le avant que la lune ne change de phase dans 2 jours."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "17:20:18",
+    "source": "Notification - Objectifs",
+    "coach": "KaraOmbre",
+    "message": "La meute sent ta présence, mais tes crocs doivent encore goûter à la chair de tes objectifs. La lune sera pleine dans 3 jours."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "17:10:20",
+    "source": "Notification - Glycemie",
+    "coach": "Varkis",
+    "message": "Faut vérifier ton sang, marodeur. Ça fait deux jours, t'es pas en terrain inconnu."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "17:10:20",
+    "source": "Notification - Objectifs",
+    "coach": "Varkis",
+    "message": "T'as encore du sang à verser pour cet objectif. Bouge-toi, la fin est proche."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "16:54:22",
+    "source": "Notification - Glycemie",
+    "coach": "KaraOmbreStable",
+    "message": "Le sang murmure, il a soif... 2 jours sans écouter son chant. Ne le laisse pas se tarir, voyageur."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "16:54:22",
+    "source": "Notification - Objectifs",
+    "coach": "KaraOmbreStable",
+    "message": "La route est longue, mais tu t'égares... 4 jours, 4 pas, 4 ombres. Ne laisse pas la poussière recouvrir tes rêves."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "10:07:21",
+    "source": "Notification - Ventre",
+    "coach": "Aegis",
+    "message": "Mesure du tour de ventre non détectée. Complète tes données pour une évaluation optimale."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "10:07:21",
+    "source": "Notification - Poids",
+    "coach": "Aegis",
+    "message": "Données de poids manquantes. Enregistrement requis pour analyse précise."
+  },
+  {
+    "date": "2025-09-22",
+    "time": "10:00:08",
+    "source": "Message du Jour",
+    "coach": "Aegis",
+    "message": "Le 22 septembre 2025, l'équinoxe nous rappelle l'équilibre. Tes données d'hier sont stables, mais la trajectoire exige plus. Le ciel est dégagé, tout comme ton esprit doit l'être. Agis avec précision aujourd'hui."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:37:20",
+    "source": "Message du Jour",
+    "coach": "KaraOmbre",
+    "message": "La lune décroissante de ce 20 septembre murmure des secrets à ton âme. Le vent porte l'odeur de la proie, ne la laisse pas s'échapper. Lève-toi, chasseur, la meute a besoin de ta force aujourd'hui."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:08",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbreChaos",
+    "message": "Les ombres grondent, transfère tes résultats avant qu'elles ne les dévorent."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:07",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "Varkis",
+    "message": "Ne me fais pas chasser tes résultats comme une bête dans les bois. Transfère-les."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:07",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbre",
+    "message": "La lune attend tes résultats. Ne la fais pas attendre."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:07",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbreStable",
+    "message": "Tes résultats sont des étoiles, ne les laisse pas s'éteindre... Transfère-les."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:06",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "Aegis",
+    "message": "N'oublie pas de transférer tes résultats. L'analyse des données est cruciale pour ton évolution."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:06",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbreStable",
+    "message": "Tes résultats sont des feuilles dans le vent, attrape-les avant qu'ils ne s'envolent."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:06",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbre",
+    "message": "Les ombres murmurent tes résultats... Transfère-les avant que la lune ne se cache."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:05",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "Varkis",
+    "message": "Ne me fais pas traquer tes résultats comme une bête dans les bois. Transfère-les."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:05",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbre",
+    "message": "La lune veille sur tes résultats. Ne les oublie pas."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:05",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbreChaos",
+    "message": "Les ombres ricanent de tes résultats non transférés... Ne les laisse pas rire."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:05",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "Aegis",
+    "message": "L'analyse de tes résultats est cruciale pour ton évolution."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:04",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbre",
+    "message": "Les ombres dansent avec tes résultats. Transfère-les avant que la nuit ne les avale."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:04",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbre",
+    "message": "La meute hurle tes résultats. Ne les fais pas attendre."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:04",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "Aegis",
+    "message": "N'oublie pas de transférer tes résultats. L'efficacité est la clé."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:04",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbreStable",
+    "message": "Tes résultats sont des étoiles filantes, attrape-les avant qu'elles ne disparaissent."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:03",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "Aegis",
+    "message": "L'analyse de tes résultats est une étape cruciale pour ton évolution."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:03",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbreChaos",
+    "message": "Les ombres chuchotent tes résultats... Transfère-les avant qu'elles ne les effacent."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:03",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbre",
+    "message": "La lune attend tes résultats. Ne la fais pas attendre."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:02",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "Varkis",
+    "message": "Ne me fais pas traquer tes résultats comme une bête sauvage. Transfère-les."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:02",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "Aegis",
+    "message": "L'efficacité de ton transfert de résultats est cruciale pour ton évolution."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:02",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "Varkis",
+    "message": "Ne laisse pas tes résultats pourrir comme une carcasse dans la forêt. Transfère-les."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:02",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbre",
+    "message": "La nuit est longue, mais tes résultats doivent être transférés."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:01",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "Varkis",
+    "message": "Ne me fais pas chasser tes résultats comme une bête dans les bois. Transfère-les."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:01",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbreChaos",
+    "message": "Les ombres grondent, transfère tes résultats avant qu'elles ne les dévorent."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:01",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbreStable",
+    "message": "Tes résultats sont des étoiles, ne les laisse pas s'éteindre... Transfère-les."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:01",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbre",
+    "message": "La lune veille sur tes résultats. Ne les oublie pas."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:00",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbreStable",
+    "message": "Tes résultats sont comme des feuilles dans le vent, attrape-les avant qu'ils ne s'envolent."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:00",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbreStable",
+    "message": "Danse avec tes résultats, transfère-les avant que le vent ne les emporte..."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:00",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbre",
+    "message": "La meute attend tes résultats. Ne les fais pas attendre."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:24:00",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbreChaos",
+    "message": "Les ombres murmurent tes résultats... Transfère-les avant que la lune ne se cache."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:23:59",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "Varkis",
+    "message": "Transfère tes résultats, sinon je vais devoir te traquer comme une proie dans la boue."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:23:59",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "Aegis",
+    "message": "N'oublie pas de transférer tes résultats. L'analyse des données est cruciale pour ton évolution."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:13:11",
+    "source": "Planification - Rappel Quotidien",
+    "coach": "KaraOmbreStable",
+    "message": "Chuchote à ton oreille, ne laisse pas tes pas s'effacer comme la poussière... Transfère tes résultats, ou la lune pleurera."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "20:09:10",
+    "source": "Message du Jour",
+    "coach": "KaraOmbre",
+    "message": "La lune décroissante du 20 septembre murmure des secrets de changement. Les ombres s'étirent, mais ne te laissent pas engloutir. Lève-toi, la meute a besoin de ta force aujourd'hui. La chasse commence à l'aube."
+  },
+  {
+    "date": "2025-09-20",
+    "time": "18:21:08",
+    "source": "Message du Jour",
+    "coach": "KaraOmbre",
+    "message": "La lune décroissante du 20 septembre murmure des secrets à ton âme. Les ombres s'étirent, mais ne te laissent pas engloutir. Lève-toi, montre tes crocs au monde, et chasse tes rêves avec la férocité d'un lycan sous la pleine lune."
+  }
+]

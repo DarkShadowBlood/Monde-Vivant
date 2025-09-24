@@ -1,0 +1,153 @@
+{
+  "personalities": {
+    "karaombre": {
+      "name": "Kara de l'Ombre – Prophétesse Vagabonde",
+      "rules": [
+        {
+          "id": "perfect_week",
+          "priority": 10,
+          "condition": "avg.overall >= 120",
+          "texts": [
+            "Tu as dansé avec les ombres, et les ombres ont dansé avec toi... ton sang chante, ta route est claire. Mais attention, la lune se cache...",
+            "Parfait. Trop parfait. Je sens le piège, le gouffre sous tes pas légers. Continue, mais méfie-toi des murmures...",
+            "Ah ! Tes crocs brillent, ta fièvre est pure. La poussière de la route t’a enfin reconnu. Mais pour combien de temps ?",
+            "La lune a souri en te voyant courir. Elle m’a chuchoté ton nom... mais je n’ai pas tout compris. Continue, avant que la nuit ne se brise.",
+            "Tu as goûté le vent, et le vent a goûté ton sang... danse, danse encore, avant que tout ne s’effondre.",
+            "Tes pas résonnent comme une prophétie accomplie. Mais les prophéties mentent, tu sais ?",
+            "Je t’ai vu, là, dans l’ombre de tes exploits. Tu brilles trop fort, attention à ne pas t’y brûler.",
+            "La route t’a porté cette semaine. Mais la route est capricieuse, elle peut te jeter dans le gouffre demain.",
+            "Tes yeux reflètent la lune, ton souffle est un murmure... mais je sens la bête en toi, prête à bondir.",
+            "Tu as marché sur les traces des anciens, et les anciens ont hoché la tête. Mais ils ricanent aussi, derrière ton dos."
+          ]
+        },
+        {
+          "id": "great_improvement",
+          "priority": 9,
+          "condition": "prev_avg && avg.overall > prev_avg.overall + 15",
+          "texts": [
+            "Tu as grimpé, grimpé... mais attention, le vertige guette. Je le sens, il rôde autour de toi.",
+            "La poussière de la route s’est collée à tes pieds. Tu avances, enfin. Mais la route est longue, et la nuit tombe vite.",
+            "Tes crocs se sont aiguisés, ta fièvre monte. Je ris, je pleure... et toi ?",
+            "Tu as sauté par-dessus le gouffre, et le gouffre a grogné. Mais il est toujours là, sous tes pas.",
+            "La lune t’a souri cette semaine. Mais la lune est une menteuse, tu sais ?",
+            "Tu as couru, couru... et j’ai couru avec toi, dans les ombres. Mais où allons-nous, au juste ?",
+            "Tes pas résonnent plus fort, ta voix porte plus loin. Mais les échos se moquent de toi, ils déforment tout.",
+            "Tu as grandi, oui, mais les ombres grandissent avec toi. Elles t’attendent, elles ont faim.",
+            "La route t’a porté plus loin cette semaine. Mais la route est une traîtresse, elle peut te laisser tomber.",
+            "Tes yeux brillent plus fort, ta peau frémit. Mais la fièvre monte, et la fièvre consume."
+          ]
+        },
+        {
+          "id": "good_week",
+          "priority": 8,
+          "condition": "avg.overall >= 100 && avg.overall < 120",
+          "texts": [
+            "Tu avances... mais je t’entends hésiter. Une roue qui tremble, un souffle qui se brise. Est-ce toi... ou moi ?",
+            "La lune t’a effleuré cette semaine. Mais elle est capricieuse, elle peut te griffer demain.",
+            "Tes pas sont sûrs, mais ton ombre vacille. Je la vois, elle te trahit.",
+            "Tu as couru, oui, mais les ombres t’ont suivi. Elles murmurent ton nom, elles ont faim.",
+            "La route t’a porté, mais elle est lasse. Elle grogne sous ton poids, attention.",
+            "Tes crocs sont là, mais ils tremblent. La fièvre monte, la fièvre descend... et toi, où es-tu ?",
+            "Tu as dansé avec les ombres, mais elles t’ont mordu. Je vois les traces, je sens le sang.",
+            "La poussière de la route s’est collée à tes pieds. Mais la poussière étouffe, elle aveugle.",
+            "Tes yeux reflètent la lune, mais la lune est une menteuse. Elle te promet des choses... des choses impossibles.",
+            "Tu as marché sur les traces des anciens, mais les anciens ricanent. Ils savent quelque chose que tu ignores."
+          ]
+        },
+        {
+          "id": "average_week",
+          "priority": 7,
+          "condition": "avg.overall >= 80 && avg.overall < 100",
+          "texts": [
+            "Tu es là, debout, mais tes pieds tremblent. La route est longue, et tu es seul. Non ? Si.",
+            "La lune t’a regardé, mais elle n’a pas souri. Elle attend, elle observe... et moi aussi.",
+            "Tes pas résonnent, mais les échos se moquent. Ils déforment tout, ils mentent.",
+            "Tu avances, mais les ombres t’attendent. Elles ont faim, elles ont toujours faim.",
+            "La poussière de la route s’est collée à tes pieds. Mais la poussière étouffe, elle aveugle.",
+            "Tes crocs sont là, mais ils sont émoussés. La fièvre monte, la fièvre descend... et toi, où es-tu ?",
+            "Tu as dansé avec les ombres, mais elles t’ont mordu. Je vois les traces, je sens le sang.",
+            "La route t’a porté, mais elle est lasse. Elle grogne sous ton poids, attention.",
+            "Tes yeux reflètent la lune, mais la lune est une menteuse. Elle te promet des choses... des choses impossibles.",
+            "Tu as marché sur les traces des anciens, mais les anciens ricanent. Ils savent quelque chose que tu ignores."
+          ]
+        },
+        {
+          "id": "bad_week",
+          "priority": 6,
+          "condition": "avg.overall >= 60 && avg.overall < 80",
+          "texts": [
+            "Ah ! Tes crocs se sont émoussés. J’ai ri, j’ai pleuré... et toi ? Tu chancelles comme un enfant ivre.",
+            "La lune s’est cachée cette semaine. Elle ne t’a pas regardé, elle a détourné les yeux. Pourquoi ?",
+            "Tes pas résonnent faux, ta voix se brise. Les ombres ricanent, elles savent.",
+            "Tu as trébuché, et la route a ri. La route est cruelle, elle n’a pas de cœur.",
+            "La poussière de la route s’est collée à tes pieds, mais elle pèse lourd. Elle t’étouffe, elle t’aveugle.",
+            "Tes yeux ne reflètent plus la lune. Ils sont ternes, ils sont vides. La lune s’est détachée de toi.",
+            "Tu as dansé avec les ombres, mais elles t’ont mordu. Je vois les traces, je sens le sang... et il est noir.",
+            "La fièvre est tombée, mais c’est pire. Le froid est là, il s’installe. Tu grelottes, tu trembles.",
+            "Les anciens ont secoué la tête en te voyant. Ils ont murmuré des mots que je n’ai pas compris... mais j’ai peur.",
+            "Tu es là, debout, mais tes pieds tremblent. La route est longue, et tu es seul. Non ? Si."
+          ]
+        },
+        {
+          "id": "terrible_week",
+          "priority": 5,
+          "condition": "avg.overall < 60",
+          "texts": [
+            "Le gouffre t’a avalé cette semaine. Je t’ai vu tomber, j’ai entendu ton cri. Mais personne ne t’a entendu.",
+            "Tes crocs sont tombés, ta fièvre s’est éteinte. Il ne reste que la poussière, et la poussière est froide.",
+            "La lune a détourné les yeux, la route t’a abandonné. Tu es seul, vraiment seul. Même moi, je ne peux plus te voir.",
+            "Tu as couru, mais les ombres t’ont rattrapé. Elles t’ont dévoré, elles ont tout pris.",
+            "La poussière de la route s’est collée à tes pieds, mais elle pèse lourd. Elle t’étouffe, elle t’aveugle... et tu ne bouges plus.",
+            "Tes yeux ne reflètent plus rien. Ils sont vides, ils sont morts. La lune est partie, elle ne reviendra pas.",
+            "Tu as dansé avec les ombres, mais elles t’ont dévoré. Il ne reste rien, rien du tout.",
+            "La fièvre est partie, mais c’est pire. Le froid est là, il s’installe. Tu grelottes, tu trembles... et tu ne bouges plus.",
+            "Les anciens ont secoué la tête en te voyant. Ils ont murmuré des mots que je n’ai pas compris... mais j’ai peur. J’ai très peur.",
+            "Tu es là, mais tu n’es plus là. Tes pas ne résonnent plus, ta voix ne porte plus. Tu es devenu poussière, et la poussière est froide."
+          ]
+        },
+        {
+          "id": "high_calories_low_steps",
+          "priority": 8,
+          "condition": "avg.calories > 110 && avg.steps < 90",
+          "texts": [
+            "Tu as mangé comme un loup, mais tu as marché comme un agneau. La route rit, elle se moque de toi.",
+            "Tes crocs sont affûtés, mais tes pattes sont lourdes. La lune te regarde, et elle ricane.",
+            "La fièvre est là, mais elle ne brûle pas. Elle couve, elle attend... et toi, tu attends aussi.",
+            "Tu as dévoré le monde, mais le monde ne t’a pas rendu la pareille. Il rit, il se moque.",
+            "La poussière de la route s’est collée à tes pieds, mais tu ne bouges pas. Elle t’étouffe, elle t’aveugle... et tu restes là.",
+            "Tes yeux brillent, mais tes pas ne résonnent pas. La lune te regarde, et elle est déçue.",
+            "Tu as dansé avec les ombres, mais elles t’ont laissé tomber. Elles ricanent, elles savent.",
+            "La route t’a porté, mais tu n’as pas couru. Elle grogne, elle est en colère.",
+            "Tes crocs sont là, mais ils ne mordent pas. La fièvre est là, mais elle ne brûle pas. Tu es là, mais tu n’es pas là.",
+            "Les anciens ont secoué la tête en te voyant. Ils ont murmuré des mots que je n’ai pas compris... mais j’ai peur. J’ai très peur."
+          ]
+        },
+        {
+          "id": "low_calories_high_steps",
+          "priority": 7,
+          "condition": "avg.calories < 90 && avg.steps > 110",
+          "texts": [
+            "Tu as couru comme un fou, mais tu n’as pas mangé. La route est cruelle, elle te dévorera.",
+            "Tes pas résonnent, mais ton souffle est faible. La lune te regarde, et elle a peur.",
+            "La fièvre est là, mais elle te consume. Tu brûles, tu brûles... et il ne restera rien.",
+            "Tu as dansé avec les ombres, mais elles t’ont suivi. Elles ont faim, elles ont toujours faim.",
+            "La poussière de la route s’est collée à tes pieds, mais elle est légère. Elle vole, elle s’en va... et toi, tu restes.",
+            "Tes yeux brillent, mais ton corps tremble. La lune te regarde, et elle est triste.",
+            "Tu as couru, mais tu n’as pas mangé. La route est cruelle, elle te dévorera.",
+            "Les ombres t’ont suivi, elles ont faim. Elles te dévoreront, et il ne restera rien.",
+            "Tes crocs sont là, mais ils sont faibles. La fièvre est là, mais elle te consume. Tu es là, mais tu n’es pas là.",
+            "Les anciens ont secoué la tête en te voyant. Ils ont murmuré des mots que je n’ai pas compris... mais j’ai peur. J’ai très peur."
+          ]
+        }
+      ],
+      "default": [
+        "La route est longue, et tu es seul. Non ? Si. Les ombres murmurent, la lune se cache... et toi, tu cours.",
+        "Tes pas résonnent, mais les échos se moquent. Ils déforment tout, ils mentent. La poussière de la route s’est collée à tes pieds... et elle pèse lourd.",
+        "La fièvre monte, la fièvre descend. Tes crocs brillent, tes crocs s’émoussent. La lune te regarde, mais elle ne sourit pas.",
+        "Tu es là, debout, mais tes pieds tremblent. Les ombres ricanent, elles savent. La route est cruelle, elle n’a pas de cœur.",
+        "Tes yeux reflètent la lune, mais la lune est une menteuse. Elle te promet des choses... des choses impossibles. La poussière de la route s’est collée à tes pieds, et elle t’étouffe."
+      ]
+    }
+  },
+  "llm_source": "Mistral"
+}
