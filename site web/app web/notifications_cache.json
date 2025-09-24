@@ -1,0 +1,46 @@
+{
+  "objectifs": {
+    "date": "2025-09-23",
+    "notification": {
+      "source": "Objectifs",
+      "notification": {
+        "type": "warning",
+        "coach": "Varkis",
+        "message": "J-3. Le compte \u00e0 rebours est lanc\u00e9. Montre-moi ce que tu vaux."
+      }
+    }
+  },
+  "glycemie": {
+    "date": "2025-09-23",
+    "notification": {
+      "source": "Suivi Glycemie",
+      "notification": {
+        "type": "success",
+        "coach": "Varkis",
+        "message": "Bonne piq\u00fbre de rappel. Tu ma\u00eetrises ton terrain."
+      }
+    }
+  },
+  "poids": {
+    "date": "2025-09-23",
+    "notification": {
+      "source": "Suivi Poids",
+      "notification": {
+        "type": "success",
+        "coach": "Varkis",
+        "message": "Bien jou\u00e9. Un pas de plus dans la boue, un pas de plus vers la victoire."
+      }
+    }
+  },
+  "ventre": {
+    "date": "2025-09-23",
+    "notification": {
+      "source": "Suivi Ventre",
+      "notification": {
+        "type": "success",
+        "coach": "Varkis",
+        "message": "Bien mesur\u00e9. Garde un \u0153il sur ton territoire, c'est \u00e7a qui compte."
+      }
+    }
+  }
+}

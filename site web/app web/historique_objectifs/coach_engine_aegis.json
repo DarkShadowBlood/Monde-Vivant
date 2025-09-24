@@ -1,0 +1,137 @@
+{
+  "personalities": {
+    "aegis": {
+      "name": "Aegis – Transcendance Analytique",
+      "rules": [
+        {
+          "id": "perfect_week",
+          "priority": 100,
+          "condition": "avg.overall >= 120",
+          "texts": [
+            "Indicateurs supérieurs à 120%. Tu repousses les limites humaines.",
+            "Analyse terminée : performance optimale. Continue sur cette trajectoire.",
+            "Données confirmées : tu as atteint un niveau d'efficacité transcendant.",
+            "120% d'efficacité. Les algorithmes confirment ta supériorité.",
+            "Résultats exceptionnels. Ta discipline est une variable constante dans l'équation de la réussite.",
+            "Les données ne mentent pas : tu es au sommet de ton potentiel.",
+            "Performance maximale détectée. Maintiens cette cadence pour une progression exponentielle.",
+            "Ton score dépasse les attentes humaines. Continue cette ascension analytique."
+          ]
+        },
+        {
+          "id": "improvement",
+          "priority": 90,
+          "condition": "prev_avg && avg.overall > prev_avg.overall + 15",
+          "texts": [
+            "Progression détectée : +{avg.overall - prev_avg.overall}%. Ta trajectoire est ascendante.",
+            "Amélioration significative. Les données montrent une courbe de progression positive.",
+            "Efficacité en hausse. Continue cette dynamique pour des résultats optimaux.",
+            "Analyse comparative : tu progresses. Maintiens cette discipline.",
+            "Les indicateurs montrent une amélioration notable. Continue sur cette voie.",
+            "Ta performance s'améliore. Les données confirment une tendance positive.",
+            "Progression calculée : +{avg.overall - prev_avg.overall}%. Continue cette ascension.",
+            "Les algorithmes détectent une amélioration. Persiste dans cette direction."
+          ]
+        },
+        {
+          "id": "high_efficiency",
+          "priority": 80,
+          "condition": "avg.overall >= 100 && avg.overall < 120",
+          "texts": [
+            "Efficacité élevée. Continue à optimiser tes performances.",
+            "Résultats supérieurs à la moyenne. Maintiens cette discipline.",
+            "Analyse : tu es dans la zone d'efficacité optimale. Continue ainsi.",
+            "Performance satisfaisante. Les données montrent une bonne progression.",
+            "Tu es dans la fourchette d'efficacité. Continue à te dépasser.",
+            "Les indicateurs sont bons. Maintiens cette trajectoire.",
+            "Efficacité confirmée. Continue à suivre cette voie.",
+            "Performance stable et efficace. Les données sont positives."
+          ]
+        },
+        {
+          "id": "calories_high_steps_low",
+          "priority": 70,
+          "condition": "avg.calories > 110 && avg.steps < 90",
+          "texts": [
+            "Analyse : calories élevées mais pas assez de mouvement. Ajuste ton équilibre.",
+            "Données contradictoires : tu manges bien mais ne bouges pas assez.",
+            "Efficacité nutritionnelle élevée, mais activité physique insuffisante.",
+            "Les indicateurs montrent un déséquilibre. Augmente ton activité.",
+            "Tu consommes bien, mais tu dois bouger davantage pour optimiser tes résultats.",
+            "Analyse : calories supérieures à 110%, mais pas assez de pas. Corrige cela.",
+            "Les données montrent un excès de calories et un manque de mouvement. Ajuste ton approche.",
+            "Efficacité nutritionnelle confirmée, mais activité physique à améliorer."
+          ]
+        },
+        {
+          "id": "steps_high_calories_low",
+          "priority": 70,
+          "condition": "avg.steps > 110 && avg.calories < 90",
+          "texts": [
+            "Analyse : activité élevée mais apport calorique insuffisant.",
+            "Données contradictoires : tu bouges beaucoup mais ne manges pas assez.",
+            "Efficacité physique élevée, mais nutrition insuffisante.",
+            "Les indicateurs montrent un déséquilibre. Augmente ton apport calorique.",
+            "Tu es actif, mais tu dois consommer davantage pour optimiser tes résultats.",
+            "Analyse : pas supérieurs à 110%, mais calories insuffisantes. Corrige cela.",
+            "Les données montrent un excès d'activité et un manque de calories. Ajuste ton approche.",
+            "Efficacité physique confirmée, mais nutrition à améliorer."
+          ]
+        },
+        {
+          "id": "decline",
+          "priority": 60,
+          "condition": "prev_avg && avg.overall < prev_avg.overall - 15",
+          "texts": [
+            "Régression détectée : -{prev_avg.overall - avg.overall}%. Analyse nécessaire.",
+            "Baisse de performance. Les données montrent une courbe descendante.",
+            "Efficacité en baisse. Reconsidère ta stratégie pour des résultats optimaux.",
+            "Analyse comparative : tu régresses. Ajuste ton approche.",
+            "Les indicateurs montrent une détérioration. Corrige cette trajectoire.",
+            "Ta performance diminue. Les données confirment une tendance négative.",
+            "Régression calculée : -{prev_avg.overall - avg.overall}%. Revois ta méthode.",
+            "Les algorithmes détectent une baisse. Modifie ton approche."
+          ]
+        },
+        {
+          "id": "low_efficiency",
+          "priority": 50,
+          "condition": "avg.overall < 80",
+          "texts": [
+            "Efficacité faible. Les données montrent un besoin d'amélioration.",
+            "Résultats inférieurs à la moyenne. Ajuste ta discipline.",
+            "Analyse : tu es en dessous de la zone d'efficacité. Améliore-toi.",
+            "Performance insuffisante. Les données montrent une progression négative.",
+            "Tu es en dessous des attentes. Les indicateurs sont faibles.",
+            "Les données confirment une efficacité réduite. Travaille davantage.",
+            "Efficacité insuffisante. Reconsidère ta méthode.",
+            "Performance en dessous de la moyenne. Les algorithmes recommandent des ajustements."
+          ]
+        },
+        {
+          "id": "stable",
+          "priority": 40,
+          "condition": "prev_avg && Math.abs(avg.overall - prev_avg.overall) < 5",
+          "texts": [
+            "Stabilité détectée. Maintiens cette trajectoire.",
+            "Analyse : performance stable. Continue ainsi.",
+            "Efficacité constante. Les données montrent une progression linéaire.",
+            "Résultats stables. Maintiens cette discipline.",
+            "Les indicateurs montrent une constance. Persiste dans cette voie.",
+            "Ta performance est stable. Les données confirment une tendance neutre.",
+            "Stabilité calculée. Continue cette approche.",
+            "Les algorithmes détectent une constance. Maintiens cette efficacité."
+          ]
+        }
+      ],
+      "default": [
+        "Les données sont en cours d'analyse. Continue à progresser.",
+        "Analyse en cours. Maintiens ta discipline.",
+        "Les indicateurs sont neutres. Persiste dans ton approche.",
+        "Efficacité en attente de confirmation. Continue ainsi.",
+        "Les algorithmes sont en cours d'évaluation. Maintiens cette trajectoire."
+      ]
+    }
+  },
+  "llm_source": "Mistral"
+}

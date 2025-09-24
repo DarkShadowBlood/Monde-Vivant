@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Explorateur de Fichiers</title>
+    <style>
+        :root {
+            --bg-light: #2c2c2c;
+            --text-primary: #f0f0f0;
+        }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            margin: 0; padding: 15px; 
+            background-color: var(--bg-light); color: var(--text-primary); 
+        }
+        ul { list-style-type: none; padding-left: 20px; margin-top: 5px; margin-bottom: 0; }
+        li { margin-bottom: 5px; }
+        a { text-decoration: none; color: #007bff; }
+        a:hover { text-decoration: underline; }
+        .folder-name { font-weight: bold; color: #333; margin-top: 10px; cursor: pointer; }
+        .file-item a:first-child { margin-right: 5px; }
+        .open-btn { text-decoration: none; color: #555; }
+        .open-btn:hover { color: #007bff; }
+    </style>
+</head>
+<body>
+    <div id="file-explorer">
+        <p>Chargement de l'arborescence...</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('liens.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const explorer = document.getElementById('file-explorer');
+                    explorer.innerHTML = ''; // Vider le message de chargement
+                    explorer.appendChild(createTree(data));
+                })
+                .catch(error => {
+                    const explorer = document.getElementById('file-explorer');
+                    explorer.innerHTML = `<p style="color: red;">Erreur de chargement du fichier liens.json: ${error.message}</p><p>Veuillez lancer le script <b>generer_liens.py</b> et rafraîchir la page.</p>`;
+                    console.error('Erreur de chargement du fichier liens.json:', error);
+                });
+        });
+
+        function createTree(items) {
+            const ul = document.createElement('ul');
+            items.forEach(item => {
+                const li = document.createElement('li');
+                if (item.type === 'folder') {
+                    const div = document.createElement('div');
+                    div.className = 'folder-name';
+                    div.textContent = `📁 ${item.name}`;
+                    div.onclick = () => {
+                        const subUl = div.nextElementSibling;
+                        if (subUl) {
+                           subUl.style.display = subUl.style.display === 'none' ? 'block' : 'none';
+                        }
+                    };
+                    li.appendChild(div);
+
+                    const subUl = createTree(item.children);
+                    subUl.style.display = 'none'; // Caché par défaut
+                    li.appendChild(subUl);
+                } else if (item.type === 'file') {
+                    li.className = 'file-item';
+                    li.innerHTML = `
+                        <a href="${item.path}" target="contenu_principal" onclick="parent.setDernierLien(this.href)">${item.icon} ${item.name}</a>
+                        <a href="${item.path}" target="_blank" class="open-btn" title="Ouvrir dans un onglet">🧾</a>
+                    `;
+                }
+                ul.appendChild(li);
+            });
+            return ul;
+        }
+    </script>
+</body>
+</html>

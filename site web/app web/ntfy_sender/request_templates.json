@@ -1,0 +1,14 @@
+{
+  "Rappels Généraux": {
+    "Rappel transfert activités": "Rappel pour ne pas oublier de transférer les activités de la journée",
+	"Rappel transfert objectif": "Rappel pour ne pas oublier de transférer les résultats des objectifs",
+    "Préparation séance lendemain": "Pense à préparer tes affaires pour la séance de demain matin",
+    "Motivation matinale": "Message de motivation pour bien commencer la journée"
+  },
+  "Séances de Sport": {
+    "Rappel séance de sport": "Rappel pour faire ma séance de sport du jour",
+    "Motivation course (pluie)": "Message pour me motiver à aller courir même s'il pleut",
+    "Rappel musculation haut du corps": "Rappel pour ma séance de musculation du haut du corps",
+    "Rappel séance fractionné": "Rappel pour ma séance de fractionné sur piste"
+  }
+}
