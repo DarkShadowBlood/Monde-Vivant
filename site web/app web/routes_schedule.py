@@ -83,7 +83,7 @@ def handle_schedule_startup_notifications(handler):
             script_path = SCHEDULED_TASKS_DIR / script_name
             
             # Ce script fait un simple appel web au serveur local
-            ps_script_content = f\"\"\"
+            ps_script_content = rf"""
 # Script pour déclencher la génération de notifications au démarrage
 $ErrorActionPreference = "Stop"
 
@@ -156,7 +156,7 @@ def handle_preview_schedule(handler):
             prompts_to_generate[date_str] = {"coach": chosen_coach, "request": request_text}
             current_date += timedelta(days=1)
 
-        system_prompt = f\"\"\"Tu es un générateur de messages de coach. Tu recevras un objet JSON où chaque clé est une date (YYYY-MM-DD) et la valeur contient le nom d'un coach et une requête.
+        system_prompt = rf"""Tu es un générateur de messages de coach. Tu recevras un objet JSON où chaque clé est une date (YYYY-MM-DD) et la valeur contient le nom d'un coach et une requête.
 Pour chaque date, tu dois générer un message de notification concis et percutant, en adoptant la personnalité du coach spécifié.
 Le lore des coachs est le suivant: {json.dumps(COACH_LORE, indent=2)}
 
@@ -222,7 +222,7 @@ def handle_confirm_schedule(handler):
             script_path = SCHEDULED_TASKS_DIR / f"{safe_filename}.ps1"
 
             # Le script PowerShell est maintenant plus complexe
-            ps_script_content = f\"\"\"# Script de rappel au démarrage - Généré par serveur.py
+            ps_script_content = rf"""# Script de rappel au démarrage - Généré par serveur.py
 $ErrorActionPreference = "Stop"
 
 try {{
@@ -313,7 +313,7 @@ if ($null -ne $messageData) {{
                 tag = coach_tags.get(coach_name, "bell")
 
                 # Utilisation du modèle unifié et robuste
-                ps_script_content = f\"\"\"# Script de rappel quotidien - Généré par serveur.py
+                ps_script_content = rf"""# Script de rappel quotidien - Généré par serveur.py
 $ErrorActionPreference = "Stop"
 
 try {{
@@ -406,7 +406,7 @@ def handle_confirm_schedule_old(handler):
             ps_message = message.replace("'", "''").replace('"', '`"')
             tag = coach_tags.get(coach_name, "bell")
 
-            ps_script_content = f\"\"\"# Script généré automatiquement
+            ps_script_content = rf"""# Script généré automatiquement
 $message = @'
 {ps_message}
 '@

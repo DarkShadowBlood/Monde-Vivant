@@ -215,7 +215,7 @@ def handle_post_process_analyses(handler):
             html_content = markdown.markdown(markdown_content, extensions=['fenced_code', 'tables'])
             
             # Ajouter un style simple pour la lisibilité
-            html_template = f'''<!DOCTYPE html>
+            html_template = rf'''<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
