@@ -6,12 +6,12 @@
   <title>Monde Vivant - Tableau de Bord</title>
   <style>
     :root {
-      --bg-dark: #1a1a1a;
-      --bg-light: #2c2c2c;
-      --text-primary: #f0f0f0;
-      --text-secondary: #a0a0a0;
-      --accent: #4CAF50;
-      --border-color: #444;
+      --bg-dark: #202123;
+      --bg-light: #343541;
+      --text-primary: #ffffff;
+      --text-secondary: #b4b4b4;
+      --accent: #10a37f;
+      --border-color: #4d4d4d;
     }
     body {
       margin: 0;
@@ -25,42 +25,43 @@
 
     /* --- Sidebar --- */
     #sidebar {
-      width: 80px;
-      background-color: var(--bg-light);
+      width: 80px; /* Collapsed width */
+      background-color: var(--bg-dark);
       border-right: 1px solid var(--border-color);
       display: flex;
       flex-direction: column;
-      transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: width 0.3s ease;
       position: fixed;
       height: 100%;
       z-index: 100;
-      overflow-x: hidden; /* Hide horizontal overflow */
+      overflow-x: hidden;
     }
-    #sidebar:hover {
-      width: 260px;
+    #sidebar.expanded {
+      width: 260px; /* Expanded width */
     }
 
     #sidebar-nav {
-      padding-top: 20px;
+      padding: 10px;
       flex-grow: 1;
-      overflow-y: auto; /* Vertical scroll if needed */
+      overflow-y: auto;
     }
     
     .nav-link {
       display: flex;
       align-items: center;
-      padding: 12px 25px; /* Adjusted padding */
-      margin-bottom: 10px;
-      border-radius: 8px;
+      padding: 10px 15px;
+      margin-bottom: 8px;
+      border-radius: 6px;
       cursor: pointer;
       color: var(--text-secondary);
       text-decoration: none;
-      font-size: 1.1em;
-      transition: background-color 0.2s, color 0.2s;
-      white-space: nowrap; /* Prevent text wrapping */
+      font-size: 1em;
+      transition: background-color 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
     }
     .nav-link:hover {
-      background-color: #383838;
+      background-color: var(--bg-light);
       color: var(--text-primary);
     }
     .nav-link.active {
@@ -68,45 +69,49 @@
       color: #fff;
     }
     .nav-icon {
-      font-size: 1.4em;
-      min-width: 30px; /* Ensure icons are aligned */
+      font-size: 1.5em;
+      width: 50px; /* Fixed width for icon alignment */
       text-align: center;
-      margin-right: 20px;
+      margin-right: 10px;
     }
-
-    /* Text and Title Visibility */
-    .nav-text, .nav-group-title {
+    .nav-text {
       opacity: 0;
-      transition: opacity 0.1s ease-in-out;
+      transition: opacity 0.2s ease;
     }
-    #sidebar:hover .nav-text,
-    #sidebar:hover .nav-group-title {
+    #sidebar.expanded .nav-text {
       opacity: 1;
-      transition-delay: 0.1s; /* Text appears slightly after expansion */
     }
     
     .nav-group-title {
-      padding: 0 25px 10px 25px;
-      font-size: 0.8em;
+      padding: 15px 20px 5px 20px;
+      font-size: 0.75em;
       font-weight: bold;
       color: var(--text-secondary);
       text-transform: uppercase;
       letter-spacing: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+     #sidebar.expanded .nav-group-title {
+      opacity: 1;
     }
 
     #sidebar-footer {
-      padding: 20px 0;
+      padding: 10px;
+      border-top: 1px solid var(--border-color);
     }
 
     /* --- Main Content --- */
     #main-content {
       flex-grow: 1;
       height: 100vh;
-      margin-left: 80px; /* Must match collapsed sidebar width */
-      transition: margin-left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-left: 80px; /* Match collapsed sidebar width */
+      transition: margin-left 0.3s ease;
     }
-    #sidebar:hover ~ #main-content {
-      margin-left: 260px; /* Must match expanded sidebar width */
+    #sidebar.expanded ~ #main-content {
+      margin-left: 260px; /* Match expanded sidebar width */
     }
     #content-frame {
       width: 100%;
@@ -114,24 +119,25 @@
       border: none;
     }
 
-    /* --- Explorer Mode (Overrides hover) --- */
+    /* --- Explorer Mode --- */
     #sidebar.explorer-open {
       width: 320px;
     }
-    #sidebar.explorer-open:hover { /* Prevent shrinking on hover out */
-        width: 320px;
+    #sidebar.explorer-open.expanded {
+        width: 450px;
     }
     #sidebar.explorer-open ~ #main-content {
       margin-left: 320px;
     }
+    #sidebar.explorer-open.expanded ~ #main-content {
+      margin-left: 450px;
+    }
     #sidebar.explorer-open #sidebar-nav { display: none; }
-    #sidebar.explorer-open #explorer-content { display: block; height: 100%; }
+    #sidebar.explorer-open #explorer-content { display: block; height: calc(100% - 120px); }
     #sidebar:not(.explorer-open) #explorer-content { display: none; }
     #sidebar.explorer-open .nav-text {
        opacity: 1;
-       transition-delay: 0s;
     }
-
 
     /* --- Floating Button & Notification Panel --- */
     .ntfy-fab {
@@ -150,19 +156,20 @@
         transition: transform 0.2s ease-in-out, background-color 0.2s;
     }
     .ntfy-fab:hover {
-        background-color: #5bc060; /* Un vert légèrement plus clair au survol */
+        background-color: #10a37f;
+        filter: brightness(1.2);
         transform: scale(1.1);
     }
     
-    /* Styles for Notification Center */
+    /* --- Notification Center --- */
     #notification-bell .nav-icon {
       position: relative;
     }
     .badge {
       position: absolute;
-      top: -5px;
-      right: -5px;
-      background-color: red;
+      top: -2px;
+      right: 5px;
+      background-color: #d93025;
       color: white;
       border-radius: 50%;
       padding: 2px 6px;
@@ -171,23 +178,24 @@
     }
     #notification-panel {
       position: fixed;
-      bottom: 80px; /* Adjust based on footer height */
-      left: 85px; /* Adjust based on sidebar width */
-      width: 300px;
+      bottom: 130px; /* Adjust based on footer height */
+      left: 85px;
+      width: 350px;
       background-color: var(--bg-light);
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
       z-index: 1000;
       color: var(--text-primary);
-      transition: left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: left 0.3s ease;
     }
-    #sidebar:hover #notification-panel {
-        left: 265px; /* Adjust on hover */
+    #sidebar.expanded #notification-panel {
+        left: 265px;
     }
     .panel-item {
       padding: 12px 15px;
       border-bottom: 1px solid var(--border-color);
+      font-size: 0.9em;
     }
     .panel-item:last-child {
       border-bottom: none;
@@ -247,25 +255,41 @@
           <span class="nav-text">Réglages Notifs</span>
         </a>
       </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Gamification</div>
+        <a href="#" class="nav-link" target="contenu_principal" title="Profil">
+          <span class="nav-icon">👤</span>
+          <span class="nav-text">Profil</span>
+        </a>
+        <a href="#" class="nav-link" target="contenu_principal" title="Inventaire">
+          <span class="nav-icon">🎒</span>
+          <span class="nav-text">Inventaire</span>
+        </a>
+      </div>
     </nav>
     <div id="explorer-content">
       <iframe src="liens.html" style="width: 100%; height: 100%; border: none;"></iframe>
     </div>
     <div id="sidebar-footer">
-      <a href="javascript:void(0);" id="notification-bell" class="nav-link" title="Notifications">
-        <span class="nav-icon">
-          <span id="notification-badge" class="badge" style="display:none;"></span>
-          🔔
-        </span>
-        <span class="nav-text">Notifications</span>
-      </a>
-      <div id="notification-panel" class="panel" style="display:none;">
-        <!-- Notifications will be injected here -->
-      </div>
-      <a href="#" id="explorer-toggle-btn" class="nav-link" title="Explorateur">
-        <span class="nav-icon">🗂️</span>
-        <span class="nav-text">Explorateur</span>
-      </a>
+        <a href="#" id="explorer-toggle-btn" class="nav-link" title="Explorateur">
+            <span class="nav-icon">🗂️</span>
+            <span class="nav-text">Explorateur</span>
+        </a>
+        <a href="javascript:void(0);" id="notification-bell" class="nav-link" title="Notifications">
+            <span class="nav-icon">
+              <span id="notification-badge" class="badge" style="display:none;"></span>
+              🔔
+            </span>
+            <span class="nav-text">Notifications</span>
+        </a>
+        <div id="notification-panel" class="panel" style="display:none;">
+            <!-- Notifications will be injected here -->
+        </div>
+        <a href="#" id="sidebar-toggle-btn" class="nav-link" title="Réduire la barre">
+            <span class="nav-icon">↔️</span>
+            <span class="nav-text">Réduire</span>
+        </a>
     </div>
   </div>
 
@@ -283,6 +307,7 @@
   <script>
     const sidebar = document.getElementById('sidebar');
     const explorerToggleBtn = document.getElementById('explorer-toggle-btn');
+    const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
     const mainNavLinks = document.querySelectorAll('#sidebar-nav .nav-link');
 
     // Gère le clic sur les liens de navigation principaux
@@ -298,6 +323,12 @@
     explorerToggleBtn.addEventListener('click', (e) => {
       e.preventDefault();
       sidebar.classList.toggle('explorer-open');
+    });
+
+    // Gère le redimensionnement de la sidebar
+    sidebarToggleBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        sidebar.classList.toggle('expanded');
     });
 
     // --- Notification Center Logic ---
