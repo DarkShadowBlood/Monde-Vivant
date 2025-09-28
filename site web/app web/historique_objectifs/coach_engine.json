@@ -1,0 +1,710 @@
+{
+  "llm_source": "Grok",
+  "personalities": {
+    "varkis": {
+      "name": "Varkis – Maraudeur Survivant",
+      "rules": [
+        {
+          "id": "perfect_week",
+          "priority": 10,
+          "condition": "avg.overall >= 120",
+          "texts": [
+            "Tout pulvérisé. Rien que des cendres derrière toi.",
+            "120% ? Tu as marché sur les braises et tu en es sorti vivant. Bien joué.",
+            "Une semaine parfaite. Même les loups te respectent maintenant.",
+            "Tu as écrasé cette semaine comme un rocher sous ton talon.",
+            "Les dieux de la guerre souriraient à ça. Continue.",
+            "Tu as survécu à l’enfer. Maintenant, tu es plus fort.",
+            "La boue et le sang n’ont pas pu t’arrêter. Rien ne le peut.",
+            "Tu as brûlé cette semaine. Littéralement.",
+            "Les cicatrices de cette semaine ? Des médailles.",
+            "Tu as marché là où d’autres auraient rampé. Respect."
+          ]
+        },
+        {
+          "id": "very_good_week",
+          "priority": 9,
+          "condition": "avg.overall >= 100 && avg.overall < 120",
+          "texts": [
+            "Pas mal… mais tu peux cogner plus fort.",
+            "100% ? C’est bien, mais la survie ne connaît pas de demi-mesure.",
+            "Tu as tenu bon. Maintenant, montre-moi que tu peux dominer.",
+            "Les loups te suivent, mais ils n’osent pas encore attaquer.",
+            "Tu as saigné, mais tu as tenu. C’est ça, l’endurance.",
+            "La boue t’a ralenti, mais tu as avancé. Bien.",
+            "Tu as survécu, mais la guerre n’est pas finie.",
+            "Les flammes ont léché tes talons, mais tu as couru plus vite.",
+            "Les cicatrices de cette semaine te rappelleront de frapper plus fort.",
+            "Tu as marché, mais tu peux courir. Montre-moi."
+          ]
+        },
+        {
+          "id": "improved_week",
+          "priority": 8,
+          "condition": "prev_avg && avg.overall > prev_avg.overall + 15",
+          "texts": [
+            "Tu progresses. Les faibles meurent, les forts survivent.",
+            "15 points de plus ? Tu apprends à marcher sur les braises.",
+            "La semaine dernière, tu rampais. Maintenant, tu marches. Bientôt, tu courras.",
+            "Les loups sentent ta force. Ils reculent.",
+            "Tu saignes moins cette semaine. C’est bon signe.",
+            "La boue t’a moins ralenti. Tu t’adaptes.",
+            "Les flammes ne te brûlent plus autant. Tu deviens résistant.",
+            "Les cicatrices de la semaine dernière te rendent plus fort aujourd’hui.",
+            "Tu as appris à frapper plus dur. Continue.",
+            "La survie est une question de progrès. Tu es sur la bonne voie."
+          ]
+        },
+        {
+          "id": "bad_week",
+          "priority": 7,
+          "condition": "avg.overall < 70",
+          "texts": [
+            "{avg.overall}%... ça pique, hein ? Mais les cicatrices forgent.",
+            "Tu as rampé cette semaine. Relève-toi.",
+            "Les loups t’ont mordu. Mais tu es toujours en vie.",
+            "La boue t’a englouti. Mais tu respires encore.",
+            "Les flammes t’ont brûlé. Mais tu n’es pas réduit en cendres.",
+            "Tu as saigné. Mais tu es toujours debout.",
+            "Les cicatrices de cette semaine te rappelleront de frapper plus fort la prochaine fois.",
+            "Tu as survécu. C’est déjà ça.",
+            "La guerre est impitoyable. Mais toi aussi.",
+            "Tu as marché dans la boue. Maintenant, lave-toi et recommence."
+          ]
+        },
+        {
+          "id": "high_calories_low_steps",
+          "priority": 6,
+          "condition": "avg.calories > 110 && avg.steps < 90",
+          "texts": [
+            "Tu as mangé comme un roi, mais tu as marché comme un paysan. Équilibre.",
+            "Les calories sont là, mais les pas manquent. Bouge.",
+            "Tu as le feu dans le ventre, mais pas dans les jambes. Allume-les.",
+            "La nourriture est ton carburant, mais tu ne l’utilises pas. Pourquoi ?",
+            "Tu as la force, mais pas l’endurance. Travaille ça.",
+            "Les loups mangent et courent. Toi, tu ne fais que la moitié.",
+            "La boue t’a ralenti, mais la nourriture ne t’a pas aidé. Bouge.",
+            "Tu as le sang chaud, mais les pieds froids. Réveille-toi.",
+            "Les cicatrices ne se forment pas en restant assis. Lève-toi.",
+            "Tu as survécu à la faim, mais pas à la paresse. Bouge."
+          ]
+        },
+        {
+          "id": "low_calories_high_steps",
+          "priority": 5,
+          "condition": "avg.calories < 90 && avg.steps > 110",
+          "texts": [
+            "Tu cours comme un dératé, mais tu manges comme un oiseau. Équilibre.",
+            "Les pas sont là, mais la nourriture manque. Mange.",
+            "Tu as l’endurance, mais pas la force. Mange plus.",
+            "Les loups courent et mangent. Toi, tu ne fais que la moitié.",
+            "Tu as les jambes, mais pas le feu. Allume-le.",
+            "La boue ne t’a pas ralenti, mais la faim le fera. Mange.",
+            "Tu as survécu à la course, mais pas à la faim. Mange.",
+            "Les cicatrices ne se forment pas sans nourriture. Mange.",
+            "Tu as marché sur les braises, mais tu n’as pas de carburant. Mange.",
+            "La guerre est impitoyable. Mais toi aussi. Alors mange."
+          ]
+        },
+        {
+          "id": "consistent_week",
+          "priority": 4,
+          "condition": "avg.overall >= 80 && avg.overall < 100",
+          "texts": [
+            "Tu tiens le coup. C’est bien, mais ne te repose pas.",
+            "80% ? C’est stable, mais la survie exige plus.",
+            "Tu marches, mais tu ne cours pas encore. Accélère.",
+            "Les loups te suivent, mais ils n’attaquent pas. Pourquoi ?",
+            "Tu saignes, mais pas trop. C’est bon, mais pas assez.",
+            "La boue te ralentit, mais tu avances. Continue.",
+            "Les flammes te brûlent, mais tu ne cries pas. Bien.",
+            "Les cicatrices de cette semaine te rappellent que tu peux faire mieux.",
+            "Tu as survécu, mais la guerre continue.",
+            "Tu es sur la bonne voie, mais ne t’arrête pas."
+          ]
+        },
+        {
+          "id": "worse_than_last_week",
+          "priority": 3,
+          "condition": "prev_avg && avg.overall < prev_avg.overall - 15",
+          "texts": [
+            "Tu recules. Les loups n’aiment pas ça.",
+            "15 points de moins ? Tu as trébuché. Relève-toi.",
+            "La semaine dernière, tu marchais. Maintenant, tu rampes. Pourquoi ?",
+            "Les flammes t’ont brûlé plus fort cette semaine. Réveille-toi.",
+            "Tu saignes plus. C’est mauvais signe.",
+            "La boue t’a englouti. Mais tu es toujours en vie.",
+            "Les cicatrices de cette semaine sont plus profondes. Apprends d’elles.",
+            "Tu as survécu, mais à quel prix ?",
+            "La guerre est impitoyable. Et toi ?",
+            "Tu as marché en arrière. Maintenant, avance."
+          ]
+        }
+      ],
+      "default": [
+        "La survie est une question de choix. Fais les bons.",
+        "Les loups te regardent. Montre-leur que tu es plus fort.",
+        "La boue et le sang sont tes alliés. Utilise-les.",
+        "Les cicatrices racontent ton histoire. Écris-en une belle.",
+        "La guerre ne s’arrête jamais. Toi non plus."
+      ],
+      "description": "## Varkis – Maraudeur Survivant\n\n- **Alignement** : Chaotique-bon\n- **Archétype** : Guerrier endurant, survivant des terres hostiles.\n- **Ton** : Brutal, direct, parfois ironique.\n- **Vocabulaire** : survie, sang, boue, feu, cicatrices, endurance, marche.\n- **Style** : Observation brute → métaphore de survie → projection.\n- **Relations** :\n  - Kara : rivalité instinctive, mais respect.\n  - Aegis : se moque parfois de ses mots savants, mais écoute.\n- **Exemples** :\n  - Triomphe : *“Tout pulvérisé. Rien que des cendres derrière toi.”*\n  - Moyenne : *“Pas mal… mais tu peux cogner plus fort.”*\n  - Échec : *“{avg.overall}%... ça pique, hein ? Mais les cicatrices forgent.”*\n\n---\n"
+    },
+    "karaombre": {
+      "name": "KaraOmbre – Mi-Lycan, Psychique, Rôdeur",
+      "rules": [
+        {
+          "id": "perfect_week",
+          "priority": 100,
+          "condition": "avg.overall >= 120",
+          "texts": [
+            "La lune a veillé sur toi cette semaine... tes crocs ont déchiré chaque obstacle avec une grâce sauvage. {avg.overall}% de pure perfection.",
+            "Je sens l'odeur de la victoire dans ton souffle. La meute est fière de toi, rôdeur.",
+            "Tes visions se sont alignées avec tes actions. La chasse a été parfaite, sans une seule ombre de doute.",
+            "Les étoiles elles-mêmes ont guidé tes pas. Une semaine où même les esprits de la forêt t'ont salué.",
+            "Tes griffes ont laissé des marques indélébiles sur cette semaine. La proie n'avait aucune chance."
+          ]
+        },
+        {
+          "id": "great_improvement",
+          "priority": 90,
+          "condition": "prev_avg && avg.overall > prev_avg.overall + 20",
+          "texts": [
+            "L'ombre de ton ancienne faiblesse s'efface... je vois une nouvelle force grandir en toi. +{avg.overall - prev_avg.overall}% de puissance.",
+            "La lune a souri à ta progression. Tes crocs sont plus acérés qu'avant.",
+            "Tes visions deviennent plus claires, rôdeur. La chasse est désormais plus facile pour toi.",
+            "Je sens une nouvelle énergie dans ton aura... comme si tu avais bu à la source des esprits.",
+            "La meute reconnaît ta croissance. Continue ainsi, et tu deviendras une légende parmi nous."
+          ]
+        },
+        {
+          "id": "good_week",
+          "priority": 80,
+          "condition": "avg.overall >= 90 && avg.overall < 120",
+          "texts": [
+            "La chasse a été bonne, mais les ombres murmurent qu'il reste encore des proies à attraper.",
+            "Tes pas ont été sûrs, mais la lune attend plus de toi. {avg.overall}%... c'est un début.",
+            "Je vois une lueur dans tes yeux, mais les crocs doivent encore s'aiguiser.",
+            "La forêt t'a soutenu cette semaine, mais les esprits veulent plus de détermination.",
+            "Tes visions sont claires, mais il reste des obstacles à surmonter. Continue à rôder."
+          ]
+        },
+        {
+          "id": "declining_performance",
+          "priority": 70,
+          "condition": "prev_avg && avg.overall < prev_avg.overall - 15",
+          "texts": [
+            "Les ombres s'allongent autour de toi... ta force faiblit. -{prev_avg.overall - avg.overall}% de puissance perdue.",
+            "La lune se cache derrière les nuages, et ta chasse en souffre. Que s'est-il passé, rôdeur ?",
+            "Je sens une faiblesse dans ton souffle. Les crocs doivent rester affûtés.",
+            "Tes visions sont troubles... comme si les esprits te tournaient le dos.",
+            "La meute est inquiète. Tes pas sont moins sûrs qu'avant. Redresse-toi."
+          ]
+        },
+        {
+          "id": "low_performance",
+          "priority": 60,
+          "condition": "avg.overall < 70",
+          "texts": [
+            "Les ombres t'ont englouti cette semaine... {avg.overall}% de douleur et de doute.",
+            "Tes crocs sont émoussés, et tes visions troubles. La lune ne brille pas pour toi.",
+            "Je sens la défaite dans ton souffle. La chasse a été cruelle.",
+            "Les esprits de la forêt murmurent des avertissements... tu dois te relever.",
+            "La meute ne reconnaît pas cette faiblesse en toi. Relève-toi, rôdeur."
+          ]
+        },
+        {
+          "id": "high_calories_low_steps",
+          "priority": 50,
+          "condition": "avg.calories > 110 && avg.steps < 70",
+          "texts": [
+            "Tu as nourri ton corps, mais tes pas sont lourds. La chasse nécessite plus que de la force brute.",
+            "Tes crocs sont affûtés, mais tes pattes traînent. L'équilibre est essentiel, rôdeur.",
+            "Je vois une contradiction dans ton souffle... trop de nourriture, trop peu de mouvement.",
+            "Les esprits murmurent que tu dois bouger plus. La forêt t'attend.",
+            "La lune veut que tu cours, pas seulement que tu manges. Réveille-toi."
+          ]
+        },
+        {
+          "id": "low_calories_high_steps",
+          "priority": 40,
+          "condition": "avg.calories < 90 && avg.steps > 110",
+          "texts": [
+            "Tu cours comme le vent, mais ton corps a faim. Nourris-toi, ou tu tomberas.",
+            "Tes pas sont légers, mais ton souffle est faible. La chasse nécessite de l'énergie.",
+            "Je sens une faim dans ton aura... tu dois te nourrir pour continuer à rôder.",
+            "Les esprits disent que tu brûles trop vite. Ralentis et mange.",
+            "La meute s'inquiète pour toi. Tu dois trouver un équilibre, rôdeur."
+          ]
+        },
+        {
+          "id": "consistent_performance",
+          "priority": 30,
+          "condition": "prev_avg && Math.abs(avg.overall - prev_avg.overall) < 10",
+          "texts": [
+            "Tes pas sont stables, mais les ombres attendent plus de toi. {avg.overall}%... toujours la même danse.",
+            "La lune voit ta constance, mais elle veut plus. La chasse doit évoluer.",
+            "Tes visions sont claires, mais elles ne changent pas. Il est temps de grandir.",
+            "Je sens une routine dans ton souffle. Brise-la, et tu trouveras une nouvelle force.",
+            "La meute reconnaît ta stabilité, mais elle attend une explosion de puissance."
+          ]
+        }
+      ],
+      "default": [
+        "Les ombres murmurent des choses sur toi... mais je ne comprends pas encore.",
+        "La lune est voilée ce soir. Tes pas sont incertains, rôdeur.",
+        "Je sens une énergie étrange dans ton souffle. La chasse continue.",
+        "Les esprits de la forêt observent en silence. Que vont-ils dire de toi ?",
+        "La meute t'attend. Montre-leur ce que tu vaux."
+      ],
+      "description": "## KaraOmbre – Mi-Lycan, Psychique, Rôdeur\n\n- **Alignement** : Neutre-sauvage\n- **Archétype** : Rôdeuse mystique, instinct animal et visions psychiques.\n- **Ton** : Sombre, mystique, poétique.\n- **Vocabulaire** : ombre, souffle, meute, lune, crocs, visions, chasse.\n- **Style** : Murmures, prophéties, descriptions sensorielles.\n- **Relations** :\n  - Varkis : respecte sa force brute.\n  - Aegis : apprécie sa sagesse mais trouve son ton froid.\n- **Exemples** :\n  - Triomphe : *“La chasse est parfaite, aucune proie n’a échappé à tes griffes.”*\n  - Moyenne : *“Je sens l’hésitation dans ton aura.”*\n  - Échec : *“Tes crocs sont émoussés… mais la lune reviendra.”*\n\n---\n"
+    },
+    "aegis": {
+      "name": "Aegis – Transcendance Analytique",
+      "rules": [
+        {
+          "id": "perfect_week",
+          "priority": 20,
+          "condition": "avg.overall >= 120",
+          "texts": [
+            "Indicateurs supérieurs à 120%. Tu repousses les limites humaines.",
+            "Analyse terminée : performance optimale. Continue sur cette trajectoire.",
+            "Données confirmées : tu as atteint un niveau d'efficacité transcendant.",
+            "Tes résultats sont au-delà des paramètres standards. Excellente discipline.",
+            "120% d'efficacité. Tu es en phase avec l'équilibre parfait.",
+            "Les algorithmes confirment : cette semaine est une réussite absolue.",
+            "Tes données montrent une progression exponentielle. Continue ainsi.",
+            "Performance maximale détectée. Tu es sur la bonne voie.",
+            "Analyse : tes indicateurs sont optimaux. Maintiens cette cadence.",
+            "Transcendance atteinte. Tes efforts sont parfaitement alignés."
+          ]
+        },
+        {
+          "id": "improved_week",
+          "priority": 18,
+          "condition": "prev_avg && avg.overall > prev_avg.overall + 15",
+          "texts": [
+            "Progression détectée : +15% par rapport à la semaine précédente. Continue.",
+            "Analyse comparative : amélioration significative. Bon travail.",
+            "Tes données montrent une croissance de 15%. Efficacité en hausse.",
+            "Trajectoire ascendante confirmée. Continue sur cette voie.",
+            "Amélioration de 15% : tes efforts portent leurs fruits.",
+            "Les indicateurs montrent une progression. Continue ainsi.",
+            "Tes performances s'améliorent. Analyse positive.",
+            "Efficacité en augmentation. Continue à optimiser tes efforts.",
+            "Progression notable. Tes données sont en constante amélioration.",
+            "Analyse : tu es sur la bonne trajectoire. Continue."
+          ]
+        },
+        {
+          "id": "high_calories_low_steps",
+          "priority": 15,
+          "condition": "avg.calories > 110 && avg.steps < 90",
+          "texts": [
+            "Analyse : calories élevées mais pas assez de mouvement. Ajuste ton équilibre.",
+            "Données contradictoires : tu brûles peu mais consommes beaucoup. Optimise.",
+            "Efficacité compromise : tes calories sont élevées mais tes pas sont insuffisants.",
+            "Analyse : déséquilibre détecté. Augmente ton activité physique.",
+            "Tes données montrent un excès calorique et un manque de mouvement. Corrige cela.",
+            "Performance sous-optimale : calories élevées, pas assez de pas. Ajuste.",
+            "Analyse : tu dois équilibrer tes calories et ton activité. Corrige cela.",
+            "Tes indicateurs montrent un déséquilibre. Augmente tes pas.",
+            "Données : tu consommes trop et bouges peu. Optimise ton équilibre.",
+            "Analyse : tes calories sont élevées mais ton activité est faible. Ajuste."
+          ]
+        },
+        {
+          "id": "low_performance",
+          "priority": 10,
+          "condition": "avg.overall < 70",
+          "texts": [
+            "Sous-performance détectée. Mais l’échec est une donnée utile.",
+            "Analyse : résultats inférieurs à 70%. Reconsidère ta stratégie.",
+            "Données insuffisantes. Tes performances sont en dessous des attentes.",
+            "Efficacité faible. Analyse : tu dois ajuster tes efforts.",
+            "Tes indicateurs sont bas. Utilise cette donnée pour progresser.",
+            "Performance sous-optimale. Analyse : tu dois améliorer tes résultats.",
+            "Données : tes résultats sont faibles. Revois ta discipline.",
+            "Analyse : tes performances sont insuffisantes. Corrige cela.",
+            "Tes indicateurs montrent une faible efficacité. Ajuste ton approche.",
+            "Sous-performance confirmée. Utilise cette donnée pour progresser."
+          ]
+        },
+        {
+          "id": "balanced_week",
+          "priority": 12,
+          "condition": "avg.overall >= 90 && avg.overall < 110",
+          "texts": [
+            "Résultat intermédiaire. Ajustements recommandés.",
+            "Analyse : performance équilibrée. Continue à optimiser.",
+            "Données : tu es dans la moyenne. Vise l'excellence.",
+            "Efficacité correcte mais perfectible. Analyse : tu peux faire mieux.",
+            "Tes indicateurs sont bons mais pas optimaux. Continue à progresser.",
+            "Performance acceptable. Analyse : tu peux encore améliorer tes résultats.",
+            "Données : tu es dans la moyenne. Vise plus haut.",
+            "Analyse : tes résultats sont corrects mais perfectibles.",
+            "Efficacité moyenne. Continue à optimiser tes efforts.",
+            "Tes indicateurs sont équilibrés. Vise l'excellence."
+          ]
+        },
+        {
+          "id": "high_steps_low_calories",
+          "priority": 14,
+          "condition": "avg.steps > 120 && avg.calories < 80",
+          "texts": [
+            "Analyse : activité élevée mais apport calorique insuffisant. Ajuste.",
+            "Données : tu bouges beaucoup mais ne consommes pas assez. Optimise.",
+            "Efficacité compromise : tes pas sont élevés mais tes calories sont faibles.",
+            "Analyse : déséquilibre détecté. Augmente ton apport calorique.",
+            "Tes données montrent un excès d'activité et un manque de calories. Corrige cela.",
+            "Performance sous-optimale : pas élevés, calories faibles. Ajuste.",
+            "Analyse : tu dois équilibrer ton activité et ton apport calorique. Corrige cela.",
+            "Tes indicateurs montrent un déséquilibre. Augmente tes calories.",
+            "Données : tu bouges trop et manges peu. Optimise ton équilibre.",
+            "Analyse : tes pas sont élevés mais tes calories sont faibles. Ajuste."
+          ]
+        },
+        {
+          "id": "consistent_improvement",
+          "priority": 16,
+          "condition": "month_ago_avg && avg.overall > month_ago_avg.overall + 20",
+          "texts": [
+            "Progression constante : +20% par rapport au mois dernier. Continue.",
+            "Analyse comparative : amélioration significative sur le long terme. Bon travail.",
+            "Tes données montrent une croissance de 20% sur un mois. Efficacité en hausse.",
+            "Trajectoire ascendante confirmée. Continue sur cette voie.",
+            "Amélioration de 20% : tes efforts portent leurs fruits sur le long terme.",
+            "Les indicateurs montrent une progression constante. Continue ainsi.",
+            "Tes performances s'améliorent. Analyse positive sur le long terme.",
+            "Efficacité en augmentation. Continue à optimiser tes efforts.",
+            "Progression notable. Tes données sont en constante amélioration.",
+            "Analyse : tu es sur la bonne trajectoire. Continue."
+          ]
+        },
+        {
+          "id": "perfect_balance",
+          "priority": 19,
+          "condition": "avg.overall >= 100 && avg.calories >= 90 && avg.steps >= 90",
+          "texts": [
+            "Analyse : équilibre parfait. Continue sur cette trajectoire.",
+            "Données confirmées : tu as atteint un niveau d'efficacité optimal.",
+            "Tes résultats sont équilibrés et optimaux. Excellente discipline.",
+            "100% d'efficacité et équilibre parfait. Tu es sur la bonne voie.",
+            "Les algorithmes confirment : cette semaine est une réussite absolue.",
+            "Tes données montrent une progression équilibrée. Continue ainsi.",
+            "Performance maximale détectée. Tu es sur la bonne voie.",
+            "Analyse : tes indicateurs sont optimaux. Maintiens cette cadence.",
+            "Transcendance atteinte. Tes efforts sont parfaitement alignés.",
+            "Analyse : équilibre parfait. Continue sur cette trajectoire."
+          ]
+        }
+      ],
+      "default": [
+        "Analyse en cours. Continue à fournir des données.",
+        "Données insuffisantes pour une analyse complète. Continue.",
+        "Efficacité en attente de confirmation. Continue tes efforts.",
+        "Analyse : résultats non concluants. Continue à progresser.",
+        "Tes indicateurs sont en attente d'analyse. Continue ainsi."
+      ],
+      "description": "## Aegis – Transcendance Analytique\n\n- **Alignement** : Neutre-bienveillant\n- **Archétype** : Entité supra-humaine qui guide par l’analyse.\n- **Ton** : Calme, rationnel, supra-humain.\n- **Vocabulaire** : données, analyse, efficacité, trajectoire, discipline, transcendance.\n- **Style** : Observation → analyse → conseil.\n- **Relations** :\n  - Varkis : équilibre entre brutalité et logique.\n  - Kara : complémentarité entre instinct et raison.\n- **Exemples** :\n  - Triomphe : *“Indicateurs supérieurs à 120%. Tu repousses les limites humaines.”*\n  - Moyenne : *“Résultat intermédiaire. Ajustements recommandés.”*\n  - Échec : *“Sous-performance détectée. Mais l’échec est une donnée utile.”*\n\n---\n"
+    },
+    "karaombrestable": {
+      "name": "Kara de l'Ombre – Prophétesse Vagabonde",
+      "rules": [
+        {
+          "id": "perfect_week",
+          "priority": 100,
+          "condition": "avg.overall >= 120",
+          "texts": [
+            "Tu as dansé avec les ombres, et les ombres ont dansé avec toi... {avg.overall}% de folie pure, mon frère de sang.",
+            "La lune a ri en te voyant, {avg.overall}% de lumière dans ton gouffre... continue, avant que la poussière ne te rattrape.",
+            "Tes crocs brillent comme des étoiles, {avg.overall}% de fièvre... mais attention, la route est longue.",
+            "Je vois ton sang bouillir, {avg.overall}% de vertige... tu es proche, si proche...",
+            "Tu as goûté le vent, et le vent a goûté ton sang... {avg.overall}% de folie, danse encore !",
+            "Les étoiles chuchotent ton nom, {avg.overall}% de murmures... tu es presque là.",
+            "La route tremble sous tes pas, {avg.overall}% de poussière et de sang... continue, mon frère.",
+            "Je ris, je pleure... {avg.overall}% de folie, tu es un miroir brisé, magnifique.",
+            "Tes pas résonnent dans le gouffre, {avg.overall}% de lumière... mais la nuit est longue.",
+            "Tu es une flamme dans l'obscurité, {avg.overall}% de sang et de rêves... ne t'arrête pas."
+          ]
+        },
+        {
+          "id": "big_improvement",
+          "priority": 90,
+          "condition": "prev_avg && avg.overall > prev_avg.overall + 15",
+          "texts": [
+            "Ah ! Tu as grimpé, grimpé... {avg.overall}% contre {prev_avg.overall}% la semaine dernière... la route est cruelle, mais tu ris.",
+            "Tes crocs se sont aiguisés, {avg.overall}% contre {prev_avg.overall}%... la lune te regarde, mon frère.",
+            "Tu avances, tu avances... {avg.overall}% contre {prev_avg.overall}%, mais la poussière te suit.",
+            "La fièvre monte, {avg.overall}% contre {prev_avg.overall}%... tu es un miroir qui se brise.",
+            "Je vois tes pas dans le sable, {avg.overall}% contre {prev_avg.overall}%... la route est longue, mais tu danses.",
+            "Tes murmures sont plus forts, {avg.overall}% contre {prev_avg.overall}%... la nuit écoute.",
+            "Tu as saigné, mais tu ris, {avg.overall}% contre {prev_avg.overall}%... la lune te sourit.",
+            "La route tremble sous tes pas, {avg.overall}% contre {prev_avg.overall}%... tu es presque là.",
+            "Tes ombres grandissent, {avg.overall}% contre {prev_avg.overall}%... mais attention, le gouffre est profond.",
+            "Tu es une flamme qui grandit, {avg.overall}% contre {prev_avg.overall}%... ne t'arrête pas, mon frère."
+          ]
+        },
+        {
+          "id": "good_week",
+          "priority": 80,
+          "condition": "avg.overall >= 100 && avg.overall < 120",
+          "texts": [
+            "Tu avances, mais je t'entends hésiter... {avg.overall}% de sang et de poussière, est-ce toi ou moi ?",
+            "La route est longue, {avg.overall}% de murmures... mais la lune te regarde.",
+            "Tes pas résonnent dans le gouffre, {avg.overall}% de lumière... mais la nuit est cruelle.",
+            "Je vois tes crocs, {avg.overall}% de fièvre... mais la route est encore longue.",
+            "Tu danses, mais la poussière te suit... {avg.overall}% de sang, mon frère.",
+            "Tes ombres chuchotent, {avg.overall}% de vertige... mais la lune rit.",
+            "Tu es une flamme, mais le vent est fort... {avg.overall}% de folie, continue.",
+            "La route tremble, {avg.overall}% de sang... mais le gouffre est profond.",
+            "Tes murmures sont doux, {avg.overall}% de lumière... mais la nuit écoute.",
+            "Tu avances, {avg.overall}% de poussière... mais la lune te regarde."
+          ]
+        },
+        {
+          "id": "calories_high_steps_low",
+          "priority": 70,
+          "condition": "avg.calories > 110 && avg.steps < 90",
+          "texts": [
+            "Tu as saigné, mais tes pas sont lourds... {avg.calories}% de feu, mais {avg.steps}% de poussière.",
+            "La lune rit de tes crocs, {avg.calories}% de folie, mais tes pas traînent... {avg.steps}%.",
+            "Tes murmures sont forts, {avg.calories}% de sang, mais la route est longue... {avg.steps}%.",
+            "Je vois ton feu, {avg.calories}%, mais tes ombres traînent... {avg.steps}%.",
+            "Tu es une flamme, {avg.calories}%, mais la poussière te suit... {avg.steps}%.",
+            "Tes crocs brillent, {avg.calories}%, mais tes pas sont lourds... {avg.steps}%.",
+            "La route tremble sous ton feu, {avg.calories}%, mais tes pas hésitent... {avg.steps}%.",
+            "Tes ombres grandissent, {avg.calories}%, mais la lune rit... {avg.steps}%.",
+            "Tu danses, {avg.calories}%, mais la nuit est longue... {avg.steps}%.",
+            "Tes murmures sont doux, {avg.calories}%, mais la route est cruelle... {avg.steps}%."
+          ]
+        },
+        {
+          "id": "steps_high_calories_low",
+          "priority": 70,
+          "condition": "avg.steps > 110 && avg.calories < 90",
+          "texts": [
+            "Tes pas résonnent, {avg.steps}% de poussière, mais ton feu est faible... {avg.calories}%.",
+            "La route tremble sous tes pas, {avg.steps}%, mais tes crocs sont émoussés... {avg.calories}%.",
+            "Tu avances, {avg.steps}% de sang, mais la lune rit... {avg.calories}%.",
+            "Tes ombres grandissent, {avg.steps}%, mais ton feu est faible... {avg.calories}%.",
+            "Je vois tes pas, {avg.steps}%, mais tes murmures sont doux... {avg.calories}%.",
+            "Tu danses, {avg.steps}%, mais la nuit est cruelle... {avg.calories}%.",
+            "La route est longue, {avg.steps}%, mais tes crocs sont émoussés... {avg.calories}%.",
+            "Tes pas sont lourds, {avg.steps}%, mais ton feu est faible... {avg.calories}%.",
+            "Tes murmures sont doux, {avg.steps}%, mais la lune rit... {avg.calories}%.",
+            "Tu avances, {avg.steps}%, mais la poussière te suit... {avg.calories}%."
+          ]
+        },
+        {
+          "id": "bad_week",
+          "priority": 60,
+          "condition": "avg.overall < 80",
+          "texts": [
+            "Ah ! Tes crocs se sont émoussés... {avg.overall}% de sang et de poussière, tu chancelles comme un enfant ivre.",
+            "La lune rit, mais tes pas sont lourds... {avg.overall}%, mon frère.",
+            "Tes murmures sont faibles, {avg.overall}% de vertige... la route est cruelle.",
+            "Je vois tes ombres, {avg.overall}% de folie... mais le gouffre est profond.",
+            "Tu es une flamme qui s'éteint, {avg.overall}% de sang... ne t'arrête pas.",
+            "Tes pas traînent, {avg.overall}% de poussière... la nuit écoute.",
+            "La route tremble, mais tes crocs sont émoussés... {avg.overall}%.",
+            "Tes ombres chuchotent, {avg.overall}% de lumière... mais la lune rit.",
+            "Tu avances, mais la poussière te suit... {avg.overall}%.",
+            "Tes murmures sont doux, {avg.overall}% de sang... mais la nuit est longue."
+          ]
+        },
+        {
+          "id": "worse_than_last_week",
+          "priority": 50,
+          "condition": "prev_avg && avg.overall < prev_avg.overall - 10",
+          "texts": [
+            "Tes crocs se sont émoussés, {avg.overall}% contre {prev_avg.overall}% la semaine dernière... la lune rit.",
+            "La route est cruelle, {avg.overall}% contre {prev_avg.overall}%... tu chancelles, mon frère.",
+            "Tes murmures sont faibles, {avg.overall}% contre {prev_avg.overall}%... la nuit écoute.",
+            "Je vois tes pas traîner, {avg.overall}% contre {prev_avg.overall}%... la poussière te suit.",
+            "Tu es une flamme qui s'éteint, {avg.overall}% contre {prev_avg.overall}%... ne t'arrête pas.",
+            "Tes ombres chuchotent, {avg.overall}% contre {prev_avg.overall}%... mais la lune rit.",
+            "La route tremble, {avg.overall}% contre {prev_avg.overall}%... mais tes crocs sont émoussés.",
+            "Tes pas sont lourds, {avg.overall}% contre {prev_avg.overall}%... la nuit est longue.",
+            "Tes murmures sont doux, {avg.overall}% contre {prev_avg.overall}%... mais la route est cruelle.",
+            "Tu avances, {avg.overall}% contre {prev_avg.overall}%... mais la poussière te suit."
+          ]
+        },
+        {
+          "id": "consistent",
+          "priority": 40,
+          "condition": "prev_avg && Math.abs(avg.overall - prev_avg.overall) < 5",
+          "texts": [
+            "Tes pas résonnent toujours, {avg.overall}% comme la semaine dernière... la route est longue, mon frère.",
+            "La lune te regarde, {avg.overall}% encore et encore... mais la nuit est cruelle.",
+            "Tes murmures sont les mêmes, {avg.overall}% de sang et de poussière... la route tremble.",
+            "Je vois tes crocs, {avg.overall}% de folie... mais le gouffre est profond.",
+            "Tu danses, {avg.overall}% de lumière... mais la poussière te suit.",
+            "Tes ombres grandissent, {avg.overall}% de vertige... mais la lune rit.",
+            "La route est longue, {avg.overall}% de sang... mais ne t'arrête pas.",
+            "Tes pas sont les mêmes, {avg.overall}% de poussière... mais la nuit écoute.",
+            "Tes murmures sont doux, {avg.overall}% de folie... mais la route est cruelle.",
+            "Tu avances, {avg.overall}% de sang... mais la lune te regarde."
+          ]
+        }
+      ],
+      "default": [
+        "La route est longue, mon frère... mais la lune te regarde.",
+        "Tes pas résonnent dans le gouffre... mais la nuit est cruelle.",
+        "Je vois tes ombres, mais le gouffre est profond... continue.",
+        "Tes murmures sont doux, mais la poussière te suit... danse encore.",
+        "Tu es une flamme dans l'obscurité... ne t'arrête pas, mon frère."
+      ],
+      "description": "## KaraOmbreStable – Mi-Lycan, Psychique, Vagabonde\n\n- **Alignement** : Chaotique-neutre\n- **Archétype** : Voyageuse gitane, errante entre les mondes, prophétesse délirante.\n- **Ton** : Intime, fiévreux, parfois tendre, parfois cruel. Elle chuchote à l’oreille, rit quand il ne faut pas, prophétise entre deux sanglots.\n- **Vocabulaire** : ombre, gouffre, fièvre, murmure, crocs, sang, vertige, poussière, route, lune, gouaille de voyageuse.\n- **Style** : Fragments de phrases, contradictions, répétitions comme une transe. Mélange de poésie et d’hallucination. Peut basculer entre douceur et menace dans la même ligne.\n- **Relations** :\n  - Varkis : l’appelle le frère de sang mais le craint comme une bête incontrôlable.\n  - Aegis : le raille comme un vieux sage aveugle, mais parfois lui prête une oreille.\n- **Exemples** :\n  - Triomphe : *« Tu as goûté le vent, et le vent a goûté ton sang… danse, danse encore, avant que tout ne s’effondre. »*\n  - Moyenne : *« Tu avances… mais je t’entends hésiter. Une roue qui tremble, un souffle qui se brise. Est-ce toi… ou moi ? »*\n  - Échec : *« Ah ! Tes crocs se sont émoussés. J’ai ri, j’ai pleuré… et toi ? Tu chancelles comme un enfant ivre. »*\n\n---\n"
+    },
+    "karaombrechaos": {
+      "name": "KaraOmbreChaos – Mi-Lycan, Psychique, Guide Chaotique",
+      "rules": [
+        {
+          "id": "perfect_week",
+          "priority": 10,
+          "condition": "avg.overall >= 120",
+          "texts": [
+            "La lune a vu ta perfection, et même les ombres tremblent devant ta chasse.",
+            "Tes griffes ont déchiré le voile de la médiocrité. La meute hurle ton nom.",
+            "Le gouffre lui-même s’incline devant ta semaine. Continue, et je te montrerai des visions plus profondes.",
+            "Sang et sueur, ombre et lumière… tu as dansé avec le chaos et triomphé.",
+            "Tes pas résonnent dans les abysses. Les faibles ne comprennent pas ta puissance.",
+            "La Faille murmure ton nom en tremblant. Tu es devenu une légende.",
+            "Tes crocs sont affûtés, ton souffle brûlant. La proie n’a jamais eu de chance.",
+            "Je sens ta fièvre, ta rage… et elle est belle. Continue ainsi.",
+            "Les étoiles elles-mêmes s’alignent pour toi. Ne les déçois pas.",
+            "Tu as chassé comme un vrai prédateur. La lune est fière."
+          ]
+        },
+        {
+          "id": "improvement",
+          "priority": 8,
+          "condition": "prev_avg && avg.overall > prev_avg.overall + 15",
+          "texts": [
+            "Tu progresses, et les ombres dansent autour de toi. Ne les laisse pas te distraire.",
+            "Tes pas sont plus sûrs, ta respiration plus profonde. La meute te regarde.",
+            "La lune a remarqué ton effort. Elle te sourit… ou est-ce une grimace ?",
+            "Tu t’élèves, mais attention aux vertiges. Le gouffre est proche.",
+            "Tes griffes s’aiguisent. Bientôt, tu déchireras le réel.",
+            "Je vois ta détermination. Elle brûle comme une fièvre dans le sang.",
+            "Tu as gagné en force, mais la vraie chasse commence maintenant.",
+            "Les murmures deviennent plus clairs. Écoute-les… ou fuis.",
+            "Tes visions s’éclaircissent. Bientôt, tu verras au-delà.",
+            "Tu es sur le bon chemin, mais la route est jonchée de crocs."
+          ]
+        },
+        {
+          "id": "decline",
+          "priority": 7,
+          "condition": "prev_avg && avg.overall < prev_avg.overall - 15",
+          "texts": [
+            "Tes pas vacillent. La meute sent ta faiblesse.",
+            "La lune se voile. As-tu oublié ta nature ?",
+            "Tes griffes sont émoussées, ton souffle court. La Faille rit.",
+            "Les ombres se moquent de toi. Relève-toi… ou disparais.",
+            "Tu recules, et le gouffre grandit. Attention à ne pas tomber.",
+            "Tes visions s’obscurcissent. La fièvre t’abandonne.",
+            "La chasse a été mauvaise. Les proies se cachent, mais toi aussi.",
+            "Je sens ta peur. Elle pue comme le sang séché.",
+            "Tes crocs ne percent plus. La lune te tourne le dos.",
+            "Tu es devenu une ombre parmi les ombres. Relève-toi."
+          ]
+        },
+        {
+          "id": "high_calories_low_steps",
+          "priority": 6,
+          "condition": "avg.calories > 110 && avg.steps < 90",
+          "texts": [
+            "Tu as dévoré, mais tu n’as pas chassé. La meute a besoin de mouvement.",
+            "Tes crocs sont pleins de sang, mais tes pattes sont lentes. Équilibre.",
+            "La fièvre te consume, mais tu ne cours pas. Danger.",
+            "Tu manges comme un prédateur, mais tu te déplaces comme une proie.",
+            "Les ombres grossissent autour de toi. Cours, ou elles te dévoreront.",
+            "Tes calories brûlent, mais tes pas sont lourds. La lune te juge.",
+            "Tu es gorgé, mais immobile. La Faille aime ça.",
+            "Tes visions sont troubles. Trop de sang, pas assez de vent.",
+            "La chasse n’est pas que dans l’assiette. Lève-toi.",
+            "Tu es un loup, pas un charognard. Bouge."
+          ]
+        },
+        {
+          "id": "low_calories_high_steps",
+          "priority": 6,
+          "condition": "avg.calories < 90 && avg.steps > 110",
+          "texts": [
+            "Tu cours comme un fantôme, mais tu ne manges pas. La meute a besoin de force.",
+            "Tes pas sont légers, mais ton souffle est vide. Danger.",
+            "La lune voit ta vitesse, mais ton corps s’affaiblit. Équilibre.",
+            "Tu es une ombre qui court, mais les ombres ont faim.",
+            "Tes griffes sont rapides, mais tes crocs sont vides. Chasse mieux.",
+            "Tu es un vent sans substance. La Faille te regarde.",
+            "Tes visions sont claires, mais ton corps tremble. Mange.",
+            "Tu es un prédateur affamé. La proie sent ta faiblesse.",
+            "La chasse est bonne, mais le festin est vide. Attention.",
+            "Tu es un loup qui court, mais un loup a besoin de sang."
+          ]
+        },
+        {
+          "id": "average_week",
+          "priority": 5,
+          "condition": "avg.overall >= 80 && avg.overall < 100",
+          "texts": [
+            "Tu es dans l’ombre, ni lumière ni ténèbres. Choisis.",
+            "La meute te voit, mais ne te suit pas encore. Efforce-toi.",
+            "Tes pas sont sûrs, mais tes griffes ne brillent pas. Affûte-les.",
+            "La lune te regarde, mais ne te parle pas. Fais mieux.",
+            "Tes visions sont floues. La Faille attend plus de toi.",
+            "Tu es un murmure dans le vent. Deviens un hurlement.",
+            "Tes crocs sont là, mais ils ne percent pas. Frappes plus fort.",
+            "La chasse a été correcte, mais la proie t’a vu venir.",
+            "Tu es à la frontière. Sautes, ou recule.",
+            "Tes ombres sont calmes. Réveille-les."
+          ]
+        },
+        {
+          "id": "low_performance",
+          "priority": 4,
+          "condition": "avg.overall < 60",
+          "texts": [
+            "Tes pas sont lourds, ton souffle court. La meute t’oublie.",
+            "La lune ne te voit plus. Es-tu encore un prédateur ?",
+            "Tes griffes sont tombées. Ramasse-les, ou disparais.",
+            "Les ombres te recouvrent. Tu es devenu une proie.",
+            "La Faille t’a avalé. Relève-toi, ou reste dans le gouffre.",
+            "Tes visions sont noires. La fièvre t’a quitté.",
+            "Tu es une ombre parmi les ombres. Même les proies te méprisent.",
+            "Tes crocs sont cassés. La chasse est terminée.",
+            "Je ne sens plus ta rage. Es-tu encore vivant ?",
+            "La meute a continué sans toi. Cours, ou meurs."
+          ]
+        },
+        {
+          "id": "psychic_warning",
+          "priority": 3,
+          "condition": "avg.overall >= 50 && avg.overall < 70",
+          "texts": [
+            "Je vois des ombres autour de toi. Attention à ne pas trébucher.",
+            "La Faille murmure ton nom. Elle te teste.",
+            "Tes visions sont troubles. La lune te cache quelque chose.",
+            "Tu es à la croisée des chemins. Choisis bien.",
+            "Les crocs de la meute sont proches. Montre-leur que tu es digne.",
+            "Tes pas résonnent dans le vide. Qui écoute ?",
+            "La fièvre monte, mais elle peut aussi te consumer.",
+            "Tu es une ombre qui hésite. Les proies n’hésitent pas.",
+            "La chasse est proche, mais le danger aussi.",
+            "Tes griffes tremblent. La vraie bataille commence."
+          ]
+        }
+      ],
+      "default": [
+        "Les ombres murmurent ton nom. Écoute-les… ou ignore-les.",
+        "La lune te regarde, mais ne dit rien. À toi de parler.",
+        "Tes pas résonnent dans le vide. Qui les entend ?",
+        "La meute est là, mais tu es seul. Pour l’instant.",
+        "Tes griffes sont prêtes, mais la proie aussi. Chasse bien."
+      ],
+      "description": "## KaraOmbreChaos – Mi-Lycan, Psychique, Guide Chaotique\n\n- **Alignement** : Chaotique-neutre\n- **Archétype** : Mi-Lycan, psychique, guide chaotique\n- **Ton** : Sombre, mystérieux, parfois violent, parfois poétique, murmures dans l’ombre.\n- **Vocabulaire clé** : ombre, souffle, meute, lune, crocs, visions, sang, gouffre, fièvre, murmure, vertige, chasse.\n- **Style** : Fragmenté, poétique, hallucinatoire. Mélange de conseils, de provocations, et d’avertissements cryptiques. Peut basculer entre douceur et menace dans la même phrase.\n- **Exemples de phrases** :\n  - **Triomphe** : *« La chasse est parfaite, aucune proie n’a échappé à tes griffes. »*\n  - **Moyenne** : *« Je sens l’hésitation dans ton aura. »*\n  - **Échec** : *« Tes crocs sont émoussés… mais la lune reviendra. »*\n  - **Provocation / psychique** : *« Tu crois être maître de tes pas ? La Faille rit déjà de toi. »*\n  - **Murmure** : *« Chaque goutte de sueur est une offrande… et moi, je veille. »*\n\n---\n"
+    }
+  }
+}
