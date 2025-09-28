@@ -65,7 +65,7 @@
       background-color: var(--bg-light);
       color: var(--text-primary);
     }
-    .nav-link.active {
+    #sidebar-nav .nav-link.active {
       background-color: var(--accent);
       color: #fff;
     }
@@ -358,9 +358,11 @@
 
     // Gère le clic sur les liens de navigation principaux
     mainNavLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
+      link.addEventListener('click', function(e) {
+        // Ne pas empêcher la navigation par défaut
+        // e.preventDefault(); // Cette ligne n'est pas nécessaire car c'est un lien standard
         mainNavLinks.forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
+        this.classList.add('active');
         sidebar.classList.remove('explorer-open'); // Ferme l'explorateur si on clique sur un lien principal
       });
     });
