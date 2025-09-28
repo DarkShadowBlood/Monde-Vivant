@@ -176,6 +176,12 @@
         }
 
         document.addEventListener('DOMContentLoaded', fetchAndDisplayMuscleGroups);
+
+        // Empêche les clics de "remonter" vers la page parente (index.html),
+        // ce qui fermait la barre latérale principale de manière incorrecte.
+        document.addEventListener('click', function(event) {
+            event.stopPropagation();
+        }, true); // Use capture phase to catch the event early.
     </script>
 </body>
 </html>
