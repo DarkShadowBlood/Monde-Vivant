@@ -1,0 +1,33 @@
+{
+    "Varkis": {
+        "currencies": {
+            "steel_shards": 26,
+            "soul_gems": 0
+        },
+        "claimed_loot": [
+            "../information/activité/velo/2025-08-31/2025_08_31_velo_1549_workout_log.html"
+        ]
+    },
+    "KaraOmbreChaos": {
+        "currencies": {
+            "steel_shards": 33,
+            "soul_gems": 0,
+            "ancient_components": 0,
+            "map_fragments": 0
+        },
+        "claimed_loot": [
+            "../information/activité/velo/2025-08-31/2025_08_31_velo_1549_workout_log.html"
+        ]
+    },
+    "Aegis": {
+        "currencies": {
+            "steel_shards": 33,
+            "soul_gems": 0,
+            "ancient_components": 0,
+            "map_fragments": 0
+        },
+        "claimed_loot": [
+            "../information/activité/velo/2025-08-31/2025_08_31_velo_1549_workout_log.html"
+        ]
+    }
+}

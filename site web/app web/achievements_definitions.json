@@ -1,0 +1,71 @@
+[
+  {
+    "id": "total_distance_100",
+    "title": "Le Centurion",
+    "description": "Parcourir une distance totale de 100 km, toutes activités confondues.",
+    "icon": "🗺️",
+    "criteria": {
+      "type": "total_distance",
+      "value": 100
+    },
+    "reward": {
+      "xp": 200,
+      "items": {
+        "map_fragments": 5
+      }
+    }
+  },
+  {
+    "id": "first_craft",
+    "title": "Artisan Débutant",
+    "description": "Fabriquer votre tout premier objet à l'atelier.",
+    "icon": "🛠️",
+    "criteria": {
+      "type": "craft_count",
+      "value": 1
+    },
+    "reward": {
+      "xp": 25
+    }
+  },
+  {
+    "id": "level_10",
+    "title": "Adepte",
+    "description": "Atteindre le niveau 10 avec n'importe quel personnage.",
+    "icon": "⭐",
+    "criteria": {
+      "type": "level_reached",
+      "value": 10
+    },
+    "reward": {
+      "currencies": {
+        "soul_gems": 2
+            }
+          }
+        },
+        {
+          "id": "quests_completed_10",
+          "title": "Maître des Quêtes",
+          "description": "Terminer 10 quêtes journalières ou hebdomadaires.",    "icon": "📜",
+    "criteria": {
+      "type": "completed_quests_count",
+      "value": 10
+    },
+    "reward": {
+      "xp": 100,
+      "currencies": { "steel_shards": 50 }
+    }
+  },
+  {
+    "id": "crafted_repair_kit",
+    "title": "L'Ingénieur",
+    "description": "Fabriquer votre premier Kit de Réparation de Base.",
+    "icon": "🔩",
+    "criteria": {
+      "type": "craft_specific_recipe",
+      "recipe_id": "repair_kit_1",
+      "value": 1
+    },
+    "reward": { "xp": 50 }
+  }
+]

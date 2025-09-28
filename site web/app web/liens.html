@@ -5,8 +5,12 @@
     <title>Explorateur de Fichiers</title>
     <style>
         :root {
+            --bg-dark: #1a1a1a;
             --bg-light: #2c2c2c;
             --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --accent: #4CAF50;
+            --border-color: #444;
         }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
@@ -15,12 +19,12 @@
         }
         ul { list-style-type: none; padding-left: 20px; margin-top: 5px; margin-bottom: 0; }
         li { margin-bottom: 5px; }
-        a { text-decoration: none; color: #007bff; }
+        a { text-decoration: none; color: var(--text-primary); }
         a:hover { text-decoration: underline; }
-        .folder-name { font-weight: bold; color: #333; margin-top: 10px; cursor: pointer; }
+        .folder-name { font-weight: bold; color: var(--accent); margin-top: 10px; cursor: pointer; }
         .file-item a:first-child { margin-right: 5px; }
-        .open-btn { text-decoration: none; color: #555; }
-        .open-btn:hover { color: #007bff; }
+        .open-btn { text-decoration: none; color: var(--text-secondary); }
+        .open-btn:hover { color: var(--accent); }
     </style>
 </head>
 <body>
@@ -70,8 +74,14 @@
                     li.appendChild(subUl);
                 } else if (item.type === 'file') {
                     li.className = 'file-item';
+                    let linkHref = item.path;
+                    // Si c'est un fichier markdown, on utilise le viewer
+                    if (item.path.endsWith('.md')) {
+                        linkHref = `md_viewer.html?file=${encodeURIComponent(item.path)}`;
+                    }
+
                     li.innerHTML = `
-                        <a href="${item.path}" target="contenu_principal" onclick="parent.setDernierLien(this.href)">${item.icon} ${item.name}</a>
+                        <a href="${linkHref}" target="contenu_principal" onclick="parent.setDernierLien(this.href)">${item.icon} ${item.name}</a>
                         <a href="${item.path}" target="_blank" class="open-btn" title="Ouvrir dans un onglet">🧾</a>
                     `;
                 }

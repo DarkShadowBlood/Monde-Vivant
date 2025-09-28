@@ -1,0 +1,12 @@
+[
+  {
+    "item_id": "ancient_components",
+    "stock": "infinite",
+    "buy_price": 4
+  },
+  {
+    "item_id": "map_fragments",
+    "stock": 20,
+    "buy_price": 10
+  }
+]

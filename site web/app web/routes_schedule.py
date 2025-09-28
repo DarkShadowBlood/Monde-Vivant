@@ -6,8 +6,8 @@ import re
 import random
 
 from config import SCHEDULED_TASKS_DIR, PORT, SCHEDULED_MESSAGES_PATH, APP_WEB_DIR
-from lore import COACH_LORE
 from utils import append_to_histoire_log, generate_llm_message, send_json_error
+import lore
 
 # Associer des icônes (tags ntfy) à chaque coach
 coach_tags = {
@@ -19,7 +19,8 @@ coach_tags = {
     "KaraOmbreChaos": "skull",
 }
 
-def handle_list_tasks(handler):
+def handle_list_tasks(handler, context):
+    """Liste les tâches planifiées Windows dans le dossier 'Monde Vivant'."""
     try:
         # Exécute schtasks pour obtenir les tâches dans le dossier "Monde Vivant" au format CSV
         command = ['schtasks', '/query', '/tn', 'Monde Vivant\\', '/fo', 'CSV', '/v']
@@ -52,13 +53,33 @@ def handle_list_tasks(handler):
         for row in reader:
             # Approche robuste basée sur la position des colonnes, insensible à la langue
             if not row or len(row) < 4: continue
-            # On ne garde que le nom de la tâche, pas le chemin complet du dossier
+
             task_name_full = row[1] # TaskName est la 2ème colonne (index 1)
             task_name = task_name_full.split('\\')[-1] if '\\' in task_name_full else task_name_full
+
+            # --- NOUVEAU: Lire le script .ps1 pour extraire le coach et le message ---
+            coach = ""
+            message = ""
+            safe_filename = re.sub(r'[\\/*?:"<>|]', "", task_name).replace(" ", "_")
+            script_path = SCHEDULED_TASKS_DIR / f"{safe_filename}.ps1"
+
+            if script_path.exists():
+                try:
+                    with open(script_path, 'r', encoding='utf-8-sig') as f:
+                        content = f.read()
+                        coach_match = re.search(r"\$coach = '([^']*)'", content)
+                        message_match = re.search(r"\$message = @'\n(.*?)\n'@", content, re.DOTALL)
+                        if coach_match: coach = coach_match.group(1)
+                        if message_match: message = message_match.group(1).strip()
+                except Exception:
+                    pass # Ignorer les erreurs de lecture, les champs resteront vides
+
             tasks.append({
                 'name': task_name,
                 'next_run': row[2], # Next Run Time est la 3ème colonne (index 2)
-                'status': row[3]   # Status est la 4ème colonne (index 3)
+                'status': row[3],   # Status est la 4ème colonne (index 3)
+                'coach': coach,
+                'message': message
             })
         
         handler.send_response(200)
@@ -68,7 +89,8 @@ def handle_list_tasks(handler):
     except (subprocess.CalledProcessError, Exception) as e:
         send_json_error(handler, 500, f"Erreur lors de la récupération des tâches: {e}")
 
-def handle_schedule_startup_notifications(handler):
+def handle_schedule_startup_notifications(handler, context):
+    """Active ou désactive la tâche de génération de notifications au démarrage."""
     try:
         content_length = int(handler.headers['Content-Length'])
         post_data = handler.rfile.read(content_length)
@@ -83,7 +105,7 @@ def handle_schedule_startup_notifications(handler):
             script_path = SCHEDULED_TASKS_DIR / script_name
             
             # Ce script fait un simple appel web au serveur local
-            ps_script_content = f\"\"\"
+            ps_script_content = rf"""
 # Script pour déclencher la génération de notifications au démarrage
 $ErrorActionPreference = "Stop"
 
@@ -125,12 +147,18 @@ try {{
         handler.end_headers()
         handler.wfile.write(json.dumps({'success': True, 'message': message}).encode('utf-8'))
     except subprocess.CalledProcessError as e:
-        error_message = f"Erreur de schtasks: {e.stderr.strip()}"
+        stderr_lower = e.stderr.lower()
+        if "accès refusé" in stderr_lower or "access is denied" in stderr_lower:
+            error_message = "Accès refusé. Veuillez lancer le serveur en tant qu'administrateur pour gérer les tâches planifiées."
+        else:
+            error_message = f"Erreur de schtasks: {e.stderr.strip()}"
+            
         send_json_error(handler, 500, error_message)
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de la planification de la tâche de démarrage : {e}")
 
-def handle_preview_schedule(handler):
+def handle_preview_schedule(handler, context):
+    """Génère un aperçu d'un planning de notifications sans le sauvegarder."""
     try:
         content_length = int(handler.headers['Content-Length'])
         post_data = handler.rfile.read(content_length)
@@ -146,7 +174,7 @@ def handle_preview_schedule(handler):
         from datetime import date, timedelta
         start_date = date.today()
         end_date = date.fromisoformat(end_date_str)
-        all_coaches = list(COACH_LORE.keys())
+        all_coaches = list(context.coach_lore.keys())
 
         prompts_to_generate = {}
         current_date = start_date
@@ -156,25 +184,23 @@ def handle_preview_schedule(handler):
             prompts_to_generate[date_str] = {"coach": chosen_coach, "request": request_text}
             current_date += timedelta(days=1)
 
-        system_prompt = f\"\"\"Tu es un générateur de messages de coach. Tu recevras un objet JSON où chaque clé est une date (YYYY-MM-DD) et la valeur contient le nom d'un coach et une requête.
+        system_prompt = rf"""Tu es un générateur de messages de coach. Tu recevras un objet JSON où chaque clé est une date (YYYY-MM-DD) et la valeur contient le nom d'un coach et une requête.
 Pour chaque date, tu dois générer un message de notification concis et percutant, en adoptant la personnalité du coach spécifié.
-Le lore des coachs est le suivant: {json.dumps(COACH_LORE, indent=2)}
+Le lore des coachs est le suivant: {json.dumps(context.coach_lore, indent=2)}
 
 Ta réponse doit être UNIQUEMENT un objet JSON valide. Les clés de l'objet de sortie doivent être les mêmes dates que celles de l'entrée. La valeur pour chaque date doit être le message que tu as généré.
 
 Exemple de réponse attendue:
-{{ "2025-09-20": "Message généré pour le 20...", "2025-09-21": "Message généré pour le 21..." }}\"\"\"
+{{ "2025-09-20": "Message généré pour le 20...", "2025-09-21": "Message généré pour le 21..." }}"""
         user_prompt = json.dumps(prompts_to_generate, indent=2)
 
         generated_messages_str, success = generate_llm_message("Aegis", user_prompt, system_prompt_override=system_prompt)
         if not success:
             raise Exception("Erreur lors de la génération des messages par l'API Mistral.")
 
+        generated_messages = {}
         try:
-            # La réponse de l'IA est un JSON contenant un JSON, nous devons parser deux fois.
-            # C'est un contournement pour la sortie parfois incorrecte de l'IA.
-            outer_json = json.loads(generated_messages_str)
-            generated_messages = outer_json
+            generated_messages = json.loads(generated_messages_str)
         except json.JSONDecodeError:
             raise Exception(f"La réponse de l'IA n'était pas un JSON valide. Réponse: {generated_messages_str}")
 
@@ -194,7 +220,39 @@ Exemple de réponse attendue:
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de la prévisualisation: {e}")
 
-def handle_confirm_schedule(handler):
+def _create_powershell_script_content(current_date, coach_name, message, tag):
+    """Factorise la création du contenu du script PowerShell pour éviter la duplication."""
+    return rf"""# Script de rappel quotidien - Généré par serveur.py
+$ErrorActionPreference = "Stop"
+
+try {{
+    # --- Données du message ---
+    $coach = '{coach_name.replace("'", "''")}'
+    $message = @'
+{message}
+'@
+
+    # --- Module BurntToast (pour notification Windows) ---
+    if (-not (Get-Module -ListAvailable -Name BurntToast)) {{
+        Install-Module -Name BurntToast -Scope CurrentUser -Force -SkipPublisherCheck
+    }}
+    Import-Module BurntToast
+
+    # --- Envoi des notifications ---
+    # 1. Notification ntfy.sh (Format Riche)
+    $ntfyHeaders = @{{
+    "Authorization" = "Bearer tk_7jtopqibezu9c8yz76gzacx8nvz34";
+    "Title" = "Rappel de {coach_name}";
+    "Tags" = "{tag}";
+    }}
+    Invoke-RestMethod -Uri "https://ntfy.sh/monde-vivant-note" -Method Post -Body $message -Headers $ntfyHeaders -ContentType "text/plain; charset=utf-8"
+
+}} catch {{
+    # Gérer les erreurs silencieusement en production, mais les logger si possible.
+}}"""
+
+def handle_confirm_schedule(handler, context):
+    """Crée les tâches planifiées Windows pour un planning de notifications."""
     try:
         content_length = int(handler.headers['Content-Length'])
         post_data = handler.rfile.read(content_length)
@@ -205,8 +263,8 @@ def handle_confirm_schedule(handler):
         trigger = data.get('trigger') # 'time' ou 'startup'
         schedule = data.get('schedule')
 
-        if not all([task_name_prefix, time, schedule]):
-            send_json_error(handler, 400, "Données de planification incomplètes (préfixe, heure, et planning requis).")
+        if not all([task_name_prefix, schedule]) or (trigger == 'time' and not time):
+            send_json_error(handler, 400, "Données de planification incomplètes (préfixe, planning et heure si nécessaire requis).")
             return
 
         created_tasks_count = 0
@@ -222,7 +280,7 @@ def handle_confirm_schedule(handler):
             script_path = SCHEDULED_TASKS_DIR / f"{safe_filename}.ps1"
 
             # Le script PowerShell est maintenant plus complexe
-            ps_script_content = f\"\"\"# Script de rappel au démarrage - Généré par serveur.py
+            ps_script_content = rf"""# Script de rappel au démarrage - Généré par serveur.py
 $ErrorActionPreference = "Stop"
 
 try {{
@@ -260,17 +318,11 @@ if ($null -ne $messageData) {{
         "Authorization" = "Bearer tk_7jtopqibezu9c8yz76gzacx8nvz34";
         "Title" = "Rappel de $coach";
         "Tags" = "{coach_tags.get('$coach', 'bell')}";
-        "Click" = "http://localhost:8000/app%20web/index.html"
     }}
     Invoke-RestMethod -Uri "https://ntfy.sh/monde-vivant-note" -Method Post -Body $message -Headers $ntfyHeaders -ContentType "text/plain; charset=utf-8"
 
-    # 2. Notification native Windows
-    $logoPath = "{str(APP_WEB_DIR / 'assets/logo.png').replace('\\', '/')}"
-    New-BurntToastNotification -Text "Rappel de $coach", $message -AppLogo $logoPath
-
     # Mettre à jour le fichier de verrouillage
     Set-Content -Path $lockFilePath -Value $today
-}}
 }} catch {{
     Write-Host "--- UNE ERREUR EST SURVENUE DANS LE SCRIPT DE RAPPEL ---" -ForegroundColor Red
     Write-Host "Message d’erreur : $($_.Exception.Message)"
@@ -312,43 +364,7 @@ if ($null -ne $messageData) {{
 
                 tag = coach_tags.get(coach_name, "bell")
 
-                # Utilisation du modèle unifié et robuste
-                ps_script_content = f\"\"\"# Script de rappel quotidien - Généré par serveur.py
-$ErrorActionPreference = "Stop"
-
-try {{
-    # --- Données du message ---
-    $coach = '{coach_name.replace("'", "''")}'
-    $message = @'
-{message}
-'@
-
-    # --- Module BurntToast (pour notification Windows) ---
-    if (-not (Get-Module -ListAvailable -Name BurntToast)) {{
-        Install-Module -Name BurntToast -Scope CurrentUser -Force -SkipPublisherCheck
-    }}
-    Import-Module BurntToast
-
-    # --- Envoi des notifications ---
-    # 1. Notification ntfy.sh (Format Riche)
-    $ntfyHeaders = @{{
-    "Authorization" = "Bearer tk_7jtopqibezu9c8yz76gzacx8nvz34";
-    "Title" = "Rappel de {coach_name}";
-    "Tags" = "{tag}";
-    "Click" = "http://localhost:8000/app%20web/index.html"
-    }}
-    Invoke-RestMethod -Uri "https://ntfy.sh/monde-vivant-note" -Method Post -Body $message -Headers $ntfyHeaders -ContentType "text/plain; charset=utf-8"
-
-    # 2. Notification native Windows
-    $logoPath = "{str(APP_WEB_DIR / 'assets/logo.png').replace('\\', '/')}"
-    New-BurntToastNotification -Text "Rappel de $coach", $message -AppLogo $logoPath
-
-}} catch {{
-    Write-Host "--- UNE ERREUR EST SURVENUE DANS LE SCRIPT DE RAPPEL ---" -ForegroundColor Red
-    Write-Host "Message d’erreur : $($_.Exception.Message)"
-    $_ | Format-List -Force
-    Read-Host -Prompt "Appuyez sur Entrée pour fermer..."
-}}"""
+                ps_script_content = _create_powershell_script_content(current_date, coach_name, message, tag)
                 # Utiliser utf-8-sig pour que PowerShell lise correctement les accents
                 with open(script_path, 'w', encoding='utf-8-sig') as f:
                     f.write(ps_script_content)
@@ -357,7 +373,7 @@ try {{
                 command = [
                     'schtasks', '/create', '/tn', f"Monde Vivant\\{task_name}",
                     '/tr', f'powershell.exe -ExecutionPolicy Bypass -File "{script_path}"',
-                    '/sc', 'ONCE', '/sd', current_date.strftime('%d/%m/%Y'), '/st', time, '/f'
+                    '/sc', 'ONCE', '/sd', current_date.strftime('%Y/%m/%d'), '/st', time, '/f'
                 ]
                 subprocess.run(command, check=True, capture_output=True, text=True)
                 created_tasks_count += 1
@@ -374,7 +390,70 @@ try {{
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de la confirmation de la planification: {e}")
 
-def handle_confirm_schedule_old(handler):
+def handle_update_task(handler, context):
+    """Met à jour une tâche planifiée existante (heure et/ou contenu)."""
+    try:
+        content_length = int(handler.headers['Content-Length'])
+        post_data = handler.rfile.read(content_length)
+        data = json.loads(post_data)
+
+        task_name = data.get('taskName')
+        new_time = data.get('time')
+        new_coach = data.get('coach')
+        new_message = data.get('message')
+
+        if not task_name or not (new_time or new_coach or new_message):
+            send_json_error(handler, 400, "Nom de la tâche et au moins un champ à modifier sont requis.")
+            return
+
+        # --- 1. Mettre à jour le script .ps1 si le contenu a changé ---
+        if new_coach and new_message:
+            # Extraire la date du nom de la tâche (ex: Rappel_Quotidien_2025-10-15)
+            date_str_match = re.search(r'(\d{4}-\d{2}-\d{2})$', task_name)
+            if not date_str_match:
+                send_json_error(handler, 400, "Format de nom de tâche invalide. Impossible d'extraire la date.")
+                return
+            
+            current_date = datetime.date.fromisoformat(date_str_match.group(1))
+            tag = coach_tags.get(new_coach, "bell")
+
+            # Reconstruire le chemin du script
+            safe_filename = re.sub(r'[\\/*?:"<>|]', "", task_name).replace(" ", "_")
+            script_path = SCHEDULED_TASKS_DIR / f"{safe_filename}.ps1"
+
+            if not script_path.exists():
+                send_json_error(handler, 404, f"Script associé à la tâche '{task_name}' non trouvé.")
+                return
+
+            # Générer le nouveau contenu et l'écrire dans le fichier
+            ps_script_content = _create_powershell_script_content(current_date, new_coach, new_message, tag)
+            with open(script_path, 'w', encoding='utf-8-sig') as f:
+                f.write(ps_script_content)
+            
+            append_to_histoire_log(f"Modification Tâche - {task_name}", new_coach, new_message)
+
+        # --- 2. Mettre à jour l'heure de la tâche si elle a changé ---
+        if new_time:
+            command = [
+                'schtasks', '/change', '/tn', f"Monde Vivant\\{task_name}",
+                '/st', new_time
+            ]
+            subprocess.run(command, check=True, capture_output=True, text=True, encoding='latin-1')
+
+        handler.send_response(200)
+        handler.send_header('Content-type', 'application/json')
+        handler.end_headers()
+        handler.wfile.write(json.dumps({'success': True, 'message': f"Tâche '{task_name}' mise à jour avec succès."}).encode('utf-8'))
+
+    except subprocess.CalledProcessError as e:
+        error_message = f"Erreur lors de la modification de la tâche: {e.stderr.strip()}"
+        send_json_error(handler, 500, error_message)
+    except Exception as e:
+        send_json_error(handler, 500, f"Erreur lors de la mise à jour de la tâche: {e}")
+
+
+def handle_confirm_schedule_old(handler, context):
+    """[DÉPRÉCIÉ] Ancienne méthode pour confirmer un planning."""
     try:
         content_length = int(handler.headers['Content-Length'])
         post_data = handler.rfile.read(content_length)
@@ -406,7 +485,7 @@ def handle_confirm_schedule_old(handler):
             ps_message = message.replace("'", "''").replace('"', '`"')
             tag = coach_tags.get(coach_name, "bell")
 
-            ps_script_content = f\"\"\"# Script généré automatiquement
+            ps_script_content = rf"""# Script généré automatiquement
 $message = @'
 {ps_message}
 '@
@@ -414,7 +493,6 @@ $headers = @{{
     "Authorization" = "Bearer tk_7jtopqibezu9c8yz76gzacx8nvz34";
     "Title" = "Rappel de {coach_name}";
     "Tags" = "{tag}";
-    "Click" = "http://localhost:8000/app%20web/index.html"
 }}
 Invoke-RestMethod -Uri "https://ntfy.sh/monde-vivant-note" -Method Post -Body $message -Headers $headers"""
             with open(script_path, 'w', encoding='utf-8') as f:
@@ -424,7 +502,7 @@ Invoke-RestMethod -Uri "https://ntfy.sh/monde-vivant-note" -Method Post -Body $m
             command = [
                 'schtasks', '/create', '/tn', f"Monde Vivant\\{task_name}", # Note: La date est en format US pour schtasks
                 '/tr', f'powershell.exe -ExecutionPolicy Bypass -File "{script_path}"',
-                '/sc', 'ONCE', '/sd', current_date.strftime('%d/%m/%Y'), '/st', time, '/f'
+                '/sc', 'ONCE', '/sd', current_date.strftime('%Y/%m/%d'), '/st', time, '/f'
             ]
             subprocess.run(command, check=True, capture_output=True, text=True)
             created_tasks_count += 1
@@ -441,7 +519,8 @@ Invoke-RestMethod -Uri "https://ntfy.sh/monde-vivant-note" -Method Post -Body $m
     except Exception as e:
         send_json_error(handler, 500, f"Erreur lors de la confirmation de la planification: {e}")
 
-def handle_delete_task(handler):
+def handle_delete_task(handler, context):
+    """Supprime une tâche planifiée Windows et le script .ps1 associé."""
     try:
         content_length = int(handler.headers['Content-Length'])
         post_data = handler.rfile.read(content_length).decode('utf-8')

@@ -11,13 +11,13 @@ coach_styles = {
 COACH_LORE = {}
 
 def load_coach_lore():
-    """Charge les fiches de personnalité depuis le fichier de lore au démarrage."""
-    global COACH_LORE
+    """Charge les fiches de personnalité des coachs depuis le fichier de lore."""
     if not LORE_FILE_PATH.exists():
         print(f"AVERTISSEMENT: Fichier de lore non trouvé à '{LORE_FILE_PATH}'. Utilisation des styles par défaut.")
-        return
+        return {}
 
     try:
+        personalities = {}
         with open(LORE_FILE_PATH, 'r', encoding='utf-8') as f:
             content = f.read()
         
@@ -29,8 +29,9 @@ def load_coach_lore():
                 title_line = section.split('\n')[0].strip()
                 name = re.split(r'\s*–\s*', title_line)[0].strip()
                 personalities[name] = "## " + section
-        
-        COACH_LORE = personalities
-        print(f"Succès : {len(COACH_LORE)} fiches de lore chargées pour les coachs : {', '.join(COACH_LORE.keys())}")
+
+        print(f"Succès : {len(personalities)} fiches de lore chargées pour les coachs : {', '.join(personalities.keys())}")
+        return personalities
     except Exception as e:
         print(f"ERREUR lors du chargement du fichier de lore : {e}")
+        return {}

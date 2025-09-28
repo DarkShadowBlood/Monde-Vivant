@@ -1,0 +1,51 @@
+[
+  {
+    "id": "weekly_walk_42km",
+    "title": "Le Marathon du Survivant",
+    "description": "Parcourir 42 km à pied au total durant la semaine.",
+    "objective": {
+      "type": "distance",
+      "activity_type": "marche",
+      "target": 42
+    },
+    "reward": {
+      "xp": 250,
+      "currencies": {
+        "steel_shards": 150,
+        "soul_gems": 1
+      }
+    }
+  },
+  {
+    "id": "weekly_burn_2500kcal",
+    "title": "Fournaise Hebdomadaire",
+    "description": "Brûler 2500 calories au total durant la semaine.",
+    "objective": {
+      "type": "calories",
+      "activity_type": "any",
+      "target": 2500
+    },
+    "reward": {
+      "xp": 200,
+      "items": {
+        "ancient_components": 5
+      }
+    }
+  },
+  {
+    "id": "weekly_sessions_5",
+    "title": "Régularité du Vétéran",
+    "description": "Terminer au moins 5 sessions d'activité cette semaine.",
+    "objective": {
+      "type": "session_count",
+      "activity_type": "any",
+      "target": 5
+    },
+    "reward": {
+      "xp": 150,
+      "currencies": {
+        "soul_gems": 1
+      }
+    }
+  }
+]

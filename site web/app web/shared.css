@@ -1,0 +1,87 @@
+/* --- Polices et corps de page --- */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400&display=swap');
+
+body {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligner en haut pour les pages longues */
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* --- Conteneurs principaux --- */
+.sheet-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.sheet {
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* --- En-têtes et Titres --- */
+.sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #c59b43;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.sheet-header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2em;
+    margin: 0;
+    color: #f0f0f0;
+    text-shadow: 1px 1px 3px #000;
+}
+
+.section-title {
+    font-family: 'Cinzel', serif;
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    color: #c59b43;
+}
+
+/* --- Sélecteur de personnage (commun à plusieurs pages) --- */
+.character-selector {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #444;
+    display: flex;
+    gap: 10px;
+}
+
+.character-selector button {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: #444;
+    color: #ccc;
+    border: 1px solid #555;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    transition: all 0.2s;
+}
+
+.character-selector button:hover {
+    background-color: #555;
+    color: #fff;
+}
+
+.character-selector button.active {
+    background-color: #c59b43;
+    color: #1a1a1a;
+    border-color: #f0e68c;
+}

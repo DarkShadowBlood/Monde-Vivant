@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil du Survivant</title>
+    <link rel="stylesheet" href="gamification.css">
+    <link rel="stylesheet" href="shared.css">
+</head>
+<style>
+    /* Styles pour la modale de butin */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: none; /* Caché par défaut */
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+    }
+    .modal-content {
+        background-color: var(--bg-light);
+        padding: 30px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+        max-width: 400px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    }
+    .modal-content h2 {
+        margin-top: 0;
+        color: var(--accent);
+    }
+    #loot-results {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+    }
+    #loot-results li {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+    .modal-content button {
+        background-color: var(--accent);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1em;
+    }
+    /* Styles pour la section Butin */
+    .loot-section ul {
+        list-style: none;
+        padding: 0;
+    }
+    .loot-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--bg-dark);
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    .quest-item.claimed {
+        opacity: 0.6;
+    }
+    .quest-progress-bar {
+        height: 8px; background-color: #111; border-radius: 4px; overflow: hidden; margin: 5px 0;
+    }
+    .quest-progress {
+        height: 100%; background-color: var(--accent);
+    }
+    .progress-text {
+        font-size: 0.8em; color: var(--text-secondary);
+    }
+    .gift-container {
+        text-align: center;
+        padding: 10px;
+        background-color: var(--bg-dark);
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    .gift-container {
+        text-align: center;
+        padding: 10px;
+        background-color: var(--accent-light);
+        border-radius: 8px;
+        margin: 15px 0;
+        color: var(--text-main);
+    }
+</style>
+<body>
+    <div class="sheet-container">
+        <div id="character-sheet" class="sheet">
+            <div class="sheet-header">
+                <h1 id="char-name">Chargement...</h1>
+                <div class="level-badge">
+                    <span id="char-rank">Novice</span>
+                    <span>Niveau</span>
+                    <span id="char-level">0</span>
+                </div>
+            </div>
+
+            <div class="xp-bar-container">
+                <div class="xp-label">
+                    <span>XP</span>
+                    <span id="xp-values">0 / 100</span>
+                </div>
+                <div class="xp-bar">
+                    <div id="xp-progress" class="xp-progress" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div class="stats-container">
+                <h2 class="section-title">Statistiques</h2>
+                <ul id="stats-list">
+                    <!-- Les stats seront injectées ici par JavaScript -->
+                </ul>
+            </div>
+
+            <div class="currencies-container">
+                <h2 class="section-title">Richesses</h2>
+                <div class="currency-grid">
+                    <div class="currency-item"><span>Éclats d'Acier</span><strong id="currency-shards">0</strong></div>
+                    <div class="currency-item"><span>Gemmes d'Âme</span><strong id="currency-gems">0</strong></div>
+                </div>
+            </div>
+
+            <div id="passive-skill-container" class="skill-container" style="display: none;">
+                <h2 class="section-title">Compétence Passive</h2>
+                <p><strong><span id="passive-skill-name"></span>:</strong> <span id="passive-skill-desc"></span></p>
+            </div>
+
+            <div class="loot-section">
+                <h2 class="section-title">🎲 Butin d'Activité</h2>
+                <p>Récupérez les récompenses de vos dernières expéditions !</p>
+                <ul id="unclaimed-loot-list">
+                    <!-- Les activités avec butin non réclamé seront injectées ici -->
+                </ul>
+            </div>
+
+            <div class="quests-section">
+                <h2 class="section-title">📜 Quêtes Journalières</h2>
+                <div id="daily-quests-list">
+                    <!-- Les quêtes journalières seront injectées ici -->
+                    <p>Chargement des quêtes...</p>
+                </div>
+                <div id="quest-status" style="display: none; text-align: center; margin-top: 10px;"></div>
+            </div>
+
+            <div class="quests-section">
+                <h2 class="section-title">🏆 Quêtes Hebdomadaires</h2>
+                <div id="weekly-quests-list">
+                    <!-- Les quêtes hebdomadaires seront injectées ici -->
+                    <p>Chargement des défis de la semaine...</p>
+                </div>
+            </div>
+
+            <div class="rules-container">
+                <h2 class="section-title">Règles du Jeu</h2>
+                <div class="rules-section">
+                    <h3>Calcul de l'Expérience (XP)</h3>
+                    <p>L'XP est la somme de plusieurs sources :</p>
+                    <ul>
+                        <li><strong>Calories brûlées :</strong> 1 XP pour 10 kcal.</li>
+                        <li><strong>Distance parcourue :</strong> 10 XP par km.</li>
+                        <li><strong>Objectifs quotidiens :</strong> 5 XP par jour enregistré.</li>
+                        <li><strong>Bonus de stats :</strong> La Force et l'Endurance augmentent l'XP gagnée.</li>
+                        <li><strong>Bonus de compétence passive :</strong> Chaque personnage a un bonus unique !</li>
+                    </ul>
+                </div>
+                <div class="rules-section future-systems">
+                    <h3>Systèmes à venir</h3>
+                    <div class="future-grid">
+                        <div class="future-item" style="opacity: 0.5;">🎒 Inventaire (Implémenté)</div>
+                        <div class="future-item" style="opacity: 0.5;">🛠️ Artisanat (Implémenté)</div>
+                        <div class="future-item" style="opacity: 0.5;">💰 Marchand (Implémenté)</div>
+                        <div class="future-item" style="opacity: 0.5;">🎲 Butin d'activité (Implémenté)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="gift-message-container" class="gift-container" style="display: none;">
+                <p id="gift-message"></p>
+            </div>
+
+            <div class="character-selector">
+                <button data-char="Varkis" class="active">Varkis</button>
+                <button data-char="KaraOmbreChaos">KaraOmbreChaos</button>
+                <button data-char="Aegis">Aegis</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale pour afficher le butin -->
+    <div id="loot-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Butin Récupéré !</h2>
+            <ul id="loot-results">
+                <!-- Les résultats du butin seront injectés ici -->
+            </ul>
+            <button id="close-loot-modal">Fermer</button>
+        </div>
+    </div>
+
+    <script src="gamification.js"></script>
+    <!-- Script spécifique à cette page pour le butin -->
+    <script src="loot_system.js"></script>
+    <!-- Script spécifique pour les quêtes journalières -->
+    <script src="quests.js"></script>
+</body>
+</html>

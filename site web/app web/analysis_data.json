@@ -13,6 +13,7 @@
     "weather": "",
     "serie": "",
     "notes": "",
+    "heartRateZones": null,
     "daily_goal": {
       "date": "2025-08-31",
       "calories": "881",

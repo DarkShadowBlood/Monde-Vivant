@@ -1,0 +1,50 @@
+[
+  {
+    "id": "daily_walk_5km",
+    "title": "Marche du Pèlerin",
+    "description": "Parcourir 5 km à pied au total dans la journée.",
+    "objective": {
+      "type": "distance",
+      "activity_type": "marche",
+      "target": 5
+    },
+    "reward": {
+      "xp": 50,
+      "currencies": {
+        "steel_shards": 25
+      }
+    }
+  },
+  {
+    "id": "daily_burn_300kcal",
+    "title": "Le Feu Intérieur",
+    "description": "Brûler 300 calories au total dans la journée (toutes activités confondues).",
+    "objective": {
+      "type": "calories",
+      "activity_type": "any",
+      "target": 300
+    },
+    "reward": {
+      "xp": 30,
+      "items": {
+        "ancient_components": 1
+      }
+    }
+  },
+  {
+    "id": "daily_run_session",
+    "title": "Course de l'Aube",
+    "description": "Terminer au moins une session de course.",
+    "objective": {
+      "type": "session_count",
+      "activity_type": "course",
+      "target": 1
+    },
+    "reward": {
+      "xp": 40,
+      "items": {
+        "stamina_potion_1": 1
+      }
+    }
+  }
+]

@@ -614,7 +614,8 @@
       // Charger les coachs pour le sélecteur de motivation
       fetch('/api/coaches')
         .then(response => response.json())
-        .then(coaches => {
+        .then(result => {
+          const coaches = result.data; // Extraire le tableau de la propriété 'data'
           populateMotivationCoaches(coaches);
         })
         .catch(error => {

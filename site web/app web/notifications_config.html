@@ -228,13 +228,13 @@
                     document.getElementById('glycemie-threshold').value = config.glycemie.days_threshold;
                     document.getElementById('glycemie-llm').checked = config.glycemie.use_llm;
                     // Populate Poids
-                    document.getElementById('poids-enabled').checked = config.poids?.enabled ?? false;
+                    document.getElementById('poids-enabled').checked = config.poids?.enabled ?? true;
                     document.getElementById('poids-threshold').value = config.poids?.days_threshold ?? 3;
-                    document.getElementById('poids-llm').checked = config.poids?.use_llm ?? false;
+                    document.getElementById('poids-llm').checked = config.poids?.use_llm ?? true;
                     // Populate Ventre
-                    document.getElementById('ventre-enabled').checked = config.ventre?.enabled ?? false;
+                    document.getElementById('ventre-enabled').checked = config.ventre?.enabled ?? true;
                     document.getElementById('ventre-threshold').value = config.ventre?.days_threshold ?? 3;
-                    document.getElementById('ventre-llm').checked = config.ventre?.use_llm ?? false;
+                    document.getElementById('ventre-llm').checked = config.ventre?.use_llm ?? true;
                     // Populate Objectifs Cibles
                     document.getElementById('goals-target-calories').value = config.targets?.calories || 500;
                     document.getElementById('goals-target-steps').value = config.targets?.steps || 8000;

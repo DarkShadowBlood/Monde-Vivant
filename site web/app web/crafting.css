@@ -1,0 +1,127 @@
+/* --- Conteneurs de la page d'artisanat --- */
+.currencies-container,
+.crafting-container {
+    margin-bottom: 30px;
+}
+
+/* --- Grille des matériaux --- */
+.currency-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.currency-item {
+    display: flex;
+    align-items: center;
+    background-color: #1a1a1a; /* bg-dark */
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #444; /* border-color */
+}
+
+.currency-icon {
+    font-size: 1.8em;
+    margin-right: 15px;
+}
+
+.currency-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.currency-details strong {
+    color: #f0f0f0; /* text-primary */
+}
+
+.currency-details span {
+    color: #a0a0a0; /* text-secondary */
+    font-size: 1.1em;
+}
+
+/* --- Grille des recettes --- */
+.recipes-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Une colonne par défaut */
+    gap: 15px;
+}
+
+/* --- Carte de recette --- */
+.recipe-card {
+    background-color: #222;
+    border: 1px solid #444; /* border-color */
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.2s ease-in-out;
+}
+
+.recipe-card:not(.disabled):hover {
+    border-color: #c59b43;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.recipe-card.disabled {
+    opacity: 0.5;
+    filter: grayscale(50%);
+}
+
+.recipe-icon {
+    font-size: 2.5em;
+}
+
+.recipe-details {
+    flex-grow: 1;
+}
+
+.recipe-details h3 {
+    font-family: 'Cinzel', serif;
+    margin: 0 0 5px 0;
+    color: #f0f0f0; /* text-primary */
+}
+
+.recipe-details p {
+    margin: 0 0 10px 0;
+    font-size: 0.9em;
+    color: #a0a0a0; /* text-secondary */
+}
+
+.recipe-cost {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.85em;
+    color: #ccc;
+}
+
+.craft-btn {
+    padding: 10px 15px;
+    background-color: #4CAF50; /* accent */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.craft-btn:hover:not(:disabled) {
+    background-color: #5bc060;
+}
+
+.craft-btn:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+/* --- Message de statut --- */
+.status-message {
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 4px;
+    font-weight: bold;
+}

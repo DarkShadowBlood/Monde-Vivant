@@ -1,0 +1,32 @@
+[
+  {
+    "id": "repair_kit_1",
+    "name": "Kit de Réparation de Base",
+    "description": "Un kit simple pour restaurer l'équipement usé. (Fonctionnalité future)",
+    "icon": "🔧",
+    "cost": {
+      "ancient_components": 5,
+      "steel_shards": 20
+    },
+    "result": {
+      "type": "item",
+      "item_id": "repair_kit_1",
+      "quantity": 1
+    }
+  },
+  {
+    "id": "stamina_potion_1",
+    "name": "Potion d'Endurance Mineure",
+    "description": "Une concoction qui accorde un petit bonus d'XP pour la prochaine activité. (Fonctionnalité future)",
+    "icon": "🧪",
+    "cost": {
+      "ancient_components": 2,
+      "soul_gems": 1
+    },
+    "result": {
+      "type": "buff",
+      "buff_id": "xp_boost_5",
+      "quantity": 1
+    }
+  }
+]

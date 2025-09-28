@@ -6,12 +6,12 @@
   <title>Monde Vivant - Tableau de Bord</title>
   <style>
     :root {
-      --bg-dark: #202123;
-      --bg-light: #343541;
-      --text-primary: #ffffff;
-      --text-secondary: #b4b4b4;
-      --accent: #10a37f;
-      --border-color: #4d4d4d;
+      --bg-dark: #1a1a1a;
+      --bg-light: #2c2c2c;
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --accent: #4CAF50;
+      --border-color: #444;
     }
     body {
       margin: 0;
@@ -25,44 +25,43 @@
 
     /* --- Sidebar --- */
     #sidebar {
-      width: 65px; /* Collapsed width */
-      background-color: var(--bg-dark);
+      width: 80px;
+      background-color: var(--bg-light);
       border-right: 1px solid var(--border-color);
       display: flex;
       flex-direction: column;
-      transition: width 0.3s ease;
+      transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       position: fixed;
       height: 100%;
       z-index: 100;
-      overflow-x: hidden;
+      overflow-x: hidden; /* Hide horizontal overflow */
     }
-    #sidebar.expanded {
-      width: 260px; /* Expanded width */
+    #sidebar:hover {
+      width: 260px;
     }
 
     #sidebar-nav {
-      padding: 10px 0;
+      padding-top: 20px;
       flex-grow: 1;
-      overflow-y: auto;
-      direction: rtl; /* Déplace la scrollbar à gauche */
+      direction: rtl; /* Place la scrollbar à gauche */
+      overflow-y: auto; /* Vertical scroll if needed */
     }
     
     .nav-link {
       display: flex;
       align-items: center;
-      padding: 8px 12px;
-      margin-bottom: 4px;
-      border-radius: 6px;
+      padding: 12px 25px; /* Adjusted padding */
+      margin-bottom: 10px;
+      border-radius: 8px;
       cursor: pointer;
       color: var(--text-secondary);
       text-decoration: none;
-      font-size: 1em;
-      transition: background-color 0.2s;
-      white-space: nowrap;
-      overflow: hidden;
+      font-size: 1.1em;
+      transition: background-color 0.2s, color 0.2s;
+      white-space: nowrap; /* Prevent text wrapping */
     }
     .nav-link:hover {
-      background-color: var(--bg-light);
+      background-color: #383838;
       color: var(--text-primary);
     }
     .nav-link.active {
@@ -71,52 +70,48 @@
     }
     .nav-icon {
       font-size: 1.4em;
-      width: 40px; /* Fixed width for icon alignment */
+      min-width: 30px; /* Ensure icons are aligned */
       text-align: center;
-      margin-right: 15px;
+      margin-right: 20px;
     }
-    .nav-text {
+
+    /* Text and Title Visibility */
+    .nav-text, .nav-group-title {
       opacity: 0;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.1s ease-in-out;
     }
-    #sidebar.expanded .nav-text {
+    #sidebar:hover .nav-text,
+    #sidebar:hover .nav-group-title {
       opacity: 1;
+      transition-delay: 0.1s; /* Text appears slightly after expansion */
     }
     
     .nav-group {
-      direction: ltr; /* Rétablit la direction du texte pour le contenu */
+        direction: ltr; /* Rétablit la direction du texte pour le contenu */
     }
 
     .nav-group-title {
-      padding: 15px 20px 5px 20px;
-      font-size: 0.75em;
+      padding: 0 25px 10px 25px;
+      font-size: 0.8em;
       font-weight: bold;
       color: var(--text-secondary);
       text-transform: uppercase;
       letter-spacing: 1px;
-      white-space: nowrap;
-      overflow: hidden;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-     #sidebar.expanded .nav-group-title {
-      opacity: 1;
     }
 
     #sidebar-footer {
-      padding: 10px;
-      border-top: 1px solid var(--border-color);
+      padding: 20px 0;
     }
 
     /* --- Main Content --- */
     #main-content {
       flex-grow: 1;
       height: 100vh;
-      margin-left: 65px; /* Match collapsed sidebar width */
-      transition: margin-left 0.3s ease;
+      margin-left: 80px; /* Must match collapsed sidebar width */
+      transition: margin-left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    #sidebar.expanded ~ #main-content {
-      margin-left: 260px; /* Match expanded sidebar width */
+    #sidebar:hover ~ #main-content {
+      margin-left: 260px; /* Must match expanded sidebar width */
     }
     #content-frame {
       width: 100%;
@@ -124,25 +119,24 @@
       border: none;
     }
 
-    /* --- Explorer Mode --- */
+    /* --- Explorer Mode (Overrides hover) --- */
     #sidebar.explorer-open {
       width: 320px;
     }
-    #sidebar.explorer-open.expanded {
-        width: 450px;
+    #sidebar.explorer-open:hover { /* Prevent shrinking on hover out */
+        width: 320px;
     }
     #sidebar.explorer-open ~ #main-content {
       margin-left: 320px;
     }
-    #sidebar.explorer-open.expanded ~ #main-content {
-      margin-left: 450px;
-    }
     #sidebar.explorer-open #sidebar-nav { display: none; }
-    #sidebar.explorer-open #explorer-content { display: block; height: calc(100% - 120px); }
+    #sidebar.explorer-open #explorer-content { display: block; height: 100%; }
     #sidebar:not(.explorer-open) #explorer-content { display: none; }
     #sidebar.explorer-open .nav-text {
        opacity: 1;
+       transition-delay: 0s;
     }
+
 
     /* --- Floating Button & Notification Panel --- */
     .ntfy-fab {
@@ -161,20 +155,19 @@
         transition: transform 0.2s ease-in-out, background-color 0.2s;
     }
     .ntfy-fab:hover {
-        background-color: #10a37f;
-        filter: brightness(1.2);
+        background-color: #5bc060; /* Un vert légèrement plus clair au survol */
         transform: scale(1.1);
     }
     
-    /* --- Notification Center --- */
+    /* Styles for Notification Center */
     #notification-bell .nav-icon {
       position: relative;
     }
     .badge {
       position: absolute;
-      top: -2px;
-      right: 5px;
-      background-color: #d93025;
+      top: -5px;
+      right: -5px;
+      background-color: red;
       color: white;
       border-radius: 50%;
       padding: 2px 6px;
@@ -183,40 +176,23 @@
     }
     #notification-panel {
       position: fixed;
-      bottom: 130px; /* Adjust based on footer height */
-      left: 70px;
-      width: 350px;
+      bottom: 80px; /* Adjust based on footer height */
+      left: 85px; /* Adjust based on sidebar width */
+      width: 300px;
       background-color: var(--bg-light);
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       z-index: 1000;
       color: var(--text-primary);
-      transition: left 0.3s ease;
+      transition: left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    #sidebar.expanded #notification-panel {
-        left: 265px;
-    }
-    #gamification-panel {
-      position: fixed;
-      bottom: 82px; /* Positioned below the notification panel */
-      left: 70px;
-      width: 350px;
-      background-color: var(--bg-light);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-      z-index: 1000;
-      color: var(--text-primary);
-      transition: left 0.3s ease;
-    }
-    #sidebar.expanded #gamification-panel {
-        left: 265px;
+    #sidebar:hover #notification-panel {
+        left: 265px; /* Adjust on hover */
     }
     .panel-item {
       padding: 12px 15px;
       border-bottom: 1px solid var(--border-color);
-      font-size: 0.9em;
     }
     .panel-item:last-child {
       border-bottom: none;
@@ -269,10 +245,6 @@
           <span class="nav-icon">📈</span>
           <span class="nav-text">Stats Santé</span>
         </a>
-        <a href="gym/gym_library.html" class="nav-link" target="contenu_principal" title="Bibliothèque d'Exercices">
-          <span class="nav-icon">🏋️</span>
-          <span class="nav-text">Biblio. Exercices</span>
-        </a>
       </div>
 
       <div class="nav-group">
@@ -285,55 +257,49 @@
           <span class="nav-icon">⚙️</span>
           <span class="nav-text">Réglages Notifs</span>
         </a>
-        <a href="win_notifications_dashboard.html" class="nav-link" target="contenu_principal" title="Centre de Notifications Windows">
-          <span class="nav-icon">🖥️</span>
-          <span class="nav-text">Notifs Windows</span>
-        </a>
       </div>
     </nav>
     <div id="explorer-content">
       <iframe src="liens.html" style="width: 100%; height: 100%; border: none;"></iframe>
     </div>
     <div id="sidebar-footer">
-        <a href="#" id="explorer-toggle-btn" class="nav-link" title="Explorateur">
-            <span class="nav-icon">🗂️</span>
-            <span class="nav-text">Explorateur</span>
-        </a>
-        <a href="javascript:void(0);" id="notification-bell" class="nav-link" title="Notifications">
-            <span class="nav-icon">
-              <span id="notification-badge" class="badge" style="display:none;"></span>
-              🔔
-            </span>
-            <span class="nav-text">Notifications</span>
-        </a>
-        <div id="notification-panel" class="panel" style="display:none;">
-            <!-- Notifications will be injected here -->
+      <a href="javascript:void(0);" id="notification-bell" class="nav-link" title="Notifications">
+        <span class="nav-icon">
+          <span id="notification-badge" class="badge" style="display:none;"></span>
+          🔔
+        </span>
+        <span class="nav-text">Notifications</span>
+      </a>
+      <div id="notification-panel" class="panel" style="display:none;">
+        <!-- Notifications will be injected here -->
+      </div>
+      <a href="javascript:void(0);" id="gamification-toggle" class="nav-link" title="Gamification">
+        <span class="nav-icon">⚔️</span>
+        <span class="nav-text">Gamification</span>
+      </a>
+      <div id="gamification-panel" class="panel" style="display:none;">
+        <div class="panel-item">
+            <a href="gamification.html" target="contenu_principal" class="panel-link">🏆 Profil</a>
         </div>
-        <a href="javascript:void(0);" id="gamification-toggle" class="nav-link" title="Gamification">
-            <span class="nav-icon">⚔️</span>
-            <span class="nav-text">Gamification</span>
-        </a>
-        <div id="gamification-panel" class="panel" style="display:none;">
-            <div class="panel-item">
-                <a href="gamification.html" target="contenu_principal" class="panel-link">🏆 Profil</a>
-            </div>
-            <div class="panel-item">
-                <a href="inventory.html" target="contenu_principal" class="panel-link">🎒 Inventaire</a>
-            </div>
-            <div class="panel-item">
-                <a href="crafting.html" target="contenu_principal" class="panel-link">🛠️ Artisanat</a>
-            </div>
-            <div class="panel-item">
-                <a href="merchant.html" target="contenu_principal" class="panel-link">💰 Marchand</a>
-            </div>
-            <div class="panel-item">
-                <a href="achievements.html" target="contenu_principal" class="panel-link">🎖️ Hauts Faits</a>
-            </div>
+        <div class="panel-item">
+            <a href="inventory.html" target="contenu_principal" class="panel-link">🎒 Inventaire</a>
         </div>
-        <a href="#" id="sidebar-toggle-btn" class="nav-link" title="Réduire la barre">
-            <span class="nav-icon">↔️</span>
-            <span class="nav-text">Réduire</span>
-        </a>
+        <div class="panel-item">
+            <a href="crafting.html" target="contenu_principal" class="panel-link">🛠️ Artisanat</a>
+        </div>
+        <div class="panel-item">
+            <a href="merchant.html" target="contenu_principal" class="panel-link">💰 Marchand</a>
+        </div>
+        <div class="panel-item">
+            <a href="achievements.html" target="contenu_principal" class="panel-link">🎖️ Hauts Faits</a>
+        </div>
+      </div>
+
+
+      <a href="#" id="explorer-toggle-btn" class="nav-link" title="Explorateur">
+        <span class="nav-icon">🗂️</span>
+        <span class="nav-text">Explorateur</span>
+      </a>
     </div>
   </div>
 
@@ -351,7 +317,6 @@
   <script>
     const sidebar = document.getElementById('sidebar');
     const explorerToggleBtn = document.getElementById('explorer-toggle-btn');
-    const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
     const mainNavLinks = document.querySelectorAll('#sidebar-nav .nav-link');
     const gamificationToggle = document.getElementById('gamification-toggle');
     const gamificationPanel = document.getElementById('gamification-panel');
@@ -364,17 +329,11 @@
         sidebar.classList.remove('explorer-open'); // Ferme l'explorateur si on clique sur un lien principal
       });
     });
-    
+
     // Gère l'ouverture/fermeture de l'explorateur
     explorerToggleBtn.addEventListener('click', (e) => {
       e.preventDefault();
       sidebar.classList.toggle('explorer-open');
-    });
-
-    // Gère le redimensionnement de la sidebar
-    sidebarToggleBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        sidebar.classList.toggle('expanded');
     });
 
     // Gère l'ouverture/fermeture du panneau de gamification

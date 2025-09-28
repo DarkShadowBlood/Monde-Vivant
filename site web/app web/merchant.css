@@ -1,0 +1,108 @@
+/* --- Conteneurs principaux --- */
+.merchant-container {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.merchant-panel {
+    background-color: rgba(0,0,0,0.1);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* --- Grille des objets --- */
+.items-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+/* --- Carte d'objet --- */
+.item-card {
+    background-color: #222;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.item-card.disabled {
+    opacity: 0.5;
+    gap: 15px;
+}
+
+.item-icon {
+    font-size: 2.5em;
+}
+
+.item-details {
+    flex-grow: 1;
+}
+
+.item-details h3 {
+    font-family: 'Cinzel', serif;
+    margin: 0 0 5px 0;
+    color: #f0f0f0;
+}
+
+.item-quantity {
+    color: #a0a0a0;
+    font-size: 0.9em;
+    font-weight: normal;
+}
+
+.item-details p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #a0a0a0;
+}
+
+.item-actions {
+    text-align: right;
+}
+
+.item-price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #c59b43;
+    margin-bottom: 10px;
+}
+
+.sell-btn {
+    padding: 8px 12px;
+    background-color: #c59b43;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.sell-btn:hover {
+    background-color: #d4ac5a;
+}
+
+.buy-btn {
+    padding: 8px 12px;
+    background-color: #4CAF50; /* accent */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.buy-btn:hover:not(:disabled) {
+    background-color: #5bc060;
+}
+
+.buy-btn:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}

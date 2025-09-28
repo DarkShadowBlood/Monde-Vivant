@@ -96,8 +96,12 @@
         if (!response.ok) {
           throw new Error(`Erreur serveur: ${response.statusText}`);
         }
-        const logs = await response.json();
-        allLogs = logs;
+        const result = await response.json();
+        if (!result.success) {
+          throw new Error(result.error || 'La réponse du serveur indique une erreur.');
+        }
+        const logs = result.data; // Extraire le tableau de la propriété 'data'
+        allLogs = logs; // allLogs est maintenant bien un tableau
 
         populateCoachFilter(allLogs);
         displayLogs(allLogs);

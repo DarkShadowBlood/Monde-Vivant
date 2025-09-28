@@ -16,7 +16,7 @@ except ImportError:
 
 # --- Configuration
 TARGET_DIR = "../information" # Dossier contenant les données à analyser (relatif au script)
-JSON_OUTPUT_FILE = "liens.json" # Fichier de données JSON généré dans le dossier 'app web'
+JSON_OUTPUT_FILE = "liens.json" # Fichier de données JSON généré
 
 valid_extensions = [".html", ".md", ".jpg", ".jpeg", ".png", ".gif", ".webp"]
 
@@ -152,7 +152,8 @@ def gather_activities_data(base_path: Path) -> list:
                     "location": activity_data.get("location", ""),
                     "weather": activity_data.get("weather", ""),
                     "serie": activity_data.get("serie", ""),
-                    "notes": activity_data.get("notes", "")
+                    "notes": activity_data.get("notes", ""),
+                    "heartRateZones": activity_data.get("heartRateZones", None) # Ajout des zones de FC
                 })
         except (json.JSONDecodeError, KeyError) as e:
             print(f"[AVERTISSEMENT] Impossible de traiter {json_file}: {e}")
@@ -232,6 +233,10 @@ def gather_sante_data(base_path: Path) -> list:
     
     return sorted(all_sante_entries, key=lambda x: x.get('date', ''))
 
+# --- Point de départ ---
+# Le dossier de sortie pour les fichiers JSON est le dossier où se trouve ce script.
+OUTPUT_DIR = Path(__file__).parent
+
 # --- Point de départ
 base_path = Path(TARGET_DIR)
 if not base_path.exists():
@@ -240,22 +245,29 @@ if not base_path.exists():
 
 # --- 1. Générer le fichier de données `activities.json` ---
 all_activities = gather_activities_data(base_path)
-# Le fichier activities.json doit être dans le même dossier que index.html ('app web')
-activities_json_path = Path(__file__).parent / "activities.json"
+activities_json_path = OUTPUT_DIR / "activities.json"
 with open(activities_json_path, "w", encoding="utf-8") as f_json:
     json.dump(all_activities, f_json, indent=2, ensure_ascii=False)
 print(f"[OK] {len(all_activities)} activités trouvées et enregistrées dans {activities_json_path}.")
 
-# --- 1.bis Générer le fichier de données `objectifs.json` ---
+# --- 2. Générer le fichier de données `activities_enriched.json` ---
+# Ce fichier est une copie de activities.json mais est destiné à évoluer
+# avec plus de données pour la gamification. Pour l'instant, il est identique.
+activities_enriched_json_path = OUTPUT_DIR / "activities_enriched.json"
+with open(activities_enriched_json_path, "w", encoding="utf-8") as f_json:
+    json.dump(all_activities, f_json, indent=2, ensure_ascii=False)
+print(f"[OK] {len(all_activities)} activités enrichies enregistrées dans {activities_enriched_json_path}.")
+
+# --- 3. Générer le fichier de données `objectifs.json` ---
 all_goals = gather_goals_data(base_path)
-goals_json_path = Path(__file__).parent / "objectifs.json"
+goals_json_path = OUTPUT_DIR / "objectifs.json"
 with open(goals_json_path, "w", encoding="utf-8") as f_json:
     json.dump(all_goals, f_json, indent=2, ensure_ascii=False)
 print(f"[OK] {len(all_goals)} entrées d'objectifs trouvées et enregistrées dans {goals_json_path}.")
 
-# --- 1.ter Générer le fichier de données `analysis_data.json` ---
+# --- 4. Générer le fichier de données `analysis_data.json` ---
 analysis_data = gather_analysis_data(all_activities, all_goals)
-analysis_json_path = Path(__file__).parent / "analysis_data.json"
+analysis_json_path = OUTPUT_DIR / "analysis_data.json"
 with open(analysis_json_path, "w", encoding="utf-8") as f_json:
     json.dump(analysis_data, f_json, indent=2, ensure_ascii=False)
 print(f"[OK] {len(analysis_data)} activités enrichies enregistrées dans {analysis_json_path}.")
@@ -263,15 +275,15 @@ print(f"[OK] {len(analysis_data)} activités enrichies enregistrées dans {analy
 # --- 1.quater Générer le fichier de données `sante.json` ---
 all_sante_data = gather_sante_data(base_path)
 sante_json_path = Path(__file__).parent / "sante.json"
-with open(sante_json_path, "w", encoding="utf-8") as f_json:
+with open(sante_json_path, "w", encoding="utf-8") as f_json: # Correction: garder le chemin original pour sante.json
     json.dump(all_sante_data, f_json, indent=2, ensure_ascii=False)
 print(f"[OK] {len(all_sante_data)} entrées de santé trouvées et enregistrées dans {sante_json_path}.")
 
-# --- 2. Construire l'arborescence des fichiers ---
+# --- 5. Construire l'arborescence des fichiers ---
 file_tree = build_file_tree(base_path, base_path)
 
-# --- 3. Sauvegarder l'arborescence dans liens.json ---
-json_output_path = Path(__file__).parent / JSON_OUTPUT_FILE
+# --- 6. Sauvegarder l'arborescence dans liens.json ---
+json_output_path = OUTPUT_DIR / JSON_OUTPUT_FILE
 with open(json_output_path, "w", encoding="utf-8") as f_json:
     json.dump(file_tree, f_json, indent=2, ensure_ascii=False)
 print(f"[OK] Arborescence des fichiers enregistrée dans {json_output_path}.")

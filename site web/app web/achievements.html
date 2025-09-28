@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hauts Faits</title>
+    <link rel="stylesheet" href="achievements.css">
+    <link rel="stylesheet" href="shared.css">
+</head>
+<body>
+    <div class="sheet-container">
+        <div class="sheet">
+            <div class="sheet-header">
+                <h1 id="char-name">Hauts Faits de...</h1>
+            </div>
+
+            <div class="achievements-container">
+                <h2 class="section-title">Hauts Faits Débloqués</h2>
+                <div id="unlocked-achievements-list" class="achievements-grid">
+                    <p>Vérification de vos exploits...</p>
+                </div>
+            </div>
+
+            <div class="achievements-container">
+                <h2 class="section-title">Hauts Faits Verrouillés</h2>
+                <div id="locked-achievements-list" class="achievements-grid">
+                    <p>Chargement des défis à venir...</p>
+                </div>
+            </div>
+
+            <div id="achievement-status" class="status-message" style="display: none;"></div>
+
+            <div class="character-selector">
+                <button data-char="Varkis" class="active">Varkis</button>
+                <button data-char="KaraOmbreChaos">KaraOmbreChaos</button>
+                <button data-char="Aegis">Aegis</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="achievements.js"></script>
+</body>
+</html>
