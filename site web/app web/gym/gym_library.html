@@ -179,9 +179,17 @@
 
         // Empêche les clics de "remonter" vers la page parente (index.html),
         // ce qui fermait la barre latérale principale de manière incorrecte.
+        // On ne bloque la propagation que si le clic n'est PAS sur un bouton,
+        // pour que les boutons de catégorie restent fonctionnels.
         document.addEventListener('click', function(event) {
+            if (event.target.closest('button')) {
+                // Si le clic a eu lieu sur un bouton ou à l'intérieur d'un bouton,
+                // on laisse l'événement se poursuivre normalement.
+                return;
+            }
+            // Sinon, on arrête la propagation pour éviter de fermer la barre latérale principale.
             event.stopPropagation();
-        }, true); // Use capture phase to catch the event early.
+        }, true); // On utilise la phase de capture pour intercepter l'événement au plus tôt.
     </script>
 </body>
 </html>
